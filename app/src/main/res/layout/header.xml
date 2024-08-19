@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/md_white_1000"
+    android:layout_height="wrap_content">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/background"
+        android:paddingTop="60dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/r_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/right_arrow"
+                app:tint="@color/red" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <RelativeLayout
+                    android:id="@+id/back"
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:src="@drawable/user_profile"
+                        app:civ_border_color="#fff"
+                        app:civ_border_width="2dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/hamburger"
+                        app:civ_border_color="#fff"
+                        app:civ_border_width="4dp"
+                        app:civ_circle_background_color="#fff" />
+
+                </RelativeLayout>
+
+                <com.tripleseven.android.latobold
+                    android:id="@+id/ntitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/font"
+                    android:textSize="17sp"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.tripleseven.android.latobold
+                        android:id="@+id/create_pass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:capitalize="characters"
+                        android:inputType="textCapSentences|textCapWords"
+                        android:text="ncr"
+                        android:textColor="@color/font"
+                        android:textSize="17sp" />
+
+
+                    <com.tripleseven.android.latobold
+                        android:id="@+id/view_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Edit Profile"
+                        android:textColor="@color/red"
+                        android:textSize="13sp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/md_white_1000"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <com.tripleseven.android.latobold
+                        android:id="@+id/deposit_money"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/green_button"
+                        android:gravity="center"
+                        android:text="DEPOSIT"
+                        android:textColor="@color/md_white_1000"
+
+                        />
+
+                    <com.tripleseven.android.latobold
+                        android:id="@+id/withdraw_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/redbutton"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="WITHDRAW"
+                        android:textColor="@color/md_white_1000"
+
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

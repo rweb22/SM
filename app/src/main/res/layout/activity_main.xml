@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/whatsapp_icon2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:elevation="40dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/whatsapp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loading_gif"
+        android:background="@color/md_white_1000"
+        android:layout_centerInParent="true"
+        android:elevation="50dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar"
+                android:background="@color/background"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/accent">
+
+                    <RelativeLayout
+                        android:id="@+id/back"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/user_profile"
+                            app:civ_border_color="#fff"
+                            app:civ_border_width="2dp" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:src="@drawable/hamburger"
+                            app:civ_border_color="#fff"
+                            app:civ_border_width="4dp"
+                            app:civ_circle_background_color="#fff" />
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/back_"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/md_white_1000"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/three_dot"
+                            app:tint="@color/accent" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <com.tripleseven.android.eczarbold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:adjustViewBounds="true"
+                        android:text="@string/app_name"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/wallet_dream11"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        app:tint="@color/md_white_1000"
+                        android:padding="3dp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/wallet_view"
+                        android:layout_width="wrap_content"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/wallet_out_img"
+                        android:padding="10dp">
+
+                        <com.tripleseven.android.latobold
+                            android:id="@+id/balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="600"
+                            android:textColor="@color/accent"
+                            android:textSize="17sp" />
+
+                        <ImageView
+                            android:id="@+id/coin"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/coin" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/toolbar"
+                    android:orientation="vertical"
+                    >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#11000000"
+                        />
+
+                        <com.tripleseven.android.latonormal
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_margin="5dp"
+                            android:textColor="@color/font"
+                            android:id="@+id/hometext"
+                            android:textSize="15sp"
+                            android:gravity="center"
+                            android:text="Play and win"
+                            />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#11000000"
+                        />
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="6dp"
+                        android:layout_margin="10dp"
+                        android:visibility="gone"
+                        app:cardElevation="6dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/app_icon"
+                                    android:layout_width="51dp"
+                                    android:layout_height="51dp"
+                                    android:src="@mipmap/ic_launcher"
+                                    app:civ_border_width="1dp"
+                                    app:civ_border_color="#FF000000"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/app_icon"
+                                    android:layout_centerVertical="true"
+                                    android:orientation="vertical"
+                                    >
+
+                                    <com.tripleseven.android.latobold
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/accent"
+                                        android:textSize="19sp"
+                                        android:id="@+id/home_title"
+                                        />
+
+                                    <com.tripleseven.android.latonormal
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/lightfont"
+                                        android:textSize="14sp"
+                                        android:id="@+id/home_tag"
+                                        />
+
+
+                                </LinearLayout>
+
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="10dp"
+                                android:layout_height="wrap_content">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_marginRight="5dp"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content">
+
+                                    <com.tripleseven.android.latobold
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Deposit Money"
+                                        android:id="@+id/deposit_button"
+                                        android:gravity="center"
+                                        android:textColor="@color/md_white_1000"
+                                        android:background="@color/accent"
+                                        android:padding="15dp"
+                                        />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content">
+
+                                    <com.tripleseven.android.latobold
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Withdraw Money"
+                                        android:gravity="center"
+                                        android:textColor="@color/md_white_1000"
+                                        android:background="@color/accent"
+                                        android:padding="15dp"
+                                        android:id="@+id/withdraw_button"
+                                        />
+
+                                </androidx.cardview.widget.CardView>
+
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="10dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:adjustViewBounds="true"
+                                    android:id="@+id/time_info"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/ic_about"
+                                    android:layout_centerVertical="true"
+                                    />
+
+                                <com.tripleseven.android.latobold
+                                    android:id="@+id/top"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_toRightOf="@id/time_info"
+                                    android:layout_marginRight="10dp"
+                                    android:maxLines="1"
+                                    android:textColor="@color/accent"
+                                    android:textSize="16sp"
+                                    />
+
+<!--                                <com.betplay.android.latobold-->
+<!--                                    android:id="@+id/whatsapp_number"-->
+<!--                                    android:layout_toLeftOf="@id/whatsapp_icon"-->
+<!--                                    android:layout_marginRight="5dp"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_centerVertical="true"-->
+<!--                                    android:layout_marginLeft="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:textColor="@color/accent"-->
+<!--                                    android:textSize="16sp"-->
+<!--                                    />-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="25dp"-->
+<!--                                    android:id="@+id/whatsapp_icon"-->
+<!--                                    android:layout_height="25dp"-->
+<!--                                    android:layout_centerVertical="true"-->
+<!--                                    android:src="@drawable/whatsapp"-->
+<!--                                    android:layout_alignParentRight="true"-->
+<!--                                    />-->
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="6dp"
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.smarteist.autoimageslider.SliderView
+                            android:id="@+id/imageSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            app:sliderAnimationDuration="600"
+                            app:sliderAutoCycleDirection="back_and_forth"
+                            app:sliderAutoCycleEnabled="true"
+                            app:sliderIndicatorAnimationDuration="600"
+                            app:sliderIndicatorGravity="center_horizontal|bottom"
+                            app:sliderIndicatorMargin="15dp"
+                            app:sliderIndicatorOrientation="horizontal"
+                            app:sliderIndicatorPadding="3dp"
+                            app:sliderIndicatorRadius="1.5dp"
+                            app:sliderIndicatorSelectedColor="#5A5A5A"
+                            app:sliderIndicatorUnselectedColor="#FFF"
+                            app:sliderScrollTimeInSec="1"
+                            app:sliderStartAutoCycle="true" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="5dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <com.tripleseven.android.latobold
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Wallet and History"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="@color/font"
+
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:id="@+id/deposit_money"
+                                    android:gravity="center_horizontal"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:padding="10dp"
+                                        android:background="@drawable/small_round_button"
+                                        android:src="@drawable/deposit_new"
+                                        app:tint="@color/md_white_1000"
+                                        />
+
+                                    <com.tripleseven.android.latonormal
+                                        android:layout_width="wrap_content"
+                                        android:textColor="@color/font"
+                                        android:textSize="11sp"
+                                        android:layout_marginTop="5dp"
+                                        android:gravity="center_horizontal"
+                                        android:layout_height="wrap_content"
+                                        android:text="Deposit"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:id="@+id/withdraw_money"
+                                    android:gravity="center_horizontal"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:padding="10dp"
+                                        android:background="@drawable/small_round_button"
+                                        android:src="@drawable/withdraw_new"
+                                        app:tint="@color/md_white_1000"
+                                        />
+
+                                    <com.tripleseven.android.latonormal
+                                        android:layout_width="wrap_content"
+                                        android:textColor="@color/font"
+                                        android:textSize="11sp"
+                                        android:layout_marginTop="5dp"
+                                        android:gravity="center_horizontal"
+                                        android:layout_height="wrap_content"
+                                        android:text="Withdraw"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:id="@+id/open_chart"
+                                    android:gravity="center_horizontal"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:padding="10dp"
+                                        android:background="@drawable/small_round_button"
+                                        android:src="@drawable/chart_new"
+                                        app:tint="@color/md_white_1000"
+                                        />
+
+                                    <com.tripleseven.android.latonormal
+                                        android:layout_width="wrap_content"
+                                        android:textColor="@color/font"
+                                        android:textSize="11sp"
+                                        android:layout_marginTop="5dp"
+                                        android:gravity="center_horizontal"
+                                        android:layout_height="wrap_content"
+                                        android:text="Charts"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:gravity="center_horizontal"
+                                    android:id="@+id/wallet_history"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:padding="10dp"
+                                        android:background="@drawable/small_round_button"
+                                        android:src="@drawable/history_new"
+                                        app:tint="@color/md_white_1000"
+                                        />
+
+                                    <com.tripleseven.android.latonormal
+                                        android:layout_width="wrap_content"
+                                        android:textColor="@color/font"
+                                        android:textSize="11sp"
+                                        android:layout_marginTop="5dp"
+                                        android:gravity="center_horizontal"
+                                        android:layout_height="wrap_content"
+                                        android:text="History"
+                                        />
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="10dp"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/whatsapp_icon1"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:src="@drawable/whatsapp" />
+
+
+                                <com.tripleseven.android.latobold
+                                    android:id="@+id/whatsapp_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_toLeftOf="@id/whatsapp_icon"
+                                    android:layout_toRightOf="@id/whatsapp_icon1"
+                                    android:gravity="center"
+                                    android:textColor="@color/accent"
+                                    android:textSize="16sp" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:id="@+id/whatsapp_icon"
+                                    android:layout_height="25dp"
+                                    android:layout_centerVertical="true"
+                                    android:src="@drawable/whatsapp"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_alignParentRight="true"
+                                    />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:id="@+id/single"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Play Single"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginRight="20dp"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/jodi"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Play Jodi"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:id="@+id/singlepatti"
+                        android:layout_marginRight="20dp"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="15dp"
+                            android:text="Single Panna"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/doublepatti"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="15dp"
+                            android:text="Double Panna"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:visibility="gone"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:id="@+id/tripepatti"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="15dp"
+                            android:text="Triple Panna"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:id="@+id/halfsangam"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="15dp"
+                            android:text="Half Sangam"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fullsangam"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="15dp"
+                            android:text="Full Sangam"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/crossing"
+                        android:layout_weight="1"
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="10dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="15dp"
+                            android:text="Jodi Crossing"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="16sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerview"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        />
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:id="@+id/exit"
+                            android:layout_marginTop="10dp"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="3dp"
+                            android:layout_marginBottom="5dp"
+                            >
+
+
+                            <com.tripleseven.android.latobold
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="EXIT"
+                                android:textColor="@color/font"
+                                android:textSize="14sp"
+                                />
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:id="@+id/logout"
+                            android:layout_marginTop="10dp"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="3dp"
+                            android:layout_marginBottom="5dp"
+                            >
+
+
+                            <com.tripleseven.android.latobold
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="LOGOUT"
+                                android:textColor="@color/font"
+                                android:textSize="14sp"
+                                />
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:id="@+id/refresh"
+                            android:layout_marginTop="10dp"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="3dp"
+                            android:layout_marginBottom="5dp"
+                            >
+
+
+                            <com.tripleseven.android.latobold
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="REFRESH"
+                                android:textColor="@color/font"
+                                android:textSize="14sp"
+                                />
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/support"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="3dp"
+                        >
+
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Contact us"
+                            android:id="@+id/supportno"
+                            android:textColor="@color/font"
+                            android:textSize="15sp"
+                            />
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

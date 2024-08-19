@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorPrimary">#03A9F4</color>-->
+<!--    <color name="colorPrimaryDark">#262933</color>-->
+<!--    <color name="colorAccent">#03A9F4</color>-->
+<!--    <color name="background">#C92B2B2B</color>-->
+<!--    <color name="font">#ffffff</color>-->
+<!--    <color name="lightfont">#C9262933</color>-->
+<!--    <color name="lighter">#C92B2B2B</color>-->
+<!--    <color name="back">#C92B2B2B</color>-->
+
+    <color name="colorPrimary">#F64C16</color>
+    <color name="colorPrimaryDark">#F64C16</color>
+    <color name="colorAccent">#F64C16</color>
+    <color name="background">#f2f2f2</color>
+    <color name="font">#152A62</color>
+    <color name="lightfont">#C9262933</color>
+    <!--    <color name="back">#f8f8f8</color>-->
+    <color name="back">#5BD8E4EA</color>
+    <color name="red">#c1221e</color>
+    <color name="green">#35a632</color>
+    <color name="icon_tint">#2a3746</color>
+    <color name="ultralight">#2C000000</color>
+    <color name="back_gray">#d9d5e3</color>
+    <color name="orange">#FF5722</color>
+    <color name="winColor">#c8f7c3</color>
+    <color name="loseColor">#fa918c</color>
+</resources>

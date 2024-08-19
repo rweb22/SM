@@ -1,0 +1,150 @@
+<resources>
+    <string name="app_name">SAMRAT SATTA</string>
+
+    <!--APIs-->
+    <string name="market_api" translatable="false">market.php</string>
+    <string name="market_list" translatable="false">market_list.php</string>
+    <string name="bet" translatable="false">place_bet</string>
+    <string name="charts" translatable="false">get_charts</string>
+    <string name="sangam" translatable="false">sangam.php</string>
+    <string name="content" translatable="false">get_content</string>
+    <string name="ledger" translatable="false">gameledger.php</string>
+    <string name="login" translatable="false">login</string>
+    <string name="home" translatable="false">home_2.php</string>
+    <string name="games" translatable="false">get_bets</string>
+    <string name="profile" translatable="false">update_profile</string>
+    <string name="password" translatable="false">update_password</string>
+    <string name="rate" translatable="false">rate.php</string>
+    <string name="register" translatable="false">signup</string>
+    <string name="transaction" translatable="false">get_transactions</string>
+    <string name="get_gateway" translatable="false">get_gateway.php</string>
+    <string name="getconfig" translatable="false">get_config</string>
+    <string name="withdraw_modes" translatable="false">get_withdraw_modes</string>
+    <string name="withdraw_request" translatable="false">submit_withdraw</string>
+
+    <string name="market_list_starline" translatable="false">market_list_starline.php</string>
+    <string name="starline_timings" translatable="false">starline_timings.php</string>
+
+    <string name="gpay" translatable="false">com.google.android.apps.nbu.paisa.user</string>
+    <string name="paytm" translatable="false">net.one97.paytm</string>
+    <string name="phonepe" translatable="false">com.phonepe.app</string>
+
+    <string name="resend_otp">Re-send code ?</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="play_desawar">PLAY DESAWAR</string>
+    <string name="home_text">Home</string>
+    <string name="my_bids">My Bids</string>
+    <string name="funds">Funds</string>
+    <string name="passbook">Passbook</string>
+    <string name="support">Support</string>
+    <string name="_continue">Continue</string>
+    <string name="login_your">Login Your</string>
+    <string name="account">Account</string>
+    <string name="enter_mobile_number">Enter your mobile number</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="i_m_new_user">I\'m new user, Sign Up</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="game_results">Game Results</string>
+    <string name="date">DATE</string>
+    <string name="open">OPEN</string>
+    <string name="close">CLOSE</string>
+    <string name="jodi">JODI</string>
+    <string name="enter_your">Enter Your</string>
+    <string name="did_t_you_receive_any_code">Didn\'t you receive any code ?</string>
+    <string name="re_send_code">Re-send code ?</string>
+    <string name="create_your">Create Your</string>
+    <string name="mpin" translatable="false">MPIN</string>
+    <string name="create_your_mpin">Create your MPIN</string>
+    <string name="re_enter_your_mpin">Re enter your MPIN</string>
+    <string name="enter_your_mpin">Enter your MPIN</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="referral_code_optional">Referral Code ( Optional )</string>
+    <string name="already_have_login_now">Already have an account ? login now</string>
+    <string name="statistics_chart">Statistics Chart</string>
+    <string name="digit">Digit</string>
+    <string name="percentage">Percentage</string>
+    <string name="all_the_statistics">All this statistics are based on the playing records of particular game in our application and you can use this statistics for playing or you can play as your calculation basis</string>
+    <string name="easy_mode">EASY MODE</string>
+    <string name="special_mode">SPECIAL MODE</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="account_holder_name">Account holder name</string>
+    <string name="account_number">Account number</string>
+    <string name="ifsc">IFSC Code</string>
+    <string name="update">Update</string>
+    <string name="chart">Chart</string>
+    <string name="deposit_history">Deposit History</string>
+    <string name="total_referral">Total referral</string>
+    <string name="total_earnings">Total Earnings</string>
+    <string name="refer_friends">REFER FRIENDS</string>
+    <string name="my_earnings">MY EARNINGS</string>
+    <string name="life_time_comission">Life Time % \nCommission on every deposit</string>
+    <string name="introduce_friends">Introduce friends to SAMRAT SATTA by referring our app using below link</string>
+    <string name="referral_code">REFERRAL\nCODE</string>
+    <string name="copy">Copy</string>
+    <string name="recently_joined">Recently Joined</string>
+    <string name="enter_mobile_first">Enter mobile number and verify first</string>
+    <string name="mobile_number_verified">Mobile number verified successfully</string>
+    <string name="enter_6_digit">Enter 6 Digit OTP</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="submit">Submit</string>
+    <string name="full_sangam">Full Sangam</string>
+    <string name="open_panna">Open Panna</string>
+    <string name="enter_panna">Enter Panna</string>
+    <string name="close_panna">Close Panna</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="half_sangam">Half Sangam</string>
+    <string name="select_game">Select Game</string>
+    <string name="manage_profile">Manage profile</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="update_password">Update Password</string>
+    <string name="enter_digit">Enter Digit</string>
+    <string name="add_more">+ Add More</string>
+    <string name="no">NO</string>
+    <string name="amount">Amount</string>
+    <string name="game_type">Game type</string>
+    <string name="my_balance">My Balance</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="add_fund">Add Fund</string>
+    <string name="Withdrawal">Withdrawal</string>
+    <string name="my_transaction">My Transaction</string>
+    <string name="add_cash">Add Cash</string>
+    <string name="auto_approve">Auto approve</string>
+    <string name="manual_approve">Manual approve by admin</string>
+    <string name="auto_apprve_gateway">Auto approve - credit card, debit card, net banking, wallet, upi</string>
+    <string name="withdraw_now">Withdraw Now</string>
+    <string name="bank_details_now_verified">Bank details not verified</string>
+    <string name="change_bank">Change Bank</string>
+    <string name="review_bets">Review Bets</string>
+    <string name="points">Points</string>
+    <string name="total_bids">Total Bids</string>
+    <string name="total_bid_amount">Total Bid Amount</string>
+    <string name="note_bid_once_played_will_not_be_cancelled">*Note: Bid Once Played Will Not Be Cancelled*</string>
+    <string name="cancel">CANCEL</string>
+    <string name="log_out">Log Out</string>
+    <string name="we_are_happy_to_help_you">We are happy to help you</string>
+    <string name="give_a_call">Just give us a Call or WhatsApp your query</string>
+    <string name="support_excutive">Our Support Executive will resolve your\nquery as on priority</string>
+    <string name="profile_text">PROFILE</string>
+    <string name="notice_board">Notice Board/Rules</string>
+    <string name="game_rates">Game Rates</string>
+    <string name="stats">Statistics</string>
+    <string name="how_to">How to Play Videos</string>
+    <string name="refer">Refer and Earn</string>
+    <string name="settings">Settings</string>
+    <string translatable="false" name="you_don_t_have_selected_language_enabled_in_setting_please_add_selected_in_language_to_view_app_in_selected_language">You don\'t have selected language enabled in setting please add selected in language to view app in selected language</string>
+    <string name="add_bank_account">Add Bank Account</string>
+    <string name="market_charts">Market Charts</string>
+    <string name="signup">SIGN UP</string>
+    <string name="enter_your_otp">Enter your OTP</string>
+    <string name="enter_referral_code">Enter Referral Code</string>
+
+
+</resources>

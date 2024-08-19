@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@color/background"
+    tools:context=".language">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/block"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <com.tripleseven.android.latobold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Your"
+                android:textColor="@color/colorPrimary"
+                android:textSize="34sp" />
+
+            <com.tripleseven.android.latobold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Language"
+                android:textColor="@color/accent"
+                android:textSize="34sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp">
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:id="@+id/english"
+                    android:padding="15dp"
+                    android:text="English"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/hindi"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="हिन्दी"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="বাংলা"
+                    android:id="@+id/bangla"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:id="@+id/marathi"
+                    android:text="मराठी"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/kannada"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="ಕನ್ನಡ"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:id="@+id/gujrati"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="ગુજરાતી"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:id="@+id/telugu"
+                    android:text="తెలుగు"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:id="@+id/tamil"
+                    android:text="தமிழ்"
+                    android:textColor="@color/lightfont"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:elevation="5dp"
+                android:paddingRight="-1dp"
+                android:layout_height="10dp"
+                android:src="@drawable/upper_corner"
+                android:layout_alignParentRight="true"
+                />
+
+            <LinearLayout
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/small_round_button_home"
+                android:padding="15dp">
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="center"
+                    android:text="@string/_continue"
+                    android:textColor="@color/md_white_1000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/right_arrow_long"
+                    android:tint="@color/white" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="10dp"
+                android:elevation="5dp"
+                android:paddingRight="-1dp"
+                android:layout_height="10dp"
+                android:src="@drawable/lower_corner"
+                android:layout_below="@id/submit"
+                android:layout_alignParentRight="true"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="7dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@color/accent"
+        android:elevation="16dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

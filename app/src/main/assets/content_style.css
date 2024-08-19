@@ -1,0 +1,9 @@
+html, div {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position:relative;
+    padding: 0px;
+}

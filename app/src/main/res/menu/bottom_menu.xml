@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="@string/home_text"
+        android:icon="@drawable/home_icon"/>
+    <item
+        android:id="@+id/wallet"
+        android:title="@string/my_bids"
+        android:icon="@drawable/my_bid"/>
+
+
+
+    <item
+        android:id="@+id/played"
+        android:title="@string/funds"
+        android:icon="@drawable/funds"/>
+    <item
+        android:id="@+id/charts"
+        android:title="@string/passbook"
+        android:icon="@drawable/passbook"/>
+
+    <item
+        android:id="@+id/feed"
+        android:icon="@drawable/chat"
+        android:title="Live Chat" />
+</menu>

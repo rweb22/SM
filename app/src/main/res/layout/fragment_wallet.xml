@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WalletFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/back"
+                app:tint="@color/black" />
+
+            <com.tripleseven.android.latobold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="My Balance"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:elevation="2dp"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="5dp"
+                        android:layout_height="wrap_content">
+
+                        <com.tripleseven.android.latonormal
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total Balance"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/lightfont"
+                            />
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0 ₹"
+                            android:textColor="@color/font"
+                            android:id="@+id/total_balance"
+                            android:textSize="16sp"
+                            />
+
+                        <com.tripleseven.android.latobold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="ADD CASH"
+                            android:layout_margin="10dp"
+                            android:textColor="@color/md_white_1000"
+                            android:background="@drawable/green_button"
+                            android:id="@+id/add_money"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="#17000000"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.tripleseven.android.latonormal
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="AMOUNT ADDED ( UTILISED )"
+                                    android:textColor="@color/lightfont"
+                                    android:textSize="12sp" />
+
+                                <com.tripleseven.android.latobold
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:id="@+id/deposit_balance"
+                                    android:text="0 ₹"
+                                    android:textColor="@color/font" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                android:id="@+id/deposit_info"
+                                android:src="@drawable/info_icon"
+                                app:tint="@color/md_blue_A200" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="#17000000"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_height="wrap_content"
+                                >
+
+                                <com.tripleseven.android.latonormal
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="WINNINGS"
+                                    android:textColor="@color/lightfont"
+                                    android:textSize="12sp"
+                                    />
+
+                                <com.tripleseven.android.latobold
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 ₹"
+                                    android:textColor="@color/font"
+                                    android:layout_marginTop="5dp"
+                                    android:id="@+id/winnig_balance"
+                                    />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                android:src="@drawable/info_icon"
+                                android:id="@+id/winning_info"
+                                app:tint="@color/md_blue_A200" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="#17000000"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_height="wrap_content"
+                                >
+
+                                <com.tripleseven.android.latonormal
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="CASH BONUS"
+                                    android:textColor="@color/lightfont"
+                                    android:textSize="12sp"
+                                    />
+
+                                <com.tripleseven.android.latobold
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 ₹"
+                                    android:textColor="@color/font"
+                                    android:layout_marginTop="5dp"
+                                    android:id="@+id/cash_balance"
+                                    />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                android:id="@+id/cash_info"
+                                android:src="@drawable/info_icon"
+                                app:tint="@color/md_blue_A200" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:id="@+id/transaction_history"
+                    app:cardElevation="3dp"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        >
+
+                        <com.tripleseven.android.latonormal
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="My Recent Transactions"
+                            android:textColor="@color/lightfont" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/right_arrow"
+                            app:tint="@color/lightfont" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:id="@+id/addCash"
+        android:background="#94000000"
+        android:clickable="true"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:background="@color/accent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/back_add"
+                    android:src="@drawable/back"
+                    app:tint="@color/md_white_1000"
+                    />
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Cash"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="16sp"
+                    />
+
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/amount2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:hint="Enter Amount"
+                android:inputType="number"
+                android:textSize="13sp" />
+
+
+
+        </LinearLayout>
+
+        <com.tripleseven.android.latobold
+            android:id="@+id/deposit_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/green_button"
+            android:gravity="center"
+            android:text="ADD CASH"
+            android:textColor="@color/md_white_1000" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

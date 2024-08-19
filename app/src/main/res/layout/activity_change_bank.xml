@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back"
+    tools:context=".change_bank">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/back"
+                app:tint="@color/font" />
+
+            <com.tripleseven.android.latobold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="@string/bank_details"
+                android:textColor="@color/font"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext2"
+                    android:hint="@string/bank_name"
+                    android:textSize="13sp"
+                    android:id="@+id/ntitle"
+                    />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext2"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/account_holder_name"
+                    android:textSize="13sp"
+                    android:id="@+id/holder"
+                    android:inputType="text"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext2"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/account_number"
+                    android:textSize="13sp"
+                    android:id="@+id/ac"
+                    android:inputType="number"
+                    />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext2"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/ifsc"
+                    android:textSize="13sp"
+                    android:id="@+id/ifsc"
+                    android:inputType="text"
+                    />
+
+
+
+
+                <com.tripleseven.android.latobold
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update"
+                    android:background="@drawable/button"
+                    android:id="@+id/submit"
+                    android:textColor="#fff"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="16sp"
+                    />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

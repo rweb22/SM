@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "752153581421",
+    "project_id": "samrat-eaf96",
+    "storage_bucket": "samrat-eaf96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752153581421:android:b13aa567d9d60cdfb62c64",
+        "android_client_info": {
+          "package_name": "com.samrat.satta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752153581421-d7aeu2l894mr9f8puuef5g06uuabun4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3LyYwSzK7lHaF0d3wUtXrQKcDViG-0t0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752153581421-d7aeu2l894mr9f8puuef5g06uuabun4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

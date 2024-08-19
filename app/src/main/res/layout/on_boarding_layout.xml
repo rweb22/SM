@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/withdraw_anim" />
+
+        <com.tripleseven.android.latobold
+            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:text="WITHDRAWAL\nWITHIN 10 MIN"
+            android:textColor="@color/font"
+            android:textFontWeight="600"
+            android:textSize="34sp" />
+
+        <com.tripleseven.android.latobold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/desc"
+            android:text="TO YOUR BANK ACCOUNT"
+            android:textColor="@color/font"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
