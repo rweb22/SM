@@ -139,12 +139,80 @@
     <string name="how_to">How to Play Videos</string>
     <string name="refer">Refer and Earn</string>
     <string name="settings">Settings</string>
-    <string translatable="false" name="you_don_t_have_selected_language_enabled_in_setting_please_add_selected_in_language_to_view_app_in_selected_language">You don\'t have selected language enabled in setting please add selected in language to view app in selected language</string>
+    <string name="you_don_t_have_selected_language_enabled_in_setting_please_add_selected_in_language_to_view_app_in_selected_language" translatable="false">You don\'t have selected language enabled in setting please add selected in language to view app in selected language</string>
     <string name="add_bank_account">Add Bank Account</string>
     <string name="market_charts">Market Charts</string>
     <string name="signup">SIGN UP</string>
     <string name="enter_your_otp">Enter your OTP</string>
     <string name="enter_referral_code">Enter Referral Code</string>
+    <string name="live_matkas" translatable="false">LIVE MATKAS</string>
+    <string name="ACCOUNT_DISABLE_ALERT" translatable="false">Your account temporarily disabled by admin</string>
+    <string name="market_close" translatable="false">Market Close</string>
+    <string name="api_error_msg" translatable="false">Something went wrong. Please contact admin</string>
 
+    <string name="SUCCESS" translatable="false">success</string>
+    <string name="ONE" translatable="false">1</string>
+    <string name="ZERO" translatable="false">0</string>
+    <string name="PLAYING" translatable="false">Playing</string>
+    <string name="andar" translatable="false">Andar</string>
+    <string name="bahar" translatable="false">Bahar</string>
+    <string name="bet_closed" translatable="false">Bet is closed for today</string>
+    <string name="insufficient_balance" translatable="false">You do not have enough wallet balance to place this bet, Recharge your wallet to play</string>
+    <string name="bet_placed" translatable="false">Your bet placed successfully</string>
+    <string name="invalid_number" translatable="false">Enter valid number</string>
+    <string name="amount_between" translatable="false">Enter amount between</string>
+    <string name="place_bet_first" translatable="false">Please place a bet first</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
+    <string name="refer_code_applied" translatable="false">Refer code applied</string>
+    <string name="invalid_phone_number" translatable="false">Enter valid mobile number</string>
+    <string name="enter_otp" translatable="false">Please Enter Otp</string>
+    <string name="wrong_otp" translatable="false">Incorrect otp</string>
+    <string name="wait_for_resend" translatable="false">Wait before resend</string>
+    <string name="otp_sent" translatable="false">Otp sent successfully</string>
+    <string name="enter_valid_pass" translatable="false">Enter valid password</string>
+    <string name="min_pass_len" translatable="false">Password must be minimum 6 chars long</string>
+    <string name="pass_not_match" translatable="false">Password and Confirm password not matching</string>
+    <string name="pass_reset_done" translatable="false">Password reset successfully, Please login now</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
 
 </resources>

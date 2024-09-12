@@ -139,7 +139,7 @@ class adapter_timings extends RecyclerView.Adapter<adapter_timings.ViewHolder> {
                     single();
                     hukum();
                     context.startActivity(new Intent(context, cardBetting.class)
-                            .putExtra("market", market).putExtra("list", image)
+                            .putExtra("market", market).putExtra("digits", image)
                             .putExtra("game", "Hukum")
                             .putExtra("number", number)
                             .putExtra("time",timee)
@@ -155,7 +155,7 @@ class adapter_timings extends RecyclerView.Adapter<adapter_timings.ViewHolder> {
                    single();
                     pan();
                     context.startActivity(new Intent(context, cardBetting.class)
-                            .putExtra("market", market).putExtra("list", image)
+                            .putExtra("market", market).putExtra("digits", image)
                             .putExtra("game", "Pan")
                             .putExtra("number", number)
                             .putExtra("time",timee)
@@ -172,7 +172,7 @@ class adapter_timings extends RecyclerView.Adapter<adapter_timings.ViewHolder> {
                     single();
                     chidi();
                     context.startActivity(new Intent(context, cardBetting.class)
-                            .putExtra("market", market).putExtra("list", image)
+                            .putExtra("market", market).putExtra("digits", image)
                             .putExtra("game", "Chidi")
                             .putExtra("number", number)
                             .putExtra("time",timee)
@@ -189,7 +189,7 @@ class adapter_timings extends RecyclerView.Adapter<adapter_timings.ViewHolder> {
                     single();
                     eint();
                     context.startActivity(new Intent(context, cardBetting.class)
-                            .putExtra("market", market).putExtra("list", image)
+                            .putExtra("market", market).putExtra("digits", image)
                             .putExtra("game", "Eint")
                             .putExtra("number", number)
                             .putExtra("time",timee)

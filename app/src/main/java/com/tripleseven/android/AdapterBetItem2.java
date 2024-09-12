@@ -18,17 +18,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
+class AdapterBetItem2 extends RecyclerView.Adapter<AdapterBetItem2.ViewHolder> {
 
     Context context;
 
-    ArrayList<String> number = new ArrayList<>();
-    private ArrayList<String> list = new ArrayList<>();
+    ArrayList<String> fillNumber = new ArrayList<>();
+    ArrayList<String> fillAmount = new ArrayList<>();
+    ArrayList<String> digits = new ArrayList<>();
+    private final ArrayList<String> amountList = new ArrayList<>();
 
-    public adapterbetting(Context context,ArrayList<String> number) {
+    public AdapterBetItem2(Context context, ArrayList<String> digits) {
         this.context = context;
-        this.number = number;
+        this.digits = digits;
     }
+
+    public AdapterBetItem2(Context context, ArrayList<String> digits, ArrayList<String> fillNumber, ArrayList<String> fillAmount) {
+        this.context = context;
+        this.digits = digits;
+        this.fillAmount = fillAmount;
+        this.fillNumber = fillNumber;
+    }
+
 
     @NonNull
     @Override
@@ -38,12 +48,21 @@ class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
     }
 
 
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        amountList.add("0");
+        holder.amount.setText("");
 
-        list.add("0");
+        if (fillNumber != null) {
+            for (int a = 0; a < fillNumber.size(); a++) {
+                if (digits.get(position).equals(fillNumber.get(a))) {
+                    holder.amount.append(fillAmount.get(a));
+                }
+            }
+        }
 
-        holder.number.setText(number.get(position));
+        holder.number.setText(digits.get(position));
 
         holder.amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,14 +72,13 @@ class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (s.toString().isEmpty() || s == null) {
-                    list.set(position,"0");
+                if (s == null || s.toString().isEmpty()) {
+                    amountList.set(position, "0");
                 } else if (Integer.parseInt(s.toString()) > 10000) {
                     holder.amount.setText("10000");
-                    list.set(position,10000+"");
+                    amountList.set(position, 10000+"");
                 } else {
-                    list.set(position, s.toString());
+                    amountList.set(position, s.toString());
                 }
 
                 BroadcastReceiver mReceiver = new BroadcastReceiver() { @Override public void onReceive(Context context, Intent intent) { }};
@@ -69,6 +87,9 @@ class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
                 context.registerReceiver(mReceiver, intentFilter);
 
                 Intent i = new Intent("android.intent.action.MAIN");
+                i.putExtra("type","panna");
+                i.putExtra("amount",holder.amount.getText().toString());
+                i.putExtra("number",holder.number.getText().toString());
                 context.sendBroadcast(i);
 
                 context.unregisterReceiver(mReceiver);
@@ -83,14 +104,16 @@ class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
         holder.setIsRecyclable(false);
     }
 
-    public ArrayList<String> getNumber()
+
+
+    public ArrayList<String> getAmountList()
     {
-        return list;
+        return amountList;
     }
 
     @Override
     public int getItemCount() {
-        return number.size();
+        return digits.size();
     }
 
 
@@ -103,11 +126,6 @@ class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
             super(view);
             number = view.findViewById(R.id.number);
             amount = view.findViewById(R.id.amount2);
-
-
         }
     }
-
-
-
 }

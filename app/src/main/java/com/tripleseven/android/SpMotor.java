@@ -31,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,8 +73,9 @@ public class SpMotor extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    adapterbetting adapterbetting;
-    String market, game;
+    AdapterBetItem adapterbetting;
+    String game;
+    MarketDto market;
     ViewDialog progressDialog;
     String url;
     int total = 0;
@@ -103,6 +105,7 @@ public class SpMotor extends AppCompatActivity {
     private CheckBox spCheckbox;
     private CheckBox dpCheckbox;
     private CheckBox tpCheckbox;
+    String session;
 
 
     @Override
@@ -110,64 +113,43 @@ public class SpMotor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp_motor);
         initViews();
-     //   constant.setMenu(SpMotor.this);
-        open_av = getIntent().getStringExtra("open_av");
         url = constant.prefix2 + getString(R.string.bet);
 
         getCycles();
-
 
         singlePatti = singlepatti();
         doublePatti = doublepatti();
         triplePatti = triplepatti();
 
-        if (getIntent().hasExtra("timing")) {
-            timing = getIntent().getStringExtra("timing");
-        }
         if (getIntent().hasExtra("market_type")) {
             market_type = getIntent().getStringExtra("market_type");
         }
+
         prefs = getSharedPreferences(constant.prefs, MODE_PRIVATE);
         game = getIntent().getStringExtra("game");
-        market = getIntent().getStringExtra("market");
-        numbers = getIntent().getStringArrayListExtra("list");
+        market = (MarketDto) getIntent().getSerializableExtra("market");
+        numbers = getIntent().getStringArrayListExtra("digits");
+        session = getIntent().getStringExtra("session");
 
-        title.setText(market);
+        title.setText(market.getName());
 
-        if (game.equals("groupjodi")) {
-
+        if (game.equals("groupJodi")) {
             JodiFamily();
         } else {
             family();
         }
 
-        Log.e("gaamee",game);
-
-        if (game.equals("spdptp")) {
-
+        if (game.equals("spDpTp")) {
             spdptpPanel.setVisibility(View.VISIBLE);
-            // add.setVisibility(View.GONE);
-
 
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     if (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single) {
                         amount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
                     }
-//
-//                        fillnumber.clear();
-//                        fillamount.clear();
-//                        fillmarket.clear();
-
-
-                    Log.e("singlePatti-SPDPTP", "kuch-to-hua");
 
                     if (singlePanna.isChecked()){
-                        Log.e("singlePatti-SPDPTP", "ghusa");
-
                         for (int a = 0; a < singlePatti.size(); a++) {
 
                             int numberx = 0;
@@ -182,8 +164,6 @@ public class SpMotor extends AppCompatActivity {
                             } else {
                                 comapre = String.valueOf(numberx);
                             }
-
-                            Log.e("singlePatti-SPDPTP", comapre);
 
                             if (comapre.equals(number.getText().toString())) {
                                 fillnumber.add(singlePatti.get(a));
@@ -253,13 +233,13 @@ public class SpMotor extends AppCompatActivity {
             });
 
 
-        } else if (game.equals("panel")) {
+        } else if (game.equals("panelGroup")) {
             family();
-        } else if (game.equals("choice_panna")) {
+        } else if (game.equals("choicePanna")) {
             enterPanel.setVisibility(View.GONE);
             choicePanna.setVisibility(View.VISIBLE);
 
-        } else if (game.equals("odd_even")) {
+        } else if (game.equals("oddEven")) {
 
             ArrayList<String> typeof = new ArrayList<>();
 
@@ -271,7 +251,7 @@ public class SpMotor extends AppCompatActivity {
             number.setVisibility(View.GONE);
             oddEven.setVisibility(View.VISIBLE);
 
-        } else if (game.equals("red_bracket")) {
+        } else if (game.equals("redBracket")) {
 
             ArrayList<String> typeof = new ArrayList<>();
 
@@ -313,13 +293,13 @@ public class SpMotor extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
         registerReceiver(mReceiver, intentFilter);
 
-        if (!game.equals("spdptp")){
+        if (!game.equals("spDpTp")){
             add.setOnClickListener(v -> {
-                if (!game.equals("choice_panna") && (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single)) {
+                if (!game.equals("choicePanna") && (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single)) {
                     amount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
                 } else {
                     switch (game) {
-                        case "groupjodi":
+                        case "groupJodi":
                            // get2DCombinations(number.getText().toString());
                             if(number.getText().length()<2){
                                 number.setError("Enter at least two digits");
@@ -328,13 +308,13 @@ public class SpMotor extends AppCompatActivity {
                         } else{
                             characterCountFamily(number.getText().toString());}
                             break;
-                        case "family":
+                        case "panelGroup":
                             characterCountFamily(number.getText().toString());
                             break;
-                        case "cycle":
+                        case "twoDigitPanel":
                             characterCountCycle(number.getText().toString());
                             break;
-                        case "choice_panna":
+                        case "choicePanna":
                             if (choiceAmount.getText().toString().isEmpty() || Integer.parseInt(choiceAmount.getText().toString()) < constant.min_single) {
                                 choiceAmount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
                                 return;
@@ -368,17 +348,17 @@ public class SpMotor extends AppCompatActivity {
                                 characterCountChoice(getPan);
                             }
                             break;
-                        case "odd_even":
+                        case "oddEven":
                             oddEven();
                             break;
-                        case "singlepatti":
-                        case "doublepatti":
+                        case "spMotor":
+                        case "dpMotor":
                             if (number.getText().toString().length() < 3) {
                                 number.setError("Number should be atleast 3 digit long");
                             }
                             characterCount(number.getText().toString());
                             break;
-                        case "red_bracket":
+                        case "redBracket":
                             red_bracket();
                             break;
                         default:
@@ -396,16 +376,16 @@ public class SpMotor extends AppCompatActivity {
             for (int a = 0; a < fillnumber.size(); a++) {
                 String numm = fillnumber.get(a);
                 if (numm.length() == 1) {
-                    fillgames.add("single");
+                    fillgames.add("SINGLE");
                 } else if (numm.length() == 2) {
-                    fillgames.add("jodi");
+                    fillgames.add("JODI");
                 } else if (numm.length() == 3) {
                     if (singlePatti.contains(numm)) {
-                        fillgames.add("singlepatti");
+                        fillgames.add("SINGLE_PANA");
                     } else if (doublePatti.contains(numm)) {
-                        fillgames.add("doublepatti");
+                        fillgames.add("DOUBLE_PANA");
                     } else if (triplePatti.contains(numm)) {
-                        fillgames.add("triplepatti");
+                        fillgames.add("TRIPLE_PANA");
                     }
                 }
 
@@ -413,17 +393,6 @@ public class SpMotor extends AppCompatActivity {
 
             if (fillnumber.size() > 0) {
                 if (total <= Integer.parseInt(prefs.getString("wallet", null))) {
-                    numb = "";
-                    amou = "";
-                    types = "";
-                    gamess = "";
-
-                    numb = TextUtils.join(",", fillnumber);
-                    amou = TextUtils.join(",", fillamount);
-                    types = TextUtils.join(",", fillmarket);
-                    gamess = TextUtils.join(",", fillgames);
-
-
                     apicall();
                 } else {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(SpMotor.this);
@@ -883,7 +852,6 @@ public class SpMotor extends AppCompatActivity {
 
         final StringRequest postRequest = new MyStringRequest(getSharedPreferences(constant.prefs, MODE_PRIVATE), Request.Method.POST, url,
                 response1 -> {
-                    Log.e("edsa", "efsdc" + response1);
                     progressDialog.hideDialog();
                     try {
                         JSONObject jsonObject1 = new JSONObject(response1);
@@ -976,7 +944,7 @@ public class SpMotor extends AppCompatActivity {
 
                 params.put("number", numb);
                 params.put("amount", amou);
-                params.put("bazar", market);
+                params.put("bazar", market.getName());
                 params.put("total", total + "");
                 params.put("games", gamess);
                 params.put("mobile", prefs.getString("mobile", null));
@@ -1699,8 +1667,6 @@ public class SpMotor extends AppCompatActivity {
         cycles.put("89", new ArrayList<String>(Arrays.asList("189, 289, 389, 489, 589, 689, 789, 889, 890, 899".split(", "))));
         cycles.put("90", new ArrayList<String>(Arrays.asList("900, 190, 290, 390, 490, 590, 690, 790, 890, 900".split(", "))));
         cycles.put("99", new ArrayList<String>(Arrays.asList("199, 299, 399, 499, 599, 699, 799, 899, 990, 999".split(", "))));
-
-
     }
 
 

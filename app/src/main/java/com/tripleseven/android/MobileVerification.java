@@ -1,14 +1,11 @@
 package com.tripleseven.android;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.Telephony;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,24 +27,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -104,7 +94,7 @@ public class MobileVerification extends AppCompatActivity {
         verify.setOnClickListener(view -> {
             if (otp == null) return;
             if (getOtp().isEmpty() || getOtp().length() != 6){
-                Toast.makeText(this, "Enter OTP", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.enter_your_otp), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (otp.equals(getOtp())){
@@ -128,52 +118,15 @@ public class MobileVerification extends AppCompatActivity {
                     apicall();
                 }
             } else {
-                Toast.makeText(MobileVerification.this, "Incorrect OTP entered", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MobileVerification.this, getString(R.string.wrong_otp), Toast.LENGTH_SHORT).show();
             }
-//            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(otpId, getOtp());
-//            mAuth.signInWithCredential(credential)
-//                    .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if (task.isSuccessful()) {
-//                                Intent intent=new Intent();
-//                                intent.putExtra("verification","success");
-//                                setResult(RESULT_OK,intent);
-//                                finish();
-//                            } else {
-//
-//                                if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-//                                    Toast.makeText(context, "Incorrect OTP entered", Toast.LENGTH_LONG).show();
-//
-//                                } else {
-//                                    Toast.makeText(context, "Unable to verify please retry later", Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//                        }
-//                    });
-
         });
 
         resendButton.setOnClickListener(view -> {
             if (resendButton.getText().toString().equals(getString(R.string.resend_otp))) {
                 sendWebOTP();
-//                if (otpToken != null && otpId != null) {
-//
-//                    resendButton.setText("Sending");
-//                    resendButton.setOnClickListener(v -> Toast.makeText(context, "Sending OTP", Toast.LENGTH_SHORT).show());
-//
-//                    PhoneAuthOptions options =
-//                            PhoneAuthOptions.newBuilder(mAuth)
-//                                    .setPhoneNumber("+"+mobileNumber)       // Phone number to verify
-//                                    .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
-//                                    .setActivity((Activity) context)                 // Activity (for callback binding)
-//                                    .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-//                                    .setForceResendingToken(otpToken)
-//                                    .build();
-//                    PhoneAuthProvider.verifyPhoneNumber(options);
-//                }
             } else {
-                Toast.makeText(this, "Wait before resend", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.wait_for_resend), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -197,7 +150,6 @@ public class MobileVerification extends AppCompatActivity {
     }
 
     private void getOtpFromMessage(String message) {
-
         Pattern otpPattern = Pattern.compile("(|^)\\d{6}");
         Matcher matcher = otpPattern.matcher(message);
         if (matcher.find()){
@@ -296,20 +248,14 @@ public class MobileVerification extends AppCompatActivity {
 
                         error.printStackTrace();
                         viewDialog.hideDialog();
-                        Toast.makeText(MobileVerification.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MobileVerification.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-
                 params.put("mobile", mobileNumber.toString());
-
-
-
-
-
                 return params;
             }
         };
@@ -320,8 +266,6 @@ public class MobileVerification extends AppCompatActivity {
     public void sendWebOTP(){
         viewDialog = new ViewDialog(MobileVerification.this);
         viewDialog.showDialog();
-       // Log.e("hh",mobileNumber);
-
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         final StringRequest postRequest = new MyStringRequest(getSharedPreferences(constant.prefs, MODE_PRIVATE), Request.Method.POST, constant.prefix2 + "send_otp",
@@ -330,10 +274,9 @@ public class MobileVerification extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.e("response",response);
                         viewDialog.hideDialog();
-                        Toast.makeText(context, "OTP Sent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, getString(R.string.otp_sent), Toast.LENGTH_SHORT).show();
 
                         new CountDownTimer(60000, 1000) {
-
                             public void onTick(long millisUntilFinished) {
                                 resendButton.setText("wait " + millisUntilFinished / 1000+" sec");
                                 //here you can have your logic to set text to edittext
@@ -352,41 +295,22 @@ public class MobileVerification extends AppCompatActivity {
 
                         viewDialog.hideDialog();
                         error.printStackTrace();
-                        Toast.makeText(MobileVerification.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MobileVerification.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-
                 params.put("mobile", mobileNumber);
                 params.put("otp", otp);
                 params.put("code","38ho3f3ws");
-
 
                 return params;
             }
         };
         postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(postRequest);
-    }
-
-    public void sendOTP(){
-
-        viewDialog = new ViewDialog(MobileVerification.this);
-        viewDialog.showDialog();
-
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber("+91"+mobileNumber)       // Phone number to verify
-                        .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity((Activity) context)                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-
-
     }
 
     public String getOtp(){
@@ -428,7 +352,7 @@ public class MobileVerification extends AppCompatActivity {
                 otp = verificationId;
                 otpToken = token;
 
-                Toast.makeText(context, "OTP Sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.otp_sent), Toast.LENGTH_SHORT).show();
 
                 viewDialog.hideDialog();
 

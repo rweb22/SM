@@ -44,7 +44,7 @@ public class betting extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> number = new ArrayList<>();
-    adapterbetting adapterbetting;
+    AdapterBetItem adapterbetting;
     String market,game,timing = "";
     ViewDialog progressDialog;
     String url;
@@ -72,15 +72,15 @@ public class betting extends AppCompatActivity {
         });
         game = getIntent().getStringExtra("game");
         market = getIntent().getStringExtra("market");
-        number = getIntent().getStringArrayListExtra("list");
+        number = getIntent().getStringArrayListExtra("digits");
 
-        adapterbetting = new adapterbetting(betting.this, number);
+        adapterbetting = new AdapterBetItem(betting.this, number);
 
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
 
-                list = adapterbetting.getNumber();
+                list = adapterbetting.getAmountList();
                 total = 0;
                 for (int a = 0; a < list.size(); a++) {
                     total = total+Integer.parseInt(list.get(a));

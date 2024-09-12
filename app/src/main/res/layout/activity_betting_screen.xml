@@ -127,7 +127,7 @@
                             android:layout_height="15dp"
                             android:layout_margin="5dp"
                             android:src="@drawable/add"
-                            android:tint="@color/red" />
+                            app:tint="@color/red" />
 
                     </androidx.cardview.widget.CardView>
 

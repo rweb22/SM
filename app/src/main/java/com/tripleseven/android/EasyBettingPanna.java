@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class EasyBettingPanna extends Fragment {
 
@@ -55,17 +57,27 @@ public class EasyBettingPanna extends Fragment {
     ArrayList<String> AllNumbers = new ArrayList<>();
 
     SharedPreferences prefs;
-    ArrayList<String> list;
-    ArrayList<String> number = new ArrayList<>();
-    adapterbetting2 adapterbetting;
-    String market, game, timing = "";
-    ViewDialog progressDialog;
+    ArrayList<String> amountList;
+    ArrayList<String> digits = new ArrayList<>();
+    AdapterBetItem2 adapterbetting;
+    String game;
+    MarketDto market;
     String url;
     int total = 0;
-    ArrayList<String> fillnumber = new ArrayList<>();
-    ArrayList<String> fillamount = new ArrayList<>();
+    ArrayList<String> fillNumber = new ArrayList<>();
+    ArrayList<String> fillAmount = new ArrayList<>();
+    ArrayList<Item> betItems = new ArrayList<>();
+
     String numb, amou;
     private LinearLayout tabs;
+
+    String session;
+
+    public static class Item {
+        public String number1;
+        public String number2;
+        public String amount;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,24 +93,19 @@ public class EasyBettingPanna extends Fragment {
         initViews(view);
 
         url = constant.prefix2 + getString(R.string.bet);
-        if (getActivity().getIntent().hasExtra("timing")) {
-            timing = getActivity().getIntent().getStringExtra("timing");
-        }
 
-        prefs = getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE);
+        prefs = requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE);
 
-        game = getActivity().getIntent().getStringExtra("game");
-        market = getActivity().getIntent().getStringExtra("market");
-        number = getActivity().getIntent().getStringArrayListExtra("list");
+        game = requireActivity().getIntent().getStringExtra("game");
+        market = (MarketDto) requireActivity().getIntent().getSerializableExtra("market");
+        digits = requireActivity().getIntent().getStringArrayListExtra("digits");
+        session = requireActivity().getIntent().getStringExtra("session");
 
+        AllNumbers = digits;
 
-        AllNumbers = number;
-
-        for (int z = 0; z < 10; z++){
-
+        for (int index = 0; index < 10; index++) {
             latobold textView = new latobold(getActivity());
-            //     textView.setPadding(10,10,10,10);
-            textView.setText(z+"");
+            textView.setText(index + "");
             textView.setTextColor(getResources().getColor(R.color.font));
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,1.0f);
             layoutParams.setMargins(0,10,0,10);
@@ -107,7 +114,6 @@ public class EasyBettingPanna extends Fragment {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("set","grop,click");
                     setCurrentGroup(textView);
                 }
             });
@@ -117,30 +123,27 @@ public class EasyBettingPanna extends Fragment {
 
         setCurrentGroup(tab.get(0));
 
-
-
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
-                list = adapterbetting.getNumber();
-
-                for (int a = 0; a < list.size(); a++) {
-                    if (!list.get(a).equals("0")){
-                        if (fillnumber.contains(numbers.get(a))){
-                            fillamount.set(fillnumber.indexOf(numbers.get(a)),list.get(a));
-                            fillnumber.set(fillnumber.indexOf(numbers.get(a)),numbers.get(a));
+                amountList = adapterbetting.getAmountList();
+                for (int a = 0; a < amountList.size(); a++) {
+                    if (!amountList.get(a).equals("0")){
+                        if (fillNumber.contains(numbers.get(a))) {
+                            fillAmount.set(fillNumber.indexOf(numbers.get(a)), amountList.get(a));
+                            fillNumber.set(fillNumber.indexOf(numbers.get(a)), numbers.get(a));
                         } else {
-                            fillamount.add(list.get(a));
-                            fillnumber.add(numbers.get(a));
+                            fillAmount.add(amountList.get(a));
+                            fillNumber.add(numbers.get(a));
                         }
                     }
-                    total = total + Integer.parseInt(list.get(a));
+
+                    total = total + Integer.parseInt(amountList.get(a));
                 }
 
                 total = 0;
-                for (int a = 0; a < fillamount.size(); a++) {
-                    total = total + Integer.parseInt(fillamount.get(a));
+                for (int a = 0; a < fillAmount.size(); a++) {
+                    total = total + Integer.parseInt(fillAmount.get(a));
                 }
                 totalamount.setText(total + "");
             }
@@ -156,12 +159,6 @@ public class EasyBettingPanna extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Log.e("list", list.toString());
-
-                Log.e("wallet", prefs.getString("wallet", "0"));
-                Log.e("winning", prefs.getString("winning", "0"));
-                Log.e("bonus", prefs.getString("bonus", "0"));
                 Log.e("total", total + "");
 
                 if (total < constant.min_total || total > constant.max_total) {
@@ -179,11 +176,8 @@ public class EasyBettingPanna extends Fragment {
                     AlertDialog alert11 = builder1.create();
                     alert11.show();
                 } else if (total <= (Integer.parseInt(prefs.getString("wallet", "0")) + Integer.parseInt(prefs.getString("winning", "0")) + Integer.parseInt(prefs.getString("bonus", "0")))) {
-//                    fillamount.clear();
-//                    fillnumber.clear();
-
-                    for (int a = 0; a < list.size(); a++) {
-                        if (!list.get(a).equals("0") && Integer.parseInt(list.get(a)) < constant.min_single || Integer.parseInt(list.get(a)) > constant.max_single) {
+                    for (int a = 0; a < amountList.size(); a++) {
+                        if (!amountList.get(a).equals("0") && Integer.parseInt(amountList.get(a)) < constant.min_single || Integer.parseInt(amountList.get(a)) > constant.max_single) {
 //                            fillamount.clear();
 //                            fillnumber.clear();
 
@@ -202,7 +196,7 @@ public class EasyBettingPanna extends Fragment {
                             alert11.show();
 
                             return;
-                        } else if (!list.get(a).equals("0")) {
+                        } else if (!amountList.get(a).equals("0")) {
 //                            fillnumber.add(number.get(a) + "");
 //                            fillamount.add(list.get(a));
                         }
@@ -223,28 +217,30 @@ public class EasyBettingPanna extends Fragment {
                     TextView cancel = v2.findViewById(R.id.cancel);
                     TextView submit = v2.findViewById(R.id.submit);
 
-                    title.setText(market);
+                    title.setText(getMarketName());
 
-                    total_bid.setText(fillnumber.size() + "");
+                    total_bid.setText(fillNumber.size() + "");
                     total_amount.setText(total + "");
 
                     String type = "";
-                    if (market.contains("OPEN")) {
+
+                    String session = getActivity().getIntent().getStringExtra("session");
+                    if (session.contains("OPEN")) {
                         type = "Open";
-                    } else if (market.contains("CLOSE")) {
+                    } else if (session.contains("CLOSE")) {
                         type = "Close";
                     } else {
                         type = "N/A";
                     }
 
-                    AdapterSingleGamesConfirm adapterSingleGamesConfirm = new AdapterSingleGamesConfirm(getActivity(), fillnumber, fillamount, type);
+                    AdapterSingleGamesConfirm adapterSingleGamesConfirm = new AdapterSingleGamesConfirm(getActivity(), fillNumber, fillAmount, type);
                     recycler.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     recycler.setAdapter(adapterSingleGamesConfirm);
 
                     submit.setOnClickListener(v1 -> {
                         alert11.dismiss();
-                        numb = TextUtils.join(",", fillnumber);
-                        amou = TextUtils.join(",", fillamount);
+                        numb = TextUtils.join(",", fillNumber);
+                        amou = TextUtils.join(",", fillAmount);
                         apicall();
                     });
 
@@ -253,20 +249,14 @@ public class EasyBettingPanna extends Fragment {
                     alert11.show();
 
                 } else {
-                    Log.e("mybal", (Integer.parseInt(prefs.getString("wallet", null)) + Integer.parseInt(prefs.getString("winning", null)) + Integer.parseInt(prefs.getString("bonus", null))) + "");
-                    Log.e("req", total + "");
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                    builder1.setMessage("You don't have enough wallet balance to place this bet, Recharge your wallet to play");
+                    builder1.setMessage(getString(R.string.insufficient_balance));
                     builder1.setCancelable(true);
                     builder1.setPositiveButton(
                             "Recharge",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    if (getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("is_gateway", "0").equals("1")) {
-                                        startActivity(new Intent(getActivity(), wallet.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    } else {
-                                        openWhatsApp();
-                                    }
+                                    startActivity(new Intent(getActivity(), wallet.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                     dialog.dismiss();
                                 }
                             });
@@ -289,10 +279,18 @@ public class EasyBettingPanna extends Fragment {
         return view;
     }
 
+    private String getMarketName() {
+        String session = getActivity().getIntent().getStringExtra("session");
+        if (Objects.isNull(session) || session.isEmpty()) {
+            return market.getName();
+        } else {
+            return market.getName() + " " + session.substring(0, 1).toUpperCase() + session.substring(1).toLowerCase();
+        }
+    }
+
 
     private void apicall() {
-
-        progressDialog = new ViewDialog((AppCompatActivity) getActivity());
+        ViewDialog progressDialog = new ViewDialog((AppCompatActivity) getActivity());
         progressDialog.showDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -308,7 +306,6 @@ public class EasyBettingPanna extends Fragment {
                         progressDialog.hideDialog();
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
-
                             if (jsonObject1.getString("active").equals("0")) {
                                 Toast.makeText(getActivity(), "Your account temporarily disabled by admin", Toast.LENGTH_SHORT).show();
 
@@ -322,14 +319,13 @@ public class EasyBettingPanna extends Fragment {
 
 
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
-
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                                 LayoutInflater factory = LayoutInflater.from(getActivity());
                                 View v = factory.inflate(R.layout.msg_dialog, null);
 
                                 TextView close = v.findViewById(R.id.close);
                                 TextView msgView = v.findViewById(R.id.msg);
-                                msgView.setText("Your bet placed successfully");
+                                msgView.setText(getString(R.string.bet_placed));
 
                                 builder1.setView(v);
                                 builder1.setCancelable(false);
@@ -340,10 +336,10 @@ public class EasyBettingPanna extends Fragment {
                                         Intent in = new Intent(getActivity(), HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        in.putExtra("market",constant.market);
-                                        in.putExtra("is_open",constant.is_open);
-                                        in.putExtra("is_close",constant.is_close);
-                                        in.putExtra("market_type",constant.market_type);
+                                        in.putExtra("market", constant.market);
+                                        in.putExtra("is_open", constant.is_open);
+                                        in.putExtra("is_close", constant.is_close);
+                                        in.putExtra("market_type", constant.market_type);
                                         startActivity(in);
                                         getActivity().finish();
                                     }
@@ -356,10 +352,10 @@ public class EasyBettingPanna extends Fragment {
                                         Intent in = new Intent(getActivity(), HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        in.putExtra("market",constant.market);
-                                        in.putExtra("is_open",constant.is_open);
-                                        in.putExtra("is_close",constant.is_close);
-                                        in.putExtra("market_type",constant.market_type);
+                                        in.putExtra("market", constant.market);
+                                        in.putExtra("is_open", constant.is_open);
+                                        in.putExtra("is_close", constant.is_close);
+                                        in.putExtra("market_type", constant.market_type);
                                         startActivity(in);
                                         getActivity().finish();
                                     }
@@ -374,6 +370,7 @@ public class EasyBettingPanna extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.hideDialog();
+                            Toast.makeText(getActivity(), getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -383,7 +380,7 @@ public class EasyBettingPanna extends Fragment {
 
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(getActivity(), "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -391,17 +388,25 @@ public class EasyBettingPanna extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("number", numb);
-                params.put("amount", amou);
-                params.put("bazar", market);
-                params.put("total", total + "");
-                params.put("game", game);
-                if (!timing.equals("")) {
-                    params.put("timing", timing);
+                for(int i=0; i < fillNumber.size(); i++) {
+                    Item item = new Item();
+                    item.number1 = fillNumber.get(i);
+                    item.amount = fillAmount.get(i);
+                    betItems.add(item);
                 }
-                params.put("mobile", prefs.getString("mobile", null));
 
-                params.put("session", getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
+                Gson gson = new Gson();
+                String betItemsString = gson.toJson(betItems);
+
+                params.put("items", betItemsString);
+                params.put("market_id", market.getMarketId());
+                params.put("market_name", market.getName());
+                params.put("game_display_name", getMarketName());
+                params.put("total",total+"");
+                params.put("game", game);
+                params.put("game_session", session);
+                params.put("mobile", prefs.getString("mobile",null));
+                params.put("session", requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
                 return params;
             }
         };
@@ -409,9 +414,7 @@ public class EasyBettingPanna extends Fragment {
         requestQueue.add(postRequest);
     }
 
-    public void setCurrentGroup(TextView textView){
-        Log.e("numbers","34567");
-
+    public void setCurrentGroup(TextView textView) {
         if (lastSelected != null){
             lastSelected.setBackground(getResources().getDrawable(R.drawable.button_not));
             lastSelected.setTextColor(getResources().getColor(R.color.font));
@@ -422,21 +425,15 @@ public class EasyBettingPanna extends Fragment {
         textView.setBackground(getResources().getDrawable(R.drawable.hor_button));
         textView.setTextColor(getResources().getColor(R.color.md_white_1000));
         numbers = new ArrayList<>(AllNumbers);
-        Log.e("numbers",numbers.toString());
         numbers.retainAll(getGroup(textView.getText().toString()));
 
-        Log.e("grp",getGroup(textView.getText().toString()).toString());
-        Log.e("numbers",numbers.toString());
-        Log.e("textView",textView.getText().toString());
-        Log.e("AllNumbers",AllNumbers.toString());
-
-        adapterbetting = new adapterbetting2(getActivity(), numbers,fillnumber,fillamount);
+        adapterbetting = new AdapterBetItem2(getActivity(), numbers, fillNumber, fillAmount);
         recyclerview.setAdapter(adapterbetting);
         adapterbetting.notifyDataSetChanged();
     }
 
 
-    public ArrayList<String> getGroup(String group){
+    public ArrayList<String> getGroup(String group) {
         String[] groupData = null;
         switch (group) {
             case "0":
@@ -474,17 +471,6 @@ public class EasyBettingPanna extends Fragment {
             return new ArrayList(Arrays.asList(groupData));
         }
         return null;
-    }
-
-
-
-    private void openWhatsApp() {
-
-        String url = constant.getWhatsapp(getActivity());
-
-        Uri uri = Uri.parse(url);
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(sendIntent);
     }
 
     private void initViews(View view) {

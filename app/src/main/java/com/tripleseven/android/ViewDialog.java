@@ -35,7 +35,8 @@ public class ViewDialog {
         dialog.show();
     }
 
-    public void hideDialog(){
+    public void hideDialog() {
+        System.out.println("hiding dialog");
         dialog.dismiss();
     }
 

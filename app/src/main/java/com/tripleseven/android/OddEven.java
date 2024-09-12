@@ -55,7 +55,7 @@ public class OddEven extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    adapterbetting adapterbetting;
+    AdapterBetItem adapterbetting;
     String market,game;
     ViewDialog progressDialog;
     String url;
@@ -81,7 +81,7 @@ public class OddEven extends AppCompatActivity {
         prefs = getSharedPreferences(constant.prefs,MODE_PRIVATE);
         game = getIntent().getStringExtra("game");
         market = getIntent().getStringExtra("market");
-        numbers = getIntent().getStringArrayListExtra("list");
+        numbers = getIntent().getStringArrayListExtra("digits");
         if (getIntent().hasExtra("timing")){
             timing = getIntent().getStringExtra("timing");
             type_container.setVisibility(View.GONE);
@@ -165,7 +165,7 @@ public class OddEven extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().isEmpty() || s == null) {
+                if (s == null || s.toString().isEmpty()) {
                     // DO NOTHING FIELD IS EMPTY
                 } else if (Integer.parseInt(s.toString()) > constant.max_single) {
                     amount.setText(constant.max_single+"");

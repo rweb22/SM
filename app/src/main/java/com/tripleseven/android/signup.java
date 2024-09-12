@@ -153,10 +153,9 @@ public class signup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mobile.getText().toString().isEmpty() || mobile.getText().toString().length() != 10) {
-                    mobile.setError("Enter valid mobile number");
+                    mobile.setError(getString(R.string.invalid_phone_number));
                 }
                  else {
-                   // Log.e("kkk",mobile.getText().toString());
                    mStartForResult.launch(new Intent(signup.this, MobileVerification.class).putExtra("mobile", mobile.getText().toString()).putExtra("forgot","signup"));
                 }
 
@@ -181,77 +180,6 @@ public class signup extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void apicall3() {
-
-        progressDialog = new ViewDialog(signup.this);
-        progressDialog.showDialog();
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        final StringRequest postRequest = new MyStringRequest(getSharedPreferences(constant.prefs, MODE_PRIVATE), Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.hideDialog();
-                        try {
-                            JSONObject jsonObject1 = new JSONObject(response);
-                            if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
-//
-
-//
-//                                Intent in = new Intent(getApplicationContext(), HomeScreen.class);
-//                                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                startActivity(in);
-//                                finish();
-
-                                Intent in = new Intent(getApplicationContext(), create_password.class).putExtra("mobile",mobile.getText().toString()).putExtra("forgot","no").putExtra("refcode",ref_code.toString()).putExtra("name",name.getText().toString()).putExtra("email",email.getText().toString());
-                                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(in);
-                                finish();
-
-                                //   Toast.makeText(signup.this, "Account created successfully, Please login now", Toast.LENGTH_SHORT).show();
-
-
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Mobile Number Already Registered", Toast.LENGTH_SHORT).show();
-                               // Toast.makeText(getApplicationContext(), jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.hideDialog();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        error.printStackTrace();
-                        progressDialog.hideDialog();
-                        Toast.makeText(signup.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("mobile", mobile.getText().toString());
-                params.put("session", hash);
-
-
-
-
-
-                return params;
-            }
-        };
-        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(postRequest);
-    }
-
-
     private void check_refer() {
 
         progressDialog = new ViewDialog(signup.this);
@@ -268,7 +196,7 @@ public class signup extends AppCompatActivity {
                             JSONObject jsonObject1 = new JSONObject(response);
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
                                 ref_code = referCode.getText().toString();
-                                apply_refer.setText("Refer code applied");
+                                apply_refer.setText(getString(R.string.refer_code_applied));
                             } else {
                                 Toast.makeText(getApplicationContext(), jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
@@ -284,7 +212,7 @@ public class signup extends AppCompatActivity {
 
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(signup.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(signup.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {

@@ -11,9 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +33,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,25 +42,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SpecialMode extends Fragment {
-
-
-    String open_av = "0";
-    String open_type = "";
-
     SharedPreferences prefs;
-    ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    adapterbetting adapterbetting;
-    String market,game;
+    String game;
+    MarketDto market;
     ViewDialog progressDialog;
     String url;
     int total = 0;
-    ArrayList<String> fillnumber = new ArrayList<>();
-    ArrayList<String> fillamount = new ArrayList<>();
-    ArrayList<String> fillmarket = new ArrayList<>();
-    String numb,amou,types;
+    ArrayList<String> fillNumber = new ArrayList<>();
+    ArrayList<String> fillAmount = new ArrayList<>();
+    ArrayList<String> fillMarket = new ArrayList<>();
+
+    ArrayList<Item> betItems = new ArrayList<>();
+
+    public static class Item {
+        public String number1;
+        public String number2;
+        public String amount;
+    }
 
     private AutoCompleteTextView number;
     private EditText amount;
@@ -68,6 +70,7 @@ public class SpecialMode extends Fragment {
     private RecyclerView recyclerview;
     private EditText totalamount;
     private latobold submit;
+    String session;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,25 +86,18 @@ public class SpecialMode extends Fragment {
         initViews(view);
 
 
-        open_av = getActivity().getIntent().getStringExtra("open_av");
+        market = (MarketDto) requireActivity().getIntent().getSerializableExtra("market");
         url = constant.prefix2 + getString(R.string.bet);
 
-        prefs = getActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE);
-        game = getActivity().getIntent().getStringExtra("game");
-        market = getActivity().getIntent().getStringExtra("market");
-        numbers = getActivity().getIntent().getStringArrayListExtra("list");
+        prefs = requireActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE);
+        game = requireActivity().getIntent().getStringExtra("game");
+        numbers = requireActivity().getIntent().getStringArrayListExtra("digits");
+        session = requireActivity().getIntent().getStringExtra("session");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getActivity(), R.layout.simple_list_item_2,numbers);
+                (requireActivity(), R.layout.simple_list_item_2, numbers);
         number.setAdapter(adapter);
-
-        if (!game.equals("jodi")){
-            open_type = getActivity().getIntent().getStringExtra("open_type");
-        } else  {
-            open_type = "";
-        }
-
 
         amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,12 +107,11 @@ public class SpecialMode extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().isEmpty() || s == null) {
+                if (s == null || s.toString().isEmpty()) {
                     // DO NOTHING FIELD IS EMPTY
                 } else if (Integer.parseInt(s.toString()) > constant.max_single) {
-                    amount.setText(constant.max_single+"");
+                    amount.setText(constant.max_single + "");
                 }
-
             }
 
             @Override
@@ -128,21 +123,24 @@ public class SpecialMode extends Fragment {
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 String num = intent.getStringExtra("number");
-                fillamount.remove(Integer.parseInt(num));
-                fillnumber.remove(Integer.parseInt(num));
-                fillmarket.remove(Integer.parseInt(num));
 
-                AdapterSingleGames rc = new AdapterSingleGames(getActivity(),fillnumber,fillamount,fillmarket);
+                System.out.println("number");
+                System.out.println(num);
+
+                fillAmount.remove(Integer.parseInt(num));
+                fillNumber.remove(Integer.parseInt(num));
+                fillMarket.remove(Integer.parseInt(num));
+
+                AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillNumber, fillAmount, fillMarket);
                 recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                 recyclerview.setAdapter(rc);
                 rc.notifyDataSetChanged();
 
 
                 total = 0;
-                for (int a = 0; a < fillamount.size(); a++) {
-                    total = total+Integer.parseInt(fillamount.get(a));
+                for (int a = 0; a < fillAmount.size(); a++) {
+                    total = total+Integer.parseInt(fillAmount.get(a));
                 }
                 totalamount.setText(total+"");
             }
@@ -154,30 +152,24 @@ public class SpecialMode extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (number.getText().toString().isEmpty() || !numbers.contains(number.getText().toString())){
-                    number.setError("Enter valid number");
-                } else if (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single){
-                    amount.setError("Enter amount between "+constant.min_single+" - "+constant.max_single);
+                if (number.getText().toString().isEmpty() || !numbers.contains(number.getText().toString())) {
+                    number.setError(getString(R.string.invalid_number));
+                } else if (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single) {
+                    amount.setError(getString(R.string.invalid_number) + " " + constant.min_single+" - "+constant.max_single);
                 } else {
-                    fillnumber.add(number.getText().toString());
-                    fillamount.add(amount.getText().toString());
-                    if (game.equals("jodi"))
-                    {
-                        fillmarket.add("");
-                    }
-                    else {
-                        fillmarket.add(open_type);
-                    }
+                    fillNumber.add(number.getText().toString());
+                    fillAmount.add(amount.getText().toString());
+                    fillMarket.add(session);
 
-                    AdapterSingleGames rc = new AdapterSingleGames(getActivity(),fillnumber,fillamount,fillmarket);
+                    AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillNumber, fillAmount, fillMarket);
                     recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     recyclerview.setAdapter(rc);
                     rc.notifyDataSetChanged();
 
 
                     total = 0;
-                    for (int a = 0; a < fillamount.size(); a++) {
-                        total = total+Integer.parseInt(fillamount.get(a));
+                    for (int a = 0; a < fillAmount.size(); a++) {
+                        total = total+Integer.parseInt(fillAmount.get(a));
                     }
                     totalamount.setText(total+"");
 
@@ -191,22 +183,14 @@ public class SpecialMode extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fillnumber.size() > 0){
+                if (fillNumber.size() > 0){
                     if (total <= (Integer.parseInt(prefs.getString("wallet",null))+Integer.parseInt(prefs.getString("winning",null))+Integer.parseInt(prefs.getString("bonus",null)))) {
-                        numb = "";
-                        amou = "";
-                        types = "";
-
-                        numb = TextUtils.join(",", fillnumber);
-                        amou = TextUtils.join(",", fillamount);
-                        types = TextUtils.join(",", fillmarket);
-
                         apicall();
                     }
                     else
                     {
                         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                        builder1.setMessage("You don't have enough wallet balance to place this bet, Recharge your wallet to play");
+                        builder1.setMessage(getString(R.string.insufficient_balance));
                         builder1.setCancelable(true);
                         builder1.setNegativeButton(
                                 "Close",
@@ -220,12 +204,10 @@ public class SpecialMode extends Fragment {
                         alert11.show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Please place a bet first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.place_bet_first), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
 
         return view;
     }
@@ -244,13 +226,12 @@ public class SpecialMode extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("edsa", "efsdc" + response);
                         progressDialog.hideDialog();
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
 
                             if (jsonObject1.getString("active").equals("0")) {
-                                Toast.makeText(getActivity(), "Your account temporarily disabled by admin", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getString(R.string.ACCOUNT_DISABLE_ALERT), Toast.LENGTH_SHORT).show();
 
                                 getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).edit().clear().apply();
                                 Intent in = new Intent(getActivity(), signup.class);
@@ -260,26 +241,14 @@ public class SpecialMode extends Fragment {
                                 getActivity().finish();
                             }
 
-//                            if (!jsonObject1.getString("session").equals(getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null))) {
-//                                Toast.makeText(getActivity(), "Session expired ! Please login again", Toast.LENGTH_SHORT).show();
-//
-//                                getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).edit().clear().apply();
-//                                Intent in = new Intent(getActivity(), signup.class);
-//                                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(in);
-//                                getActivity().finish();
-//                            }
-
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
-
                                 android.app.AlertDialog.Builder builder1 = new android.app.AlertDialog.Builder(getActivity());
                                 LayoutInflater factory = LayoutInflater.from(getActivity());
                                 View v = factory.inflate(R.layout.msg_dialog, null);
 
                                 TextView close = v.findViewById(R.id.close);
                                 TextView msgView = v.findViewById(R.id.msg);
-                                msgView.setText("Your bet placed successfully");
+                                msgView.setText(R.string.bet_placed);
 
                                 builder1.setView(v);
                                 builder1.setCancelable(false);
@@ -324,6 +293,7 @@ public class SpecialMode extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.hideDialog();
+                            Toast.makeText(getActivity(), getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -333,7 +303,7 @@ public class SpecialMode extends Fragment {
 
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(getActivity(), "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -341,20 +311,39 @@ public class SpecialMode extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("number",numb);
-                params.put("amount",amou);
-                params.put("bazar",market);
-                params.put("total",total+"");
-                params.put("game",game);
-                params.put("mobile", prefs.getString("mobile",null));
-                params.put("types",types);
+                for(int i=0; i<fillNumber.size(); i++) {
+                    Item item = new Item();
+                    item.number1 = fillNumber.get(i);
+                    item.amount = fillAmount.get(i);
 
-                params.put("session",getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
+                    betItems.add(item);
+                }
+
+                Gson gson = new Gson();
+                String betItemsString = gson.toJson(betItems);
+
+                params.put("items", betItemsString);
+                params.put("market_id", market.getMarketId());
+                params.put("market_name", market.getName());
+                params.put("game_display_name", getMarketName());
+                params.put("total",total+"");
+                params.put("game", game);
+                params.put("game_session", session);
+
+                params.put("session", requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
                 return params;
             }
         };
         postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(postRequest);
+    }
+
+    private String getMarketName() {
+        if (Objects.isNull(session) || session.isEmpty()) {
+            return market.getName();
+        } else {
+            return market.getName() + " " + session.substring(0, 1).toUpperCase() + session.substring(1).toLowerCase();
+        }
     }
 
     private void initViews(View view) {

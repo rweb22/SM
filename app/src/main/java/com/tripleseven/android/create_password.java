@@ -122,14 +122,14 @@ public class create_password extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (password.getText().toString().isEmpty() || confirmPassword.getText().toString().isEmpty()) {
-                    password.setError("Enter valid password");
-                    confirmPassword.setError("Enter valid password");
+                    password.setError(getString(R.string.enter_valid_pass));
+                    confirmPassword.setError(getString(R.string.enter_valid_pass));
                 }else if(password.getText().length() < 6){
-                    password.setError("Password must be minimunm 6 digit");
+                    password.setError(getString(R.string.min_pass_len));
                    // confirmPassword.setError("Password must be minimunm 6 digit");
                 }
                 else if(!password.getText().toString().equals(confirmPassword.getText().toString())){
-                    confirmPassword.setError("Password and Confirm password not match");
+                    confirmPassword.setError(getString(R.string.pass_not_match));
                 }
                 else {
                     if (forgot.equals("signup")){
@@ -143,7 +143,6 @@ public class create_password extends AppCompatActivity {
             }
         });
     }
-
 
 
     private static String getRandomString(final int sizeOfRandomString) {
@@ -185,20 +184,11 @@ public class create_password extends AppCompatActivity {
                                 editor.putString("session", jsonObject1.getString("session"));
                                 editor.putString("first_time","done").commit();
 
-
-                                Log.d("session key stored0", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
-
-
                                 Intent in = new Intent(getApplicationContext(), HomeScreen.class);
                                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(in);
                                 finish();
-
-                                 //  Toast.makeText(create_password.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-
-
-
                             } else {
                                 Toast.makeText(getApplicationContext(), jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
@@ -211,10 +201,9 @@ public class create_password extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(create_password.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(create_password.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -260,7 +249,7 @@ public class create_password extends AppCompatActivity {
                                     startActivity(in);
                                     finish();
                                 } else {
-                                    Toast.makeText(create_password.this, "Password reset successfully, Please login now", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(create_password.this, getString(R.string.pass_reset_done), Toast.LENGTH_SHORT).show();
                                     Intent in = new Intent(getApplicationContext(), login.class);
                                     in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -284,7 +273,7 @@ public class create_password extends AppCompatActivity {
 
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(create_password.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(create_password.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {

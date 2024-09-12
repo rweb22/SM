@@ -97,7 +97,7 @@ class adapter_result extends RecyclerView.Adapter<adapter_result.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    context.startActivity(new Intent(context, games.class)
+                    context.startActivity(new Intent(context, MarketGames.class)
                         //    .putExtra("market", name.get(position))
                         //    .putExtra("is_open", is_open.get(position))
                         //    .putExtra("is_close", open_av.get(position))

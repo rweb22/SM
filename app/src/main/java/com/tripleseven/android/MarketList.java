@@ -2,7 +2,6 @@ package com.tripleseven.android;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,7 +41,7 @@ public class MarketList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_market_list);
+        setContentView(R.layout.activity_club_dashboard);
         initViews();
 
         TextView tx = findViewById(R.id.balance_home);

@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SpMotor">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            android:background="@color/background"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d5e3">
+
+
+                <RelativeLayout
+                    android:id="@+id/back"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/back"
+                        app:civ_border_color="#fff"
+                        app:civ_border_width="2dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/hamburger"
+                        app:civ_border_color="#fff"
+                        app:civ_border_width="4dp"
+                        app:civ_circle_background_color="#fff" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/back">
+
+
+                    <com.tripleseven.android.latonormal
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="GAMES"
+                        android:id="@+id/title"
+                        android:textColor="@color/font"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    app:cardCornerRadius="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/wallet_block"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="10dp">
+
+
+                        <com.tripleseven.android.latonormal
+                            android:id="@+id/balance_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:text="- ₹"
+                            android:textColor="@color/font" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            app:cardBackgroundColor="#f1f3f0"
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/add"
+                                android:tint="@color/red" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_above="@id/submit"
+            android:layout_marginTop="10dp"
+            android:id="@+id/scrollView"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <Spinner
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edittext"
+                        android:padding="5dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:id="@+id/choice_panna"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            >
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                >
+                                <CheckBox
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/sp_checkbox"
+                                    android:buttonTint="@color/font"
+                                    android:text="SP"
+                                    />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                >
+                                <CheckBox
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/dp_checkbox"
+                                    android:text="DP"
+                                    android:buttonTint="@color/font"
+                                    />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                >
+                                <CheckBox
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/tp_checkbox"
+                                    android:buttonTint="@color/font"
+                                    android:text="TP"
+                                    />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            >
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                >
+
+                                <com.tripleseven.android.latonormal
+                                    android:id="@+id/first_checkbox"
+                                    android:layout_width="wrap_content"
+                                    android:text="LEFT DIGIT"
+                                    android:textColor="@color/font"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:buttonTint="@color/font" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                >
+                                <com.tripleseven.android.latonormal
+                                    android:layout_width="wrap_content"
+                                    android:text="MIDDLE DIGIT"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@color/font"
+                                    android:id="@+id/second_checkbox"
+                                    android:buttonTint="@color/font"
+                                    />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                >
+                                <com.tripleseven.android.latonormal
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/third_checkbox"
+                                    android:buttonTint="@color/font"
+                                    android:textColor="@color/font"
+                                    android:text="RIGHT DIGIT"
+                                    />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/first_digit"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/edittext_box"
+                                android:completionThreshold="0"
+                                android:hint="Enter Digit"
+                                android:paddingRight="15dp"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:inputType="number"
+                                android:textSize="15sp" />
+
+                            <EditText
+                                android:id="@+id/second_digit"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/edittext_box"
+                                android:completionThreshold="0"
+                                android:hint="Enter Digit"
+                                android:paddingRight="15dp"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:inputType="number"
+                                android:textSize="15sp" />
+
+                            <EditText
+                                android:id="@+id/third_digit"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/edittext_box"
+                                android:completionThreshold="0"
+                                android:hint="Enter Digit"
+                                android:paddingRight="15dp"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:inputType="number"
+                                android:textSize="15sp" />
+
+
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/choice_amount"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/edittext_box"
+                            android:hint="Enter Amount"
+                            android:paddingRight="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:inputType="number"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginLeft="18dp"
+                        android:id="@+id/spdptp_panel"
+                        android:layout_marginRight="18dp"
+                        android:padding="5dp">
+
+                        <CheckBox
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:textSize="12sp"
+                            android:text="SP"
+                            android:id="@+id/single_panna"
+                            android:layout_marginRight="5dp"
+                            />
+
+                        <CheckBox
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/double_panna"
+                            android:textSize="12sp"
+                            android:textColor="@color/font"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:text="DP"
+
+                            />
+
+                        <CheckBox
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/triple_panna"
+                            android:textSize="12sp"
+                            android:textColor="@color/font"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="TP"
+
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/enter_panel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/odd_even"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittext_box"
+                            android:completionThreshold="0"
+                            android:visibility="gone"
+
+                            />
+
+
+                        <Spinner
+                            android:id="@+id/red_bracket"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittext_box"
+                            android:completionThreshold="0"
+                            android:visibility="gone"
+
+                            />
+
+
+                        <EditText
+                            android:id="@+id/number"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittext_box"
+                            android:completionThreshold="0"
+                            android:hint="Enter Digits"
+                            android:inputType="number"
+                            android:maxLength="7"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="10dp"
+                            android:textSize="15sp" />
+
+
+                        <EditText
+                            android:id="@+id/amount2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittext_box"
+                            android:hint="@string/enter_amount"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="10dp"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <com.tripleseven.android.latobold
+                        android:id="@+id/add"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10sp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/button"
+                        android:gravity="center_horizontal"
+                        android:text="@string/add_more"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    android:background="#23000000" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:background="#e6e7e9"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="#e6e7e9"
+                            android:weightSum="4">
+
+                            <com.tripleseven.android.latonormal
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/no"
+                                android:textColor="@color/font" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent" />
+
+                            <com.tripleseven.android.latonormal
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/amount"
+                                android:textColor="@color/font" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent" />
+
+
+                            <com.tripleseven.android.latonormal
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/game_type"
+                                android:textColor="@color/font" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#31000000" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true" />
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:paddingStart="20dp"
+                    android:gravity="center_vertical|end"
+                    android:layout_marginEnd="20dp"
+                    android:paddingEnd="10dp"
+                    android:layout_height="0dp">
+
+                    <com.tripleseven.android.latonormal
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/font"
+                        android:textSize="16sp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Total ₹"
+                        />
+
+                    <EditText
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/blank"
+                        android:text="0"
+                        android:focusable="false"
+                        android:hint=""
+                        android:id="@+id/totalamount"
+                        android:inputType="number"
+                        android:textSize="16sp"
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.tripleseven.android.latobold
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8sp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/green_button_round"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/submit"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

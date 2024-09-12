@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
@@ -19,11 +18,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import im.crisp.client.ChatActivity;
 import im.crisp.client.Crisp;
 
 public class HomeScreen extends AppCompatActivity {
@@ -31,13 +28,7 @@ public class HomeScreen extends AppCompatActivity {
     private BottomNavigationView bottomBar;
     SharedPreferences preferences;
     ActivityResultLauncher<Intent> lockScreenLauncher;
-    private RelativeLayout back;
-    private latonormal balanceHome;
     private LinearLayout walletBlock;
-    private RelativeLayout toolbar;
-    private View view;
-    private FragmentContainerView fragmentContainer;
-    private View dv;
     static public latobold star;
     static public latonormal games;
 
@@ -52,7 +43,8 @@ public class HomeScreen extends AppCompatActivity {
         Crisp.configure(getApplicationContext(), "3c5bc8ba-942d-4e26-b07e-ab33356d18f5");
 
         star.setText("SAMRAT");
-        games.setText("SATTA");
+        games.setText("MATKA");
+
         TextView tx = findViewById(R.id.balance_home);
         tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
 
@@ -71,21 +63,23 @@ public class HomeScreen extends AppCompatActivity {
     protected void onResume() {
         TextView tx = findViewById(R.id.balance_home);
         tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
+
         checkLock();
         super.onResume();
     }
 
     private void checkLock() {
-        if (Betplay.getIsLocked()) {
-            if (!preferences.getString("is_pin_asked", "").equals("true") || !preferences.getString("mpin", "").equals("")) {
-                Intent intent = new Intent(this, MPIN.class);
-                lockScreenLauncher.launch(intent);
-                return;
-            }
-        }
+//        if (Betplay.getIsLocked()) {
+//            if (!preferences.getString("is_pin_asked", "").equals("true") || !preferences.getString("mpin", "").equals("")) {
+//                Intent intent = new Intent(this, MPIN.class);
+//                lockScreenLauncher.launch(intent);
+//                return;
+//            }
+//        }
+
         TextView tx = findViewById(R.id.balance_home);
         tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -97,7 +91,7 @@ public class HomeScreen extends AppCompatActivity {
                     TextView tx = findViewById(R.id.balance_home);
                     tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
 
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = new DashboardFragment();
                     break;
                 case R.id.charts:
                     selectedFragment = new TransactionFragment();
@@ -116,12 +110,12 @@ public class HomeScreen extends AppCompatActivity {
                    // selectedFragment = new ContactFragment();
                     break;
             }
-            // It will help to replace the
-            // one fragment to other
+
 
             if (selectedFragment == null) {
                 return false;
             }
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, selectedFragment)
@@ -165,13 +159,7 @@ public class HomeScreen extends AppCompatActivity {
                         }
                     }
                 });
-        back = findViewById(R.id.back);
-        balanceHome = findViewById(R.id.balance_home);
         walletBlock = findViewById(R.id.wallet_block);
-        toolbar = findViewById(R.id.toolbar);
-        view = findViewById(R.id.view);
-        fragmentContainer = findViewById(R.id.fragment_container);
-        dv = findViewById(R.id.dv);
         star = findViewById(R.id.star);
         games = findViewById(R.id.games);
     }

@@ -171,8 +171,6 @@
         app:itemTextColor="@color/icon_tint"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu"
-
-
         />
 
 </RelativeLayout>

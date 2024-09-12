@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    tools:context=".DashboardFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loading_gif"
+        android:background="@color/md_white_1000"
+        android:layout_centerInParent="true"
+        android:elevation="50dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/toolbar"
+                    android:orientation="vertical"
+                    >
+
+
+                    <!-- Slider -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardCornerRadius="6dp">
+
+                        <com.smarteist.autoimageslider.SliderView
+                            android:id="@+id/imageSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            app:sliderAnimationDuration="600"
+                            app:sliderAutoCycleDirection="back_and_forth"
+                            app:sliderAutoCycleEnabled="true"
+                            app:sliderIndicatorAnimationDuration="600"
+                            app:sliderIndicatorGravity="center_horizontal|bottom"
+                            app:sliderIndicatorMargin="15dp"
+                            app:sliderIndicatorOrientation="horizontal"
+                            app:sliderIndicatorPadding="3dp"
+                            app:sliderIndicatorRadius="1.5dp"
+                            app:sliderIndicatorSelectedColor="#5A5A5A"
+                            app:sliderIndicatorUnselectedColor="#FFF"
+                            app:sliderScrollTimeInSec="1"
+                            app:sliderStartAutoCycle="true" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_marginLeft="7dp"
+                        android:padding="5dp"
+                        android:background="@drawable/notify_bg"
+                        >
+
+                        <ImageView
+                            android:id="@+id/icon"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_width="20dp"
+                            android:src="@drawable/notify_ic2"
+                            />
+
+                        <!-- Marquee Text -->
+                        <TextView
+                            android:id="@+id/marqueeText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:textColor="@color/font"
+                            android:textSize="13sp"
+                            android:scrollHorizontally="true"
+                            android:text="This is an example of marquee animation with an icon. This is an example of marquee animation with an icon." />
+
+                    </LinearLayout>
+
+
+
+                    <!-- Welcome Chip -->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <LinearLayout
+                                android:id="@+id/play_starline2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="7dp"
+                                android:background="@drawable/small_round_button_home"
+                                android:orientation="horizontal"
+                                android:layout_weight="1"
+                                android:padding="10dp">
+
+                                <com.tripleseven.android.latobold
+                                    android:id="@+id/latobold"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="7dp"
+                                    android:layout_marginRight="7dp"
+                                    android:layout_weight="1"
+                                    android:text="Invite and Earn"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/md_white_1000"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/play_starline3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/small_round_button_home"
+                                android:orientation="horizontal"
+                                android:layout_weight="1"
+                                android:padding="10dp">
+
+                                <com.tripleseven.android.latobold
+                                    android:id="@+id/latobold3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_weight="1"
+                                    android:text="Samrat Line"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/md_white_1000"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentRight="true"
+                            android:elevation="5dp"
+                            android:paddingRight="-1dp"
+                            android:src="@drawable/upper_corner"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:id="@+id/play_starline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/small_round_button_home"
+                            android:padding="10dp"
+                            android:visibility="gone">
+
+                            <com.tripleseven.android.latobold
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="center"
+                                android:text="PLAY JACKPOT"
+                                android:textColor="@color/md_white_1000"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/right_arrow_long"
+                                app:tint="@color/white"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_below="@id/play_starline"
+                            android:layout_alignParentRight="true"
+                            android:elevation="5dp"
+                            android:paddingRight="-1dp"
+                            android:src="@drawable/lower_corner"
+                            android:visibility="gone" />
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/rb4o4pnp7xnv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginHorizontal="7dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/r5fiythb06r0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"
+                            android:src="@drawable/dot_vector"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            />
+
+                        <ImageView
+                            android:id="@+id/r5fiythb06rf"
+                            android:layout_width="33dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/matki"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            />
+
+                        <com.tripleseven.android.latobold
+                            android:id="@+id/ntitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Live Matkas"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="#EA3A2D"
+                            android:textFontWeight="600"
+                            android:textSize="19sp" />
+
+                        <ImageView
+                            android:id="@+id/r7bdwzmky3od"
+                            android:layout_width="33dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/matki"
+                            android:scaleType="fitXY"
+                            android:layout_weight="1"
+                            />
+                        <ImageView
+                            android:id="@+id/r5fiythb06r2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"
+                            android:src="@drawable/dot_vector"
+                            android:scaleType="fitXY"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+
+                    <!--Delhi Market-->
+                    <LinearLayout
+                        android:id="@+id/delhi_markets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginRight="7dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_height="30dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="-3dp"
+                            android:src="@drawable/social_network"/>
+
+                        <com.tripleseven.android.latonormal
+                            android:id="@+id/socialNetworkTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Social Networks"
+                            android:textAlignment="center"
+                            android:textColor="#EA3A2D"
+                            android:textFontWeight="600"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/telegramLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="47dp"
+                            android:src="@drawable/tele"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:padding="5dp" />
+                        <ImageView
+                            android:id="@+id/whatsappLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="47dp"
+                            android:src="@drawable/whatsapp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:padding="5dp" />
+                        <ImageView
+                            android:id="@+id/instagramLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="47dp"
+                            android:src="@drawable/insta"
+                            android:scaleType="fitXY"
+                            android:padding="5dp"
+                            android:layout_weight="1"/>
+
+                        <ImageView
+                            android:id="@+id/ytLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="47dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/yt"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="© 2024 Samrat Matka || All rights reserved"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

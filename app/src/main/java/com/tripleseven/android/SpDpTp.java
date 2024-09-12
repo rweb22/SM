@@ -67,7 +67,7 @@ public class SpDpTp extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    adapterbetting adapterbetting;
+    AdapterBetItem adapterbetting;
     String market, game;
     ViewDialog progressDialog;
     String url;
@@ -111,7 +111,7 @@ public class SpDpTp extends AppCompatActivity {
         prefs = getSharedPreferences(constant.prefs, MODE_PRIVATE);
         game = getIntent().getStringExtra("game");
         market = getIntent().getStringExtra("market");
-        numbers = getIntent().getStringArrayListExtra("list");
+        numbers = getIntent().getStringArrayListExtra("digits");
 
         singlePatti = singlepatti();
         doublePatti = doublepatti();

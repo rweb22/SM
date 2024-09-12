@@ -71,6 +71,8 @@ public class HomeFragment extends Fragment {
     private SliderAdapter adapter;
     private SliderView imageSlider;
 
+    private TextView marqueeText;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -113,12 +115,12 @@ public class HomeFragment extends Fragment {
 //        }
 
 
-        bidHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),played.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("type","delhi"));
-            }
-        });
+//        bidHistory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),played.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("type","delhi"));
+//            }
+//        });
 
 //
 //        if (preferences.getString("wallet", null) != null) {
@@ -208,8 +210,10 @@ public class HomeFragment extends Fragment {
 
 
                             adapter_result_delhi rc2 = new adapter_result_delhi(getActivity(), name2, result2,result3, is_open2, open_time2, close_time2, open_av2, market_type2,result_time,mOpen,mClose);
-                            recyclerview2.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                            recyclerview2.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                             recyclerview2.setAdapter(rc2);
+
+
 
                             adapter = new SliderAdapter(getActivity());
 
@@ -350,6 +354,8 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
         swiperefresh.setVisibility(View.GONE);
       //  Glide.with(getActivity()).load(R.drawable.loading_animation).into(loading_gif);
       //  loading_gif.setVisibility(View.VISIBLE);
@@ -370,15 +376,15 @@ public class HomeFragment extends Fragment {
         sliderView.setScrollTimeInSec(3);
         sliderView.setAutoCycle(true);
         sliderView.startAutoCycle();
-
-
         balance_home = view.findViewById(R.id.balance_home);
         hometext = view.findViewById(R.id.hometext);
         //playStarline2 = view.findViewById(R.id.play_starline2);
         //playStarline = view.findViewById(R.id.play_starline);
-        mainMarkets = view.findViewById(R.id.main_markets);
+//        mainMarkets = view.findViewById(R.id.main_markets);
         bidHistory = view.findViewById(R.id.bid_history);
         recyclerview2 = view.findViewById(R.id.recyclerview2);
         delhiMarkets = view.findViewById(R.id.delhi_markets);
+        marqueeText = view.findViewById(R.id.marqueeText);
+        marqueeText.setSelected(true);
     }
 }

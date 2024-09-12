@@ -9,8 +9,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 
-public class BettingScreen extends AppCompatActivity {
+import com.tripleseven.android.dto.MarketDto;
 
+import java.util.Objects;
+
+public class BettingScreen extends AppCompatActivity {
     private RelativeLayout back;
     private latonormal balanceHome;
     private LinearLayout walletBlock;
@@ -26,6 +29,8 @@ public class BettingScreen extends AppCompatActivity {
     private latobold title;
     private latonormal game;
     String timing, type = "";
+    private MarketDto market;
+    private String session;
 
 
     @Override
@@ -34,13 +39,15 @@ public class BettingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_betting_screen);
         initViews();
 
+        this.market = (MarketDto) getIntent().getSerializableExtra("market");
+        this.session = getIntent().getStringExtra("session");
+
         red = getResources().getColor(R.color.red);
         white = getResources().getColor(R.color.background);
         font = getResources().getColor(R.color.black);
 
         TextView tx = findViewById(R.id.balance_home);
         tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
-
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,21 +56,12 @@ public class BettingScreen extends AppCompatActivity {
             }
         });
 
-        String bgame = getIntent().getStringExtra("game").replace("singlepatti","SP");
-        bgame = bgame.replace("doublepatti","DP");
-        bgame = bgame.replace("triplepatti","TP");
-        bgame = bgame.replace("single","Single");
-        bgame = bgame.replace("jodi","Jodi");
+        String gameName = getIntent().getStringExtra("game");
 
-        title.setText(bgame);
-        game.setText(getIntent().getStringExtra("market").replace("_"," "));
-        if (getIntent().hasExtra("timin")){
-            timing = getIntent().getStringExtra("timin");
-        }
-        if (getIntent().hasExtra("type")){
-            type = getIntent().getStringExtra("type");
-        }
-        if (getIntent().getStringExtra("game").equals("singlepatti") || getIntent().getStringExtra("game").equals("doublepatti")) {
+        title.setText(gameName);
+        game.setText(getMarketName());
+
+        if (gameName.equals("singlePanna") || gameName.equals("doublePanna")) {
             EasyBettingPanna easyBetting = new EasyBettingPanna();
             getSupportFragmentManager()
                     .beginTransaction()
@@ -83,7 +81,7 @@ public class BettingScreen extends AppCompatActivity {
             specialLine.setBackgroundColor(white);
             sepcialText.setTextColor(font);
 
-            if (getIntent().getStringExtra("game").equals("singlepatti") || getIntent().getStringExtra("game").equals("doublepatti")) {
+            if (gameName.equals("singlePanna") || gameName.equals("doublePanna")) {
                 EasyBettingPanna easyBetting = new EasyBettingPanna();
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -111,6 +109,15 @@ public class BettingScreen extends AppCompatActivity {
                     .replace(R.id.fragment_container, specialMode)
                     .commit();
         });
+    }
+
+    private String getMarketName() {
+        String session = getIntent().getStringExtra("session");
+        if (Objects.isNull(session) || Objects.requireNonNull(session).isEmpty()) {
+            return market.getName();
+        } else {
+            return market.getName() + " " + session.substring(0, 1).toUpperCase() + session.substring(1).toLowerCase();
+        }
     }
 
     private void initViews() {

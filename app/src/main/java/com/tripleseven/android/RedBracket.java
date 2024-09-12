@@ -54,7 +54,7 @@ public class RedBracket extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    adapterbetting adapterbetting;
+    AdapterBetItem adapterbetting;
     String market,game;
     ViewDialog progressDialog;
     String url;
@@ -80,7 +80,7 @@ public class RedBracket extends AppCompatActivity {
         prefs = getSharedPreferences(constant.prefs,MODE_PRIVATE);
         game = getIntent().getStringExtra("game");
         market = getIntent().getStringExtra("market");
-        numbers = getIntent().getStringArrayListExtra("list");
+        numbers = getIntent().getStringArrayListExtra("digits");
 
         if (!game.equals("jodi")){
             ArrayList<String> typeof = new ArrayList<>();

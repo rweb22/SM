@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class constant {
+    public static final String SPACE = " ";
     // DO NOT EDIT
     static String prefs = "codegente";
 
@@ -27,16 +28,21 @@ public class constant {
 
     // API FOLDER URL
     static String prefix = "https://samratmatka.com/";
-    static String prefix2 = "https://samratmatka.com/";
+    static String prefix2 = "http://10.0.2.2:5001/";
+
+    static String SUCCESS = "success";
+    static String ACTIVE = "active";
+    static String ONE = "1";
+    static String ZERO = "0";
 
     // APK DOWNLOAD LINK0938
     static String link = "https://samratmatka.com/admin/static/download/samrat.apk";
 
     // PROJECT ROOT URL
-    static String project_root = "https://samratmatka.com/";
+    static String project_root = "http://10.0.2.2:5001/";
 
     // PROJECT ROOT URL
-    static String admin_root = "https://samratmatka.com/admin/";
+    static String admin_root = "http://10.0.2.2:5001/admin/";
 
     // MIN AMOUNT ALLOWED IN TOTAL FOR BETTING
     static int min_total = 5;

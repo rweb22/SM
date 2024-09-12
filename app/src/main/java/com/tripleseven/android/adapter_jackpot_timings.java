@@ -67,7 +67,7 @@ class adapter_jackpot_timings extends RecyclerView.Adapter<adapter_jackpot_timin
                 public void onClick(View v) {
                     holder.single();
                     context.startActivity(new Intent(context, BettingScreen.class)
-                            .putExtra("market", market).putExtra("list", number)
+                            .putExtra("market", market).putExtra("digits", number)
                             .putExtra("game", "single")
                             .putExtra("timin",time.get(position))
                             .putExtra("type","jackpot")

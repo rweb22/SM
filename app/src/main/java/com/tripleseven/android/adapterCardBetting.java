@@ -59,8 +59,7 @@ class adapterCardBetting extends RecyclerView.Adapter<adapterCardBetting.ViewHol
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (s.toString().isEmpty() || s == null) {
+                if (s == null || s.toString().isEmpty()) {
                     list.set(position,"0");
                 } else if (Integer.parseInt(s.toString()) > 10000) {
                     holder.amount.setText("10000");

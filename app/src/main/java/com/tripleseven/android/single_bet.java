@@ -57,7 +57,7 @@ public class single_bet extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    adapterbetting adapterbetting;
+    AdapterBetItem adapterbetting;
     String market,game;
     ViewDialog progressDialog;
     String url;
@@ -79,7 +79,7 @@ public class single_bet extends AppCompatActivity {
         prefs = getSharedPreferences(constant.prefs,MODE_PRIVATE);
         game = getIntent().getStringExtra("game");
         market = getIntent().getStringExtra("market");
-        numbers = getIntent().getStringArrayListExtra("list");
+        numbers = getIntent().getStringArrayListExtra("digits");
 
         title.setText(market.replace("_",""));
 

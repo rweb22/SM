@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +130,7 @@ class adapter_result_delhi extends RecyclerView.Adapter<adapter_result_delhi.Vie
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context,games.class)
+                    context.startActivity(new Intent(context, MarketGames.class)
                             .putExtra("market",name.get(position))
                             .putExtra("is_open",is_open.get(position))
                             .putExtra("is_close",open_av.get(position))
@@ -200,7 +199,7 @@ class adapter_result_delhi extends RecyclerView.Adapter<adapter_result_delhi.Vie
                 holder.play_game.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        context.startActivity(new Intent(context,games.class)
+                        context.startActivity(new Intent(context, MarketGames.class)
                                 .putExtra("market",name.get(position))
                                 .putExtra("is_open",is_open.get(position))
                                 .putExtra("is_close",open_av.get(position))
@@ -212,7 +211,7 @@ class adapter_result_delhi extends RecyclerView.Adapter<adapter_result_delhi.Vie
                 holder.layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        context.startActivity(new Intent(context,games.class)
+                        context.startActivity(new Intent(context, MarketGames.class)
                                 .putExtra("market",name.get(position))
                                 .putExtra("is_open",is_open.get(position))
                                 .putExtra("is_close",open_av.get(position))

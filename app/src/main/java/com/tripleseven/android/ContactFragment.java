@@ -55,7 +55,7 @@ public class ContactFragment extends Fragment {
         view.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivity(new Intent(getActivity(), HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 getActivity().finish();
             }
         });
