@@ -33,6 +33,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
@@ -45,28 +47,23 @@ import java.util.Map;
 import java.util.Objects;
 
 public class EasyBettingPanna extends Fragment {
-
     TextView lastSelected;
-
     private RecyclerView recyclerview;
-    private EditText totalamount;
+    private EditText totalAmount;
     private latobold submit;
-
     ArrayList<TextView> tab = new ArrayList<>();
     ArrayList<String> numbers = new ArrayList<>();
     ArrayList<String> AllNumbers = new ArrayList<>();
-
     SharedPreferences prefs;
     ArrayList<String> amountList;
     ArrayList<String> digits = new ArrayList<>();
-    AdapterBetItem2 adapterbetting;
-    String game;
+    AdapterBetItem2 adapterBetItem;
+    GameOption game;
     MarketDto market;
     String url;
     int total = 0;
     ArrayList<String> fillNumber = new ArrayList<>();
     ArrayList<String> fillAmount = new ArrayList<>();
-    ArrayList<Item> betItems = new ArrayList<>();
 
     String numb, amou;
     private LinearLayout tabs;
@@ -75,7 +72,7 @@ public class EasyBettingPanna extends Fragment {
 
     public static class Item {
         public String number1;
-        public String number2;
+        public String gameType;
         public String amount;
     }
 
@@ -95,8 +92,7 @@ public class EasyBettingPanna extends Fragment {
         url = constant.prefix2 + getString(R.string.bet);
 
         prefs = requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE);
-
-        game = requireActivity().getIntent().getStringExtra("game");
+        game = GameOption.valueOf(requireActivity().getIntent().getStringExtra("game"));
         market = (MarketDto) requireActivity().getIntent().getSerializableExtra("market");
         digits = requireActivity().getIntent().getStringArrayListExtra("digits");
         session = requireActivity().getIntent().getStringExtra("session");
@@ -126,7 +122,8 @@ public class EasyBettingPanna extends Fragment {
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                amountList = adapterbetting.getAmountList();
+                amountList = adapterBetItem.getAmountList();
+                System.out.println("Number in Easy Betting Pana");
                 for (int a = 0; a < amountList.size(); a++) {
                     if (!amountList.get(a).equals("0")){
                         if (fillNumber.contains(numbers.get(a))) {
@@ -145,7 +142,7 @@ public class EasyBettingPanna extends Fragment {
                 for (int a = 0; a < fillAmount.size(); a++) {
                     total = total + Integer.parseInt(fillAmount.get(a));
                 }
-                totalamount.setText(total + "");
+                totalAmount.setText(total + "");
             }
         };
 
@@ -153,8 +150,8 @@ public class EasyBettingPanna extends Fragment {
         getActivity().registerReceiver(mReceiver, intentFilter);
 
         recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerview.setAdapter(adapterbetting);
-        adapterbetting.notifyDataSetChanged();
+        recyclerview.setAdapter(adapterBetItem);
+        adapterBetItem.notifyDataSetChanged();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,9 +175,6 @@ public class EasyBettingPanna extends Fragment {
                 } else if (total <= (Integer.parseInt(prefs.getString("wallet", "0")) + Integer.parseInt(prefs.getString("winning", "0")) + Integer.parseInt(prefs.getString("bonus", "0")))) {
                     for (int a = 0; a < amountList.size(); a++) {
                         if (!amountList.get(a).equals("0") && Integer.parseInt(amountList.get(a)) < constant.min_single || Integer.parseInt(amountList.get(a)) > constant.max_single) {
-//                            fillamount.clear();
-//                            fillnumber.clear();
-
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                             builder1.setMessage("You can only bet between " + constant.min_single + " coins to " + constant.max_single + " coins");
                             builder1.setCancelable(true);
@@ -222,18 +216,8 @@ public class EasyBettingPanna extends Fragment {
                     total_bid.setText(fillNumber.size() + "");
                     total_amount.setText(total + "");
 
-                    String type = "";
-
-                    String session = getActivity().getIntent().getStringExtra("session");
-                    if (session.contains("OPEN")) {
-                        type = "Open";
-                    } else if (session.contains("CLOSE")) {
-                        type = "Close";
-                    } else {
-                        type = "N/A";
-                    }
-
-                    AdapterSingleGamesConfirm adapterSingleGamesConfirm = new AdapterSingleGamesConfirm(getActivity(), fillNumber, fillAmount, type);
+                    AdapterSingleGamesConfirm adapterSingleGamesConfirm = new AdapterSingleGamesConfirm(getActivity(), fillNumber, fillAmount,
+                            GameOption.toGameType(game).getDisplayName());
                     recycler.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     recycler.setAdapter(adapterSingleGamesConfirm);
 
@@ -307,14 +291,13 @@ public class EasyBettingPanna extends Fragment {
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
                             if (jsonObject1.getString("active").equals("0")) {
-                                Toast.makeText(getActivity(), "Your account temporarily disabled by admin", Toast.LENGTH_SHORT).show();
-
-                                getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).edit().clear().apply();
+                                Toast.makeText(getActivity(), getString(R.string.ACCOUNT_DISABLE_ALERT), Toast.LENGTH_SHORT).show();
+                                requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).edit().clear().apply();
                                 Intent in = new Intent(getActivity(), signup.class);
                                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(in);
-                                getActivity().finish();
+                                requireActivity().finish();
                             }
 
 
@@ -357,7 +340,7 @@ public class EasyBettingPanna extends Fragment {
                                         in.putExtra("is_close", constant.is_close);
                                         in.putExtra("market_type", constant.market_type);
                                         startActivity(in);
-                                        getActivity().finish();
+                                        requireActivity().finish();
                                     }
                                 });
                                 alert11.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -377,7 +360,6 @@ public class EasyBettingPanna extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         error.printStackTrace();
                         progressDialog.hideDialog();
                         Toast.makeText(getActivity(), getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
@@ -388,10 +370,12 @@ public class EasyBettingPanna extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
+                ArrayList<Item> betItems = new ArrayList<>();
                 for(int i=0; i < fillNumber.size(); i++) {
                     Item item = new Item();
                     item.number1 = fillNumber.get(i);
                     item.amount = fillAmount.get(i);
+                    item.gameType = GameOption.toGameType(game).getId();
                     betItems.add(item);
                 }
 
@@ -401,12 +385,13 @@ public class EasyBettingPanna extends Fragment {
                 params.put("items", betItemsString);
                 params.put("market_id", market.getMarketId());
                 params.put("market_name", market.getName());
-                params.put("game_display_name", getMarketName());
                 params.put("total",total+"");
-                params.put("game", game);
+                params.put("game_option", game.getId());
                 params.put("game_session", session);
                 params.put("mobile", prefs.getString("mobile",null));
                 params.put("session", requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
+
+                System.out.println(params.toString());
                 return params;
             }
         };
@@ -427,9 +412,9 @@ public class EasyBettingPanna extends Fragment {
         numbers = new ArrayList<>(AllNumbers);
         numbers.retainAll(getGroup(textView.getText().toString()));
 
-        adapterbetting = new AdapterBetItem2(getActivity(), numbers, fillNumber, fillAmount);
-        recyclerview.setAdapter(adapterbetting);
-        adapterbetting.notifyDataSetChanged();
+        adapterBetItem = new AdapterBetItem2(getActivity(), numbers, fillNumber, fillAmount);
+        recyclerview.setAdapter(adapterBetItem);
+        adapterBetItem.notifyDataSetChanged();
     }
 
 
@@ -475,7 +460,7 @@ public class EasyBettingPanna extends Fragment {
 
     private void initViews(View view) {
         recyclerview = view.findViewById(R.id.recyclerview);
-        totalamount = view.findViewById(R.id.totalamount);
+        totalAmount = view.findViewById(R.id.totalamount);
         submit = view.findViewById(R.id.submit);
         tabs = view.findViewById(R.id.tabs);
     }

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +30,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
@@ -46,53 +48,32 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SpMotor extends AppCompatActivity {
-
     ArrayList<String> singlePatti = new ArrayList<>();
     ArrayList<String> doublePatti = new ArrayList<>();
     ArrayList<String> triplePatti = new ArrayList<>();
     ArrayList<ArrayList<String>> families = new ArrayList<>();
     HashMap<String, ArrayList<String>> cycles = new HashMap<>();
-
-    ArrayList<String> temp_numbers = new ArrayList<>();
-    ArrayList<String> temp_types = new ArrayList<>();
-
-    String market_type = "";
-    ArrayList<String> numberX = new ArrayList<>();
-    private RelativeLayout back;
     private EditText number;
     private EditText amount;
     private latobold add;
     private RecyclerView recyclerview;
-    private EditText totalamount;
+    private EditText totalAmount;
     private latobold submit;
-
     String value = "";
-    String open_av = "0";
-    String gamess = "";
-
     SharedPreferences prefs;
-    ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    AdapterBetItem adapterbetting;
-    String game;
+    GameOption game;
     MarketDto market;
     ViewDialog progressDialog;
     String url;
     int total = 0;
-    ArrayList<String> fillnumber = new ArrayList<>();
-    ArrayList<String> fillamount = new ArrayList<>();
-    ArrayList<String> fillmarket = new ArrayList<>();
-    ArrayList<String> fillgames = new ArrayList<>();
-    String numb, amou, types, timing = "";
-    private latonormal balanceHome;
-    private LinearLayout walletBlock;
-    private RelativeLayout toolbar;
-    private Spinner type;
+    ArrayList<String> fillNumbers = new ArrayList<>();
+    ArrayList<String> fillAmounts = new ArrayList<>();
+    ArrayList<GameType> fillGameTypes = new ArrayList<>();
     private CheckBox singlePanna;
     private CheckBox doublePanna;
     private CheckBox triplePanna;
-    private LinearLayout spdptpPanel;
-    private NestedScrollView scrollView;
+    private LinearLayout spDpTpPanel;
     private EditText firstDigit;
     private EditText secondDigit;
     private EditText thirdDigit;
@@ -101,7 +82,8 @@ public class SpMotor extends AppCompatActivity {
     private LinearLayout enterPanel;
     private Spinner oddEven;
     private Spinner redBracket;
-    private latonormal title;
+    private latobold title;
+    private latonormal sessionText;
     private CheckBox spCheckbox;
     private CheckBox dpCheckbox;
     private CheckBox tpCheckbox;
@@ -121,148 +103,150 @@ public class SpMotor extends AppCompatActivity {
         doublePatti = doublepatti();
         triplePatti = triplepatti();
 
-        if (getIntent().hasExtra("market_type")) {
-            market_type = getIntent().getStringExtra("market_type");
-        }
-
         prefs = getSharedPreferences(constant.prefs, MODE_PRIVATE);
-        game = getIntent().getStringExtra("game");
+        game = GameOption.valueOf(getIntent().getStringExtra("game"));
         market = (MarketDto) getIntent().getSerializableExtra("market");
         numbers = getIntent().getStringArrayListExtra("digits");
         session = getIntent().getStringExtra("session");
 
-        title.setText(market.getName());
+        title.setText(game.getDisplayName());
+        sessionText.setText(getMarketName());
 
-        if (game.equals("groupJodi")) {
+        if (game.equals(GameOption.GROUP_JODI)) {
             JodiFamily();
         } else {
             family();
         }
 
-        if (game.equals("spDpTp")) {
-            spdptpPanel.setVisibility(View.VISIBLE);
+        switch (game) {
+            case SP_DP_TP:
+                spDpTpPanel.setVisibility(View.VISIBLE);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single) {
+                            amount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
+                        }
 
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single) {
-                        amount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
-                    }
+                        if (singlePanna.isChecked()) {
+                            for (int a = 0; a < singlePatti.size(); a++) {
 
-                    if (singlePanna.isChecked()){
-                        for (int a = 0; a < singlePatti.size(); a++) {
+                                int numberx = 0;
+                                String comapre = "";
 
-                            int numberx = 0;
-                            String comapre = "";
+                                for (int i = 0; i < singlePatti.get(a).length(); i++) {
+                                    numberx += Integer.parseInt(String.valueOf(singlePatti.get(a).charAt(i)));
+                                }
 
-                            for (int i = 0; i < singlePatti.get(a).length(); i++) {
-                                numberx += Integer.parseInt(String.valueOf(singlePatti.get(a).charAt(i)));
-                            }
+                                if (numberx > 9) {
+                                    comapre = String.valueOf(String.valueOf(numberx).charAt(1));
+                                } else {
+                                    comapre = String.valueOf(numberx);
+                                }
 
-                            if (numberx > 9) {
-                                comapre = String.valueOf(String.valueOf(numberx).charAt(1));
-                            } else {
-                                comapre = String.valueOf(numberx);
-                            }
-
-                            if (comapre.equals(number.getText().toString())) {
-                                fillnumber.add(singlePatti.get(a));
-                                fillamount.add(amount.getText().toString());
-                                fillmarket.add(market_type);
+                                if (comapre.equals(number.getText().toString())) {
+                                    fillNumbers.add(singlePatti.get(a));
+                                    fillAmounts.add(amount.getText().toString());
+                                    fillGameTypes.add(GameType.SP);
+                                }
                             }
                         }
-                    }
 
-                    if (doublePanna.isChecked()){
-                        for (int a = 0; a < doublePatti.size(); a++) {
+                        if (doublePanna.isChecked()) {
+                            for (int a = 0; a < doublePatti.size(); a++) {
 
-                            int numberx = 0;
-                            String comapre = "";
+                                int numberx = 0;
+                                String comapre = "";
 
-                            for (int i = 0; i < doublePatti.get(a).length(); i++) {
-                                numberx += Integer.parseInt(String.valueOf(doublePatti.get(a).charAt(i)));
-                            }
+                                for (int i = 0; i < doublePatti.get(a).length(); i++) {
+                                    numberx += Integer.parseInt(String.valueOf(doublePatti.get(a).charAt(i)));
+                                }
 
-                            if (numberx > 9) {
-                                comapre = String.valueOf(String.valueOf(numberx).charAt(1));
-                            } else {
-                                comapre = String.valueOf(numberx);
-                            }
+                                if (numberx > 9) {
+                                    comapre = String.valueOf(String.valueOf(numberx).charAt(1));
+                                } else {
+                                    comapre = String.valueOf(numberx);
+                                }
 
-                            if (comapre.equals(number.getText().toString())) {
-                                fillnumber.add(doublePatti.get(a));
-                                fillamount.add(amount.getText().toString());
-                                fillmarket.add(market_type);
-                            }
-                        }
-                    }
-
-                    if (triplePanna.isChecked()){
-                        for (int a = 0; a < triplePatti.size(); a++) {
-
-                            int numberx = 0;
-                            String comapre = "";
-
-                            for (int i = 0; i < triplePatti.get(a).length(); i++) {
-                                numberx += Integer.parseInt(String.valueOf(triplePatti.get(a).charAt(i)));
-                            }
-
-                            if (numberx > 9) {
-                                comapre = String.valueOf(String.valueOf(numberx).charAt(1));
-                            } else {
-                                comapre = String.valueOf(numberx);
-                            }
-
-                            if (comapre.equals(number.getText().toString())) {
-                                fillnumber.add(triplePatti.get(a));
-                                fillamount.add(amount.getText().toString());
-                                fillmarket.add(market_type);
+                                if (comapre.equals(number.getText().toString())) {
+                                    fillNumbers.add(doublePatti.get(a));
+                                    fillAmounts.add(amount.getText().toString());
+                                    fillGameTypes.add(GameType.DP);
+                                }
                             }
                         }
+
+                        if (triplePanna.isChecked()) {
+                            for (int a = 0; a < triplePatti.size(); a++) {
+
+                                int numberx = 0;
+                                String comapre = "";
+
+                                for (int i = 0; i < triplePatti.get(a).length(); i++) {
+                                    numberx += Integer.parseInt(String.valueOf(triplePatti.get(a).charAt(i)));
+                                }
+
+                                if (numberx > 9) {
+                                    comapre = String.valueOf(String.valueOf(numberx).charAt(1));
+                                } else {
+                                    comapre = String.valueOf(numberx);
+                                }
+
+                                if (comapre.equals(number.getText().toString())) {
+                                    fillNumbers.add(triplePatti.get(a));
+                                    fillAmounts.add(amount.getText().toString());
+                                    fillGameTypes.add(GameType.TP);
+                                }
+                            }
+                        }
+
+                        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
+                        recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
+                        recyclerview.setAdapter(rc);
+                        number.setText(value);
+
+                        if (!amount.getText().toString().isEmpty()) {
+                            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
+                        }
                     }
+                });
+                break;
+            case PANEL_GROUP:
+                family();
+                break;
+            case CHOICE_PANA:
+                enterPanel.setVisibility(View.GONE);
+                choicePanna.setVisibility(View.VISIBLE);
 
-                    AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
-                    recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
-                    recyclerview.setAdapter(rc);
-                    number.setText(value);
+                break;
+            case ODD_EVEN: {
 
-                    if (!amount.getText().toString().isEmpty()) {
-                        totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
-                    }
-                }
-            });
+                ArrayList<String> typeof = new ArrayList<>();
 
+                typeof.add("Odd");
+                typeof.add("Even");
 
-        } else if (game.equals("panelGroup")) {
-            family();
-        } else if (game.equals("choicePanna")) {
-            enterPanel.setVisibility(View.GONE);
-            choicePanna.setVisibility(View.VISIBLE);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SpMotor.this, R.layout.simple_list_item_2, typeof);
+                oddEven.setAdapter(arrayAdapter);
+                number.setVisibility(View.GONE);
+                oddEven.setVisibility(View.VISIBLE);
 
-        } else if (game.equals("oddEven")) {
+                break;
+            }
+            case RED_BRACKET: {
 
-            ArrayList<String> typeof = new ArrayList<>();
+                ArrayList<String> typeof = new ArrayList<>();
 
-            typeof.add("Odd");
-            typeof.add("Even");
+                typeof.add("Half Bracket");
+                typeof.add("Full Bracket");
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SpMotor.this, R.layout.simple_list_item_2, typeof);
-            oddEven.setAdapter(arrayAdapter);
-            number.setVisibility(View.GONE);
-            oddEven.setVisibility(View.VISIBLE);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SpMotor.this, R.layout.simple_list_item_2, typeof);
+                redBracket.setAdapter(arrayAdapter);
+                number.setVisibility(View.GONE);
+                redBracket.setVisibility(View.VISIBLE);
 
-        } else if (game.equals("redBracket")) {
-
-            ArrayList<String> typeof = new ArrayList<>();
-
-            typeof.add("Half Bracket");
-            typeof.add("Full Bracket");
-
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SpMotor.this, R.layout.simple_list_item_2, typeof);
-            redBracket.setAdapter(arrayAdapter);
-            number.setVisibility(View.GONE);
-            redBracket.setVisibility(View.VISIBLE);
-
+                break;
+            }
         }
 
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -270,59 +254,70 @@ public class SpMotor extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 String num = intent.getStringExtra("number");
+                System.out.println("Number :" + num);
+                System.out.println(fillNumbers.toString() + " - " + fillAmounts.toString() + " - " + fillGameTypes.toString());
+
+                if (fillNumbers.isEmpty()) {
+                    return;
+                }
                 if (num != null) {
-                    fillamount.remove(Integer.parseInt(num));
-                    fillnumber.remove(Integer.parseInt(num));
-                    fillmarket.remove(Integer.parseInt(num));
+                    fillAmounts.remove(Integer.parseInt(num));
+                    fillNumbers.remove(Integer.parseInt(num));
+                    fillGameTypes.remove(Integer.parseInt(num));
                 }
 
-                AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+                AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
                 recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
                 recyclerview.setAdapter(rc);
                 rc.notifyDataSetChanged();
 
 
                 total = 0;
-                for (int a = 0; a < fillamount.size(); a++) {
-                    total = total + Integer.parseInt(fillamount.get(a));
+                for (int a = 0; a < fillAmounts.size(); a++) {
+                    total = total + Integer.parseInt(fillAmounts.get(a));
                 }
-                totalamount.setText(total + "");
+                totalAmount.setText(total + "");
             }
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
         registerReceiver(mReceiver, intentFilter);
 
-        if (!game.equals("spDpTp")){
+        if (!game.equals(GameOption.SP_DP_TP)){
             add.setOnClickListener(v -> {
-                if (!game.equals("choicePanna") && (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single)) {
+                if (!game.equals(GameOption.CHOICE_PANA) && (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single)) {
                     amount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
                 } else {
                     switch (game) {
-                        case "groupJodi":
-                           // get2DCombinations(number.getText().toString());
-                            if(number.getText().length()<2){
-                                number.setError("Enter at least two digits");
-                            }else if(number.getText().length()>7){
-                            number.setError("Enter 7 Digit Only");
-                        } else{
-                            characterCountFamily(number.getText().toString());}
+                        case GROUP_JODI:
+                            if ("TWO_DIGIT".equalsIgnoreCase(market.getType())) {
+                                //Logic for 2D markets
+                                if (number.getText().length() < 2) {
+                                    number.setError("Enter at least two digits");
+                                } else if (number.getText().length() > 7) {
+                                    number.setError("Enter 7 Digit Only");
+                                } else {
+                                    characterCountJodiCrossingFamily(number.getText().toString());
+                                }
+                            } else {
+                                if (number.getText().length() != 2) {
+                                    number.setError("Enter a valid Jodi");
+                                } else {
+                                    characterCountFamily(number.getText().toString());
+                                }
+                            }
                             break;
-                        case "panelGroup":
+                        case PANEL_GROUP:
                             characterCountFamily(number.getText().toString());
                             break;
-                        case "twoDigitPanel":
+                        case TWO_D_PANEL:
                             characterCountCycle(number.getText().toString());
                             break;
-                        case "choicePanna":
+                        case CHOICE_PANA:
                             if (choiceAmount.getText().toString().isEmpty() || Integer.parseInt(choiceAmount.getText().toString()) < constant.min_single) {
                                 choiceAmount.setError("Enter amount between " + constant.min_single + " - " + constant.max_single);
                                 return;
                             }
-//                            if (!firstDigit.getText().toString().isEmpty()) {
-//                                characterCountChoice(number.getText().toString());
-//                                return;
-//                            }
 
                             String getPan = "";
                             if (!firstDigit.getText().toString().isEmpty()) {
@@ -348,17 +343,17 @@ public class SpMotor extends AppCompatActivity {
                                 characterCountChoice(getPan);
                             }
                             break;
-                        case "oddEven":
+                        case ODD_EVEN:
                             oddEven();
                             break;
-                        case "spMotor":
-                        case "dpMotor":
+                        case SP_MOTOR:
+                        case DP_MOTOR:
                             if (number.getText().toString().length() < 3) {
-                                number.setError("Number should be atleast 3 digit long");
+                                number.setError("Number should be least 3 digit long");
                             }
                             characterCount(number.getText().toString());
                             break;
-                        case "redBracket":
+                        case RED_BRACKET:
                             red_bracket();
                             break;
                         default:
@@ -371,32 +366,32 @@ public class SpMotor extends AppCompatActivity {
 
         submit.setOnClickListener(v -> {
 
-            fillgames.clear();
+//            fillGameTypes.clear();
+//
+//            for (int a = 0; a < fillNumbers.size(); a++) {
+//                String numm = fillNumbers.get(a);
+//                if (numm.length() == 1) {
+//                    fillGameTypes.add("SINGLE");
+//                } else if (numm.length() == 2) {
+//                    fillGameTypes.add("JODI");
+//                } else if (numm.length() == 3) {
+//                    if (singlePatti.contains(numm)) {
+//                        fillGameTypes.add("SINGLE_PANA");
+//                    } else if (doublePatti.contains(numm)) {
+//                        fillGameTypes.add("DOUBLE_PANA");
+//                    } else if (triplePatti.contains(numm)) {
+//                        fillGameTypes.add("TRIPLE_PANA");
+//                    }
+//                }
+//
+//            }
 
-            for (int a = 0; a < fillnumber.size(); a++) {
-                String numm = fillnumber.get(a);
-                if (numm.length() == 1) {
-                    fillgames.add("SINGLE");
-                } else if (numm.length() == 2) {
-                    fillgames.add("JODI");
-                } else if (numm.length() == 3) {
-                    if (singlePatti.contains(numm)) {
-                        fillgames.add("SINGLE_PANA");
-                    } else if (doublePatti.contains(numm)) {
-                        fillgames.add("DOUBLE_PANA");
-                    } else if (triplePatti.contains(numm)) {
-                        fillgames.add("TRIPLE_PANA");
-                    }
-                }
-
-            }
-
-            if (fillnumber.size() > 0) {
-                if (total <= Integer.parseInt(prefs.getString("wallet", null))) {
+            if (fillNumbers.size() > 0) {
+                if (total <= Integer.parseInt(prefs.getString("wallet", "0"))) {
                     apicall();
                 } else {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(SpMotor.this);
-                    builder1.setMessage("You don't have enough wallet balance to place this bet, Recharge your wallet to play");
+                    builder1.setMessage(getString(R.string.insufficient_balance));
                     builder1.setCancelable(true);
                     builder1.setNegativeButton(
                             "Close",
@@ -415,180 +410,186 @@ public class SpMotor extends AppCompatActivity {
 
     }
 
+    private String getMarketName() {
+        if (session == null || session.isEmpty()) {
+            return market.getName();
+        } else {
+            return market.getName() + " " + session.substring(0, 1).toUpperCase() + session.substring(1).toLowerCase();
+        }
+    }
+
     public void oddEven() {
         if (oddEven.getSelectedItem().toString().equals("Odd")) {
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("1");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("1");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("3");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("3");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("5");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("5");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("7");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("7");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("9");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("9");
+            fillGameTypes.add(GameType.SINGLE);
         } else {
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("0");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("0");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("2");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("2");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("4");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("4");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("6");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("6");
+            fillGameTypes.add(GameType.SINGLE);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("8");
-            fillmarket.add(market_type);
-
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("8");
+            fillGameTypes.add(GameType.SINGLE);
         }
-        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc);
         number.setText(value);
 
         if (!amount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
     public void red_bracket() {
         if (redBracket.getSelectedItem().toString().equals("Half Bracket")) {
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("05");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("05");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("16");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("16");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("27");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("27");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("38");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("38");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("49");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("49");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("50");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("50");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("61");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("61");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("72");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("72");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("83");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("83");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("94");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("94");
+            fillGameTypes.add(GameType.JODI);
         } else {
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("00");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("00");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("11");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("11");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("22");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("22");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("33");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("33");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("44");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("44");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("55");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("55");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("66");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("66");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("77");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("77");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("88");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("88");
+            fillGameTypes.add(GameType.JODI);
 
-            fillamount.add(amount.getText().toString());
-            fillnumber.add("99");
-            fillmarket.add(market_type);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add("99");
+            fillGameTypes.add(GameType.JODI);
 
         }
-        AdapterSingleGames rc2 = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+        AdapterSingleGames rc2 = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc2);
         number.setText(value);
 
         if (!amount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
 
     public void characterCountCycle(String inputString) {
-
         if (cycles.get(inputString) != null) {
             for (int ab = 0; ab < cycles.get(inputString).size(); ab++) {
                 String number = cycles.get(inputString).get(ab);
 
-                fillamount.add(amount.getText().toString());
-                fillnumber.add(number);
-                fillmarket.add(market_type);
-//                if (number_sp.contains(number)) {
-//                    games.add("singlepatti");
-//                } else if (number_dp.contains(number)) {
-//                    games.add("doublepatti");
-//                } else if (number_tp.contains(number)) {
-//                    games.add("triplepatti");
-//                }
+                fillAmounts.add(amount.getText().toString());
+                fillNumbers.add(number);
+                if (singlePatti.contains(number)) {
+                    fillGameTypes.add(GameType.SP);
+                } else if (doublePatti.contains(number)) {
+                    fillGameTypes.add(GameType.DP);
+                } else if (triplePatti.contains(number)) {
+                    fillGameTypes.add(GameType.TP);
+                }
             }
         }
 
 
-        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc);
         number.setText(value);
 
         if (!amount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
@@ -627,9 +628,9 @@ public class SpMotor extends AppCompatActivity {
                     continue;
                 }
 
-                fillnumber.add(singlePatti.get(a));
-                fillamount.add(choiceAmount.getText().toString());
-                fillmarket.add(market_type);
+                fillNumbers.add(singlePatti.get(a));
+                fillAmounts.add(choiceAmount.getText().toString());
+                fillGameTypes.add(GameType.SP);
             }
         }
 
@@ -646,9 +647,9 @@ public class SpMotor extends AppCompatActivity {
                     continue;
                 }
 
-                fillnumber.add(doublePatti.get(a));
-                fillamount.add(choiceAmount.getText().toString());
-                fillmarket.add(market_type);
+                fillNumbers.add(doublePatti.get(a));
+                fillAmounts.add(choiceAmount.getText().toString());
+                fillGameTypes.add(GameType.DP);
             }
         }
 
@@ -665,20 +666,20 @@ public class SpMotor extends AppCompatActivity {
                     continue;
                 }
 
-                fillnumber.add(triplePatti.get(a));
-                fillamount.add(choiceAmount.getText().toString());
-                fillmarket.add(market_type);
+                fillNumbers.add(triplePatti.get(a));
+                fillAmounts.add(choiceAmount.getText().toString());
+                fillGameTypes.add(GameType.TP);
             }
         }
 
 
-        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc);
         number.setText(value);
 
         if (!choiceAmount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(choiceAmount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(choiceAmount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
@@ -710,43 +711,69 @@ public class SpMotor extends AppCompatActivity {
         return result;
     }
 
+    public void characterCountJodiCrossingFamily(String inputString) {
+        ArrayList<String> list =new ArrayList<>();
+        list.addAll(findTwoDigitCombinations(inputString));
 
-    public void characterCountFamily(String inputString) {
-
-        ArrayList<String> list =new ArrayList<>(); //Creation of ArrayList
-        list.addAll(findTwoDigitCombinations(inputString)); //HashSet to ArrayList
-
-
-        System.out.println("I am from ArrayList "+list);
-           //   ArrayList listt = (ArrayList) get2DCombinations(inputString);
         for (int a = 0; a < list.size(); a++) {
-//            if (list.get(a).contains(inputString)) {
-//                for (int ab = 0; ab < list.get(a).size(); ab++) {
-                   String number = list.get(a);
+            String number = list.get(a);
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add(number);
+            fillGameTypes.add(GameType.JODI);
+        }
 
-                    fillamount.add(amount.getText().toString());
-                    fillnumber.add(number);
-                    fillmarket.add(market_type);
-
-//                    if (number_sp.contains(number)) {
-//                        games.add("singlepatti");
-//                    } else if (number_dp.contains(number)) {
-//                        games.add("doublepatti");
-//                    } else if (number_tp.contains(number)) {
-//                        games.add("triplepatti");
-//                    }
-                }
-
-
-
-
-        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc);
         number.setText(value);
 
         if (!amount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
+        }
+    }
+
+    public void characterCountFamily(String inputString) {
+        ArrayList<String> list =new ArrayList<>();
+        //list.addAll(findTwoDigitCombinations(inputString));
+        for(int i=0; i < families.size(); i++) {
+            if (families.get(i).contains(inputString)) {
+                list.addAll(families.get(i));
+            }
+        }
+
+        for (int a = 0; a < list.size(); a++) {
+            String number = list.get(a);
+
+            GameType gameType;
+            if (number.length() > 2) {
+                HashSet<Character> charSet = new HashSet<>();
+                for(char c : number.toCharArray()) {
+                    charSet.add(c);
+                }
+
+                if (charSet.size() == 1) {
+                    gameType = GameType.TP;
+                } else if (charSet.size() == 2) {
+                    gameType = GameType.DP;
+                } else {
+                    gameType = GameType.SP;
+                }
+            } else {
+                gameType = GameType.JODI;
+            }
+
+            fillAmounts.add(amount.getText().toString());
+            fillNumbers.add(number);
+            fillGameTypes.add(gameType);
+        }
+
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
+        recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
+        recyclerview.setAdapter(rc);
+        number.setText(value);
+
+        if (!amount.getText().toString().isEmpty()) {
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
@@ -776,19 +803,19 @@ public class SpMotor extends AppCompatActivity {
             for (int i = 0; i < value.length(); i++) {
                 String nd = value.charAt(a) + "" + value.charAt(i) + "";
 
-                fillamount.add(amount.getText().toString());
-                fillnumber.add(nd);
-                fillmarket.add(market_type);
+                fillAmounts.add(amount.getText().toString());
+                fillNumbers.add(nd);
+                fillGameTypes.add(GameType.JODI);
             }
         }
 
-        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc);
         number.setText(value);
 
         if (!amount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
@@ -818,21 +845,21 @@ public class SpMotor extends AppCompatActivity {
                     String nd = value.charAt(a) + "" + value.charAt(i) + "" + value.charAt(ia) + "";
                     Log.e("nd", nd);
                     if (numbers.contains(nd)) {
-                        fillamount.add(amount.getText().toString());
-                        fillnumber.add(nd);
-                        fillmarket.add(market_type);
+                        fillAmounts.add(amount.getText().toString());
+                        fillNumbers.add(nd);
+                        fillGameTypes.add(GameOption.toGameType(game));
                     }
                 }
             }
         }
 
-        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillnumber, fillamount, fillmarket);
+        AdapterSingleGames rc = new AdapterSingleGames(SpMotor.this, fillNumbers, fillAmounts, fillGameTypes);
         recyclerview.setLayoutManager(new GridLayoutManager(SpMotor.this, 1));
         recyclerview.setAdapter(rc);
         number.setText(value);
 
         if (!amount.getText().toString().isEmpty()) {
-            totalamount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillamount.size())));
+            totalAmount.setText("" + (Integer.parseInt(amount.getText().toString()) * (fillAmounts.size())));
         }
     }
 
@@ -886,7 +913,7 @@ public class SpMotor extends AppCompatActivity {
 
                             TextView close = v.findViewById(R.id.close);
                             TextView msgView = v.findViewById(R.id.msg);
-                            msgView.setText("Your bet placed successfully");
+                            msgView.setText(getString(R.string.bet_placed));
 
                             builder1.setView(v);
                             builder1.setCancelable(false);
@@ -935,24 +962,37 @@ public class SpMotor extends AppCompatActivity {
                 error -> {
                     error.printStackTrace();
                     progressDialog.hideDialog();
-                    Toast.makeText(SpMotor.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SpMotor.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("number", numb);
-                params.put("amount", amou);
-                params.put("bazar", market.getName());
-                params.put("total", total + "");
-                params.put("games", gamess);
-                params.put("mobile", prefs.getString("mobile", null));
-                //  params.put("types", types);
-                if (!timing.equals("")) {
-                    params.put("timing", timing);
+                List<HalfSangam.Item> betItems = new ArrayList<>();
+
+                for(int i = 0; i < fillNumbers.size(); i++) {
+                    HalfSangam.Item item = new HalfSangam.Item();
+                    item.number1 = fillNumbers.get(i);
+                    item.amount = fillAmounts.get(i);
+                    item.gameType = fillGameTypes.get(i).getId();
+
+                    betItems.add(item);
                 }
+
+                Gson gson = new Gson();
+                String betItemsString = gson.toJson(betItems);
+
+                params.put("items", betItemsString);
+                params.put("market_id", market.getMarketId());
+                params.put("market_name", market.getName());
+                params.put("total", totalAmount.getText().toString());
+                params.put("game_option", game.getId());
+                params.put("game_session", session);
+                params.put("mobile", prefs.getString("mobile", null));
                 params.put("session", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
+
+                System.out.println(params.toString());
                 return params;
             }
         };
@@ -1671,33 +1711,33 @@ public class SpMotor extends AppCompatActivity {
 
 
     private void initViews() {
-        back = findViewById(R.id.back);
+        RelativeLayout backButton = findViewById(R.id.back);
         number = findViewById(R.id.number);
         amount = findViewById(R.id.amount2);
         add = findViewById(R.id.add);
         recyclerview = findViewById(R.id.recyclerview);
-        totalamount = findViewById(R.id.totalamount);
+        totalAmount = findViewById(R.id.totalamount);
         submit = findViewById(R.id.submit);
 
-        back.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        balanceHome = findViewById(R.id.balance_home);
+        latonormal balanceHome = findViewById(R.id.balance_home);
 
         TextView tx = findViewById(R.id.balance_home);
         tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
 
-        walletBlock = findViewById(R.id.wallet_block);
-        toolbar = findViewById(R.id.toolbar);
-        type = findViewById(R.id.type);
+        LinearLayout walletBlock = findViewById(R.id.wallet_block);
+        RelativeLayout toolbar = findViewById(R.id.toolbar);
+        Spinner type = findViewById(R.id.type);
         singlePanna = findViewById(R.id.single_panna);
         doublePanna = findViewById(R.id.double_panna);
         triplePanna = findViewById(R.id.triple_panna);
-        spdptpPanel = findViewById(R.id.spdptp_panel);
-        scrollView = findViewById(R.id.scrollView);
+        spDpTpPanel = findViewById(R.id.spdptp_panel);
+        NestedScrollView scrollView = findViewById(R.id.scrollView);
         firstDigit = findViewById(R.id.first_digit);
         secondDigit = findViewById(R.id.second_digit);
         thirdDigit = findViewById(R.id.third_digit);
@@ -1707,6 +1747,7 @@ public class SpMotor extends AppCompatActivity {
         oddEven = findViewById(R.id.odd_even);
         redBracket = findViewById(R.id.red_bracket);
         title = findViewById(R.id.title);
+        sessionText = findViewById(R.id.session);
         spCheckbox = findViewById(R.id.sp_checkbox);
         dpCheckbox = findViewById(R.id.dp_checkbox);
         tpCheckbox = findViewById(R.id.tp_checkbox);

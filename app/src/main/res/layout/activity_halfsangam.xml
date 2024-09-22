@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
-    tools:context=".halfsangam">
+    tools:context=".HalfSangam">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,6 +46,23 @@
                         android:layout_marginLeft="20dp"
                         android:textSize="16sp"
                         />
+
+                    <com.tripleseven.android.latonormal
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="-"
+                        android:textColor="@color/font"
+                        android:textSize="15sp" />
+
+                    <com.tripleseven.android.latonormal
+                        android:id="@+id/marketText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text=""
+                        android:textColor="@color/font"
+                        android:textSize="13sp" />
 
 
                 </LinearLayout>
@@ -135,7 +152,7 @@
                             android:id="@+id/secondtitle"
                             android:layout_marginTop="20dp"
                             android:textSize="15sp"
-                            android:text="Panna"
+                            android:text="Pana"
                             android:textColor="@color/font"
                             />
 
@@ -143,7 +160,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/second"
-                            android:hint="Enter Panna"
+                            android:hint="Enter Pana"
                             android:layout_marginStart="20dp"
                             android:textSize="13sp"
                             android:background="@drawable/edittext3"

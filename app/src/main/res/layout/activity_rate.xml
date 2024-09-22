@@ -120,7 +120,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Double Panna - Loading"
+                    android:text="Double Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
                     android:visibility="gone" />
@@ -134,7 +134,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Triple Panna - Loading"
+                    android:text="Triple Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
                     android:visibility="gone" />
@@ -199,7 +199,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Single Panna - Loading"
+                    android:text="Single Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
                     android:visibility="gone" />
@@ -212,7 +212,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Double Panna - Loading"
+                    android:text="Double Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
                     android:visibility="gone" />
@@ -225,7 +225,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Triple Panna - Loading"
+                    android:text="Triple Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
                     android:visibility="gone" />

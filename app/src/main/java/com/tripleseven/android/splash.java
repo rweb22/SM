@@ -77,13 +77,14 @@ public class splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        if (getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("lang","").equals("")){
-//            startActivity(new Intent(getApplicationContext(),language.class)
-//                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK)
-//            );
-//            finish();
-//            return;
-//        }
+        if (getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("lang","").equals("")){
+            startActivity(new Intent(getApplicationContext(),language.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK)
+            );
+            finish();
+            return;
+        }
+
         String languageToLoad = getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("lang","en"); // your language
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

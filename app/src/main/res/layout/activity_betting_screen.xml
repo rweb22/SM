@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="STAR"
                     android:textColor="@color/font"
-                    android:textSize="19sp" />
+                    android:textSize="17sp" />
 
 
                 <com.tripleseven.android.latonormal

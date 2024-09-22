@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
-    tools:context=".fullsangam">
+    tools:context=".FullSangam">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,6 +45,22 @@
                         android:layout_marginLeft="20dp"
                         android:textSize="16sp"
                         />
+                    <com.tripleseven.android.latonormal
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="-"
+                        android:textColor="@color/font"
+                        android:textSize="15sp" />
+
+                    <com.tripleseven.android.latonormal
+                        android:id="@+id/marketText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text=""
+                        android:textColor="@color/font"
+                        android:textSize="13sp" />
 
 
                 </LinearLayout>

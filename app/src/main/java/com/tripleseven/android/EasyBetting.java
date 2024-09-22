@@ -32,6 +32,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
@@ -52,21 +54,18 @@ public class EasyBetting extends Fragment {
     ArrayList<String> amountList;
     ArrayList<String> digits = new ArrayList<>();
     AdapterBetItem adapterBetItem;
-    String game;
+    GameOption game;
     MarketDto market;
     ViewDialog progressDialog;
     String url;
     int total = 0;
     ArrayList<String> fillNumber = new ArrayList<>();
     ArrayList<String> fillAmount = new ArrayList<>();
-
     String session;
-
-    private final ArrayList<Item> betItems = new ArrayList<>();
 
     public static class Item {
         public String number1;
-        public String number2;
+        public String gameType;
         public String amount;
     }
 
@@ -86,7 +85,7 @@ public class EasyBetting extends Fragment {
         url = constant.prefix2 + getString(R.string.bet);
 
         prefs = requireActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE);
-        game = requireActivity().getIntent().getStringExtra("game");
+        game = GameOption.valueOf(requireActivity().getIntent().getStringExtra("game"));
         market = (MarketDto) requireActivity().getIntent().getSerializableExtra("market");
         session = requireActivity().getIntent().getStringExtra("session");
         digits = requireActivity().getIntent().getStringArrayListExtra("digits");
@@ -157,11 +156,6 @@ public class EasyBetting extends Fragment {
                             return;
                         }
                         else if (!amountList.get(a).equals("0")) {
-                            Item item = new Item();
-                            item.number1 = digits.get(a) + "";
-                            item.amount = amountList.get(a);
-                            betItems.add(item);
-
                             fillNumber.add(digits.get(a) + "");
                             fillAmount.add(amountList.get(a));
                         }
@@ -187,16 +181,8 @@ public class EasyBetting extends Fragment {
                     total_bid.setText(fillNumber.size()+"");
                     total_amount.setText(total+"");
 
-                    String type = "";
-                    if (session.contains("OPEN")){
-                        type = "Open";
-                    } else if (session.contains("CLOSE")){
-                        type = "Close";
-                    } else {
-                        type = "N/A";
-                    }
-
-                    AdapterSingleGamesConfirm adapterSingleGamesConfirm = new AdapterSingleGamesConfirm(getActivity(), fillNumber, fillAmount, type);
+                    AdapterSingleGamesConfirm adapterSingleGamesConfirm = new AdapterSingleGamesConfirm(getActivity(), fillNumber, fillAmount,
+                            GameOption.toGameType(game).getDisplayName());
                     recycler.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     recycler.setAdapter(adapterSingleGamesConfirm);
 
@@ -243,7 +229,7 @@ public class EasyBetting extends Fragment {
     }
 
     private String getMarketName() {
-        String session = getActivity().getIntent().getStringExtra("session");
+        String session = requireActivity().getIntent().getStringExtra("session");
         if (Objects.isNull(session) || session.isEmpty()) {
             return market.getName();
         } else {
@@ -268,7 +254,6 @@ public class EasyBetting extends Fragment {
                         progressDialog.hideDialog();
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
-
                             if (jsonObject1.getString("active").equals("0")) {
                                 Toast.makeText(getActivity(), getString(R.string.ACCOUNT_DISABLE_ALERT), Toast.LENGTH_SHORT).show();
 
@@ -341,19 +326,30 @@ public class EasyBetting extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                Gson gson = new Gson(); // Use Gson library or any JSON serialization method
+                ArrayList<Item> betItems = new ArrayList<>();
+
+                for (int i = 0; i < fillNumber.size(); i++) {
+                    Item item = new Item();
+                    item.number1 = fillNumber.get(i);
+                    item.amount = fillAmount.get(i);
+                    item.gameType = GameOption.toGameType(game).getId();
+
+                    betItems.add(item);
+                }
+
+                Gson gson = new Gson();
                 String betItemsString = gson.toJson(betItems);
 
                 params.put("items", betItemsString);
                 params.put("market_id", market.getMarketId());
                 params.put("market_name", market.getName());
-                params.put("game_display_name", getMarketName());
                 params.put("total",total+"");
-                params.put("game", game);
+                params.put("game_option", game.getId());
                 params.put("game_session", session);
                 params.put("mobile", prefs.getString("mobile",null));
+                params.put("session", requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
 
-                params.put("session", getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
+                System.out.println(params.toString());
                 return params;
             }
         };

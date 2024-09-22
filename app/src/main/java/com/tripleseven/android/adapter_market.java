@@ -56,10 +56,10 @@ class adapter_market extends RecyclerView.Adapter<adapter_market.ViewHolder> {
                 public void onClick(View v) {
                     switch (game) {
                         case "halfSangam":
-                            context.startActivity(new Intent(context, halfsangam.class).putExtra("market", name.get(position).replace(" ", "_")).putExtra("list", numbers).putExtra("game", game).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            context.startActivity(new Intent(context, HalfSangam.class).putExtra("market", name.get(position).replace(" ", "_")).putExtra("list", numbers).putExtra("game", game).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                             break;
                         case "fullSangam":
-                            context.startActivity(new Intent(context, fullsangam.class).putExtra("market", name.get(position).replace(" ", "_")).putExtra("list", numbers).putExtra("game", game).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            context.startActivity(new Intent(context, FullSangam.class).putExtra("market", name.get(position).replace(" ", "_")).putExtra("list", numbers).putExtra("game", game).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                             break;
                         case "crossing":
                             context.startActivity(new Intent(context, crossing.class).putExtra("market", name.get(position).replace(" ", "_")).putExtra("list", numbers).putExtra("game", game).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

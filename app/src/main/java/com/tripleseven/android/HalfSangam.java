@@ -26,6 +26,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class halfsangam extends AppCompatActivity {
+public class HalfSangam extends AppCompatActivity {
 
     protected RelativeLayout toolbar;
     protected Spinner type;
@@ -42,20 +45,40 @@ public class halfsangam extends AppCompatActivity {
     protected ScrollView scrollView;
     protected EditText first;
     protected EditText second;
-    protected latonormal firstitle;
-    protected latonormal secondtitle;
-    protected EditText totalamount;
+    protected latonormal firstTitle;
+    protected latonormal secondTitle;
+    protected latonormal marketText;
+    protected EditText totalAmount;
 
     ArrayList<String> typeof = new ArrayList<>();
     ArrayList<String> ank = new ArrayList<>();
     ArrayList<String> patti = new ArrayList<>();
-
-    String market, game;
+    GameOption game;
+    MarketDto market;
 
     SharedPreferences prefs;
 
     ViewDialog progressDialog;
     String url;
+
+    String session;
+
+    ArrayList<Item> betItems = new ArrayList<>();
+
+    public static class Item {
+        public String number1;
+        public String number2;
+        public String gameType;
+        public String amount;
+    }
+
+    private String getMarketName() {
+        if (session == null || session.isEmpty()) {
+            return market.getName();
+        } else {
+            return market.getName() + " " + session.substring(0, 1).toUpperCase() + session.substring(1).toLowerCase();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +91,11 @@ public class halfsangam extends AppCompatActivity {
                 finish();
             }
         });
-        url = constant.prefix + getString(R.string.sangam);
+        url = constant.prefix2 + getString(R.string.bet);
         prefs = getSharedPreferences(constant.prefs, MODE_PRIVATE);
 
-        game = getIntent().getStringExtra("game");
-        market = getIntent().getStringExtra("market");
+        game = GameOption.valueOf(getIntent().getStringExtra("game"));
+        market = (MarketDto) getIntent().getSerializableExtra("market");
 
         ank.add("0");
         ank.add("1");
@@ -87,27 +110,24 @@ public class halfsangam extends AppCompatActivity {
 
         patti.addAll(getpatti());
 
-        typeof.add("Open Digit Close Panna");
-        typeof.add("Open Panna Close Digit");
+        typeof.add("Open Digit Close Pana");
+        typeof.add("Open Pana Close Digit");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(halfsangam.this, R.layout.simple_list_item_2, typeof);
+        marketText.setText(market.getName());
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(HalfSangam.this, R.layout.simple_list_item_2, typeof);
         type.setAdapter(arrayAdapter);
-
-//        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(halfsangam.this, R.layout.simple_list_item_2, ank);
-//        first.setAdapter(arrayAdapter2);
-//
-//        ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<String>(halfsangam.this, R.layout.simple_list_item_2, patti);
-//        second.setAdapter(arrayAdapter3);
-
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    firstitle.setText("Digit");
-                    secondtitle.setText("Panna");
+                    firstTitle.setText("Digit");
+                    secondTitle.setText("Pana");
+                    session = "CLOSE";
                 } else {
-                    firstitle.setText("Panna");
-                    secondtitle.setText("Digit");
+                    firstTitle.setText("Pana");
+                    secondTitle.setText("Digit");
+                    session = "OPEN";
                 }
             }
 
@@ -122,27 +142,27 @@ public class halfsangam extends AppCompatActivity {
             public void onClick(View v) {
                 if (first.getText().toString().isEmpty() || second.getText().toString().isEmpty())
                 {
-                    Toast.makeText(halfsangam.this, "Please select A valid number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HalfSangam.this, getString(R.string.invalid_number), Toast.LENGTH_SHORT).show();
                 }
                 else if (type.getSelectedItemPosition() == 0 && (!ank.contains(first.getText().toString()) || !patti.contains(second.getText().toString()))){
-                    Toast.makeText(halfsangam.this, "Please select A valid number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HalfSangam.this, getString(R.string.invalid_number), Toast.LENGTH_SHORT).show();
                 }
                 else if (type.getSelectedItemPosition() == 1 && (!patti.contains(first.getText().toString()) || !ank.contains(second.getText().toString()))){
-                    Toast.makeText(halfsangam.this, "Please select A valid number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HalfSangam.this, getString(R.string.invalid_number), Toast.LENGTH_SHORT).show();
                 }
-                else if (Integer.parseInt(totalamount.getText().toString()) < (Integer.parseInt(prefs.getString("wallet",null))+Integer.parseInt(prefs.getString("winning",null))+Integer.parseInt(prefs.getString("bonus",null)))) {
+                else if (Integer.parseInt(totalAmount.getText().toString()) < (Integer.parseInt(prefs.getString("wallet", "0"))+Integer.parseInt(prefs.getString("winning","0"))+Integer.parseInt(prefs.getString("bonus","0")))) {
                     apicall();
                 }
                 else
                 {
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(halfsangam.this);
-                    builder1.setMessage("You don't have enough wallet balance to place this bet, Recharge your wallet to play");
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(HalfSangam.this);
+                    builder1.setMessage(getString(R.string.insufficient_balance));
                     builder1.setCancelable(true);
                     builder1.setPositiveButton(
                             "Recharge",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    openWhatsApp();
+                                    startActivity(new Intent(getApplicationContext(), wallet.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                     dialog.dismiss();
                                 }
                             });
@@ -164,12 +184,10 @@ public class halfsangam extends AppCompatActivity {
 
 
     private void apicall() {
-
-        progressDialog = new ViewDialog(halfsangam.this);
+        progressDialog = new ViewDialog(HalfSangam.this);
         progressDialog.showDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         final StringRequest postRequest = new MyStringRequest(getSharedPreferences(constant.prefs, MODE_PRIVATE), Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -179,13 +197,13 @@ public class halfsangam extends AppCompatActivity {
                             JSONObject jsonObject1 = new JSONObject(response);
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
 
-                                AlertDialog.Builder builder1 = new AlertDialog.Builder(halfsangam.this);
-                                LayoutInflater factory = LayoutInflater.from(halfsangam.this);
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(HalfSangam.this);
+                                LayoutInflater factory = LayoutInflater.from(HalfSangam.this);
                                 View v = factory.inflate(R.layout.msg_dialog, null);
 
                                 TextView close = v.findViewById(R.id.close);
                                 TextView msgView = v.findViewById(R.id.msg);
-                                msgView.setText("Your bet placed successfully");
+                                msgView.setText(getString(R.string.bet_placed));
 
                                 builder1.setView(v);
                                 builder1.setCancelable(false);
@@ -193,7 +211,7 @@ public class halfsangam extends AppCompatActivity {
                                 alert11.setOnCancelListener(new DialogInterface.OnCancelListener() {
                                     @Override
                                     public void onCancel(DialogInterface dialog) {
-                                        Intent in = new Intent(halfsangam.this, HomeScreen.class);
+                                        Intent in = new Intent(HalfSangam.this, HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.putExtra("market",constant.market);
@@ -201,7 +219,7 @@ public class halfsangam extends AppCompatActivity {
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
                                         startActivity(in);
-                                        halfsangam.this.finish();
+                                        HalfSangam.this.finish();
                                     }
                                 });
                                 close.setOnClickListener(new View.OnClickListener() {
@@ -209,7 +227,7 @@ public class halfsangam extends AppCompatActivity {
                                     public void onClick(View v) {
                                         alert11.dismiss();
 
-                                        Intent in = new Intent(halfsangam.this, HomeScreen.class);
+                                        Intent in = new Intent(HalfSangam.this, HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.putExtra("market",constant.market);
@@ -217,7 +235,7 @@ public class halfsangam extends AppCompatActivity {
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
                                         startActivity(in);
-                                        halfsangam.this.finish();
+                                        HalfSangam.this.finish();
                                     }
                                 });
                                 alert11.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -235,10 +253,9 @@ public class halfsangam extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(halfsangam.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HalfSangam.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -246,12 +263,27 @@ public class halfsangam extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("number", first.getText().toString()+" - "+second.getText().toString());
-                params.put("amount", totalamount.getText().toString());
-                params.put("bazar", market);
-                params.put("total", totalamount.getText().toString());
-                params.put("game", game);
+                Item item = new Item();
+                item.number1 = first.getText().toString();
+                item.number2 = second.getText().toString();
+                item.amount = totalAmount.getText().toString();
+
+                betItems.add(item);
+
+                Gson gson = new Gson();
+                String betItemsString = gson.toJson(betItems);
+
+                params.put("items", betItemsString);
+                params.put("market_id", market.getMarketId());
+                params.put("market_name", market.getName());
+                params.put("game_display_name", market.getName());
+                params.put("total", totalAmount.getText().toString());
+                params.put("game_option", game.getId());
+                params.put("game_session", session);
                 params.put("mobile", prefs.getString("mobile", null));
+
+                System.out.println(params.toString());
+                params.put("session", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
 
                 return params;
             }
@@ -515,6 +547,17 @@ public class halfsangam extends AppCompatActivity {
         number.add("578");
 
 
+        number.add("000");
+        number.add("111");
+        number.add("222");
+        number.add("333");
+        number.add("444");
+        number.add("555");
+        number.add("666");
+        number.add("777");
+        number.add("888");
+        number.add("999");
+
         return number;
     }
 
@@ -527,8 +570,9 @@ public class halfsangam extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         first = findViewById(R.id.first);
         second = findViewById(R.id.second);
-        firstitle = (latonormal) findViewById(R.id.firstitle);
-        secondtitle = (latonormal) findViewById(R.id.secondtitle);
-        totalamount = (EditText) findViewById(R.id.totalamount);
+        firstTitle = (latonormal) findViewById(R.id.firstitle);
+        secondTitle = (latonormal) findViewById(R.id.secondtitle);
+        totalAmount = (EditText) findViewById(R.id.totalamount);
+        marketText = (latonormal) findViewById(R.id.marketText);
     }
 }

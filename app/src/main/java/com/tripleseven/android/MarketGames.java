@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import java.util.ArrayList;
@@ -27,8 +29,6 @@ public class MarketGames extends AppCompatActivity {
     private CardView tripePannaGame;
     private CardView halfSangamGame;
     private CardView fullSangamGame;
-    private CardView crossingGame;
-    private CardView harfGame;
     private MarketDto market;
     private CardView spMotorGame;
     private CardView dpMotorGame;
@@ -40,6 +40,7 @@ public class MarketGames extends AppCompatActivity {
     private CardView panelGroupGame;
     private CardView twoDigitPanelGame;
     private latobold title, triple_panna_text;
+    private latobold crossingOp;
 
     private ArrayList<String> digits = new ArrayList<>();
 
@@ -58,7 +59,9 @@ public class MarketGames extends AppCompatActivity {
         if ("TWO_DIGIT".equalsIgnoreCase(market.getType())) {
             jodiGame.setVisibility(View.VISIBLE);
             tripePannaGame.setVisibility(View.VISIBLE);
-            triple_panna_text.setText("Play Harf");
+
+            triple_panna_text.setText(GameOption.HARF.getDisplayName());
+            crossingOp.setText(GameOption.JODI_MOTOR.getDisplayName());
             //crossingGame.setVisibility(View.VISIBLE);
 
             //Disable other games
@@ -96,7 +99,7 @@ public class MarketGames extends AppCompatActivity {
             public void onClick(View v) {
                 digits.clear();
                 digitsForSingleGame();
-                askOpenClose("singleDigit", null);
+                askOpenClose(GameOption.SINGLE, null);
             }
         });
 
@@ -108,8 +111,8 @@ public class MarketGames extends AppCompatActivity {
                     jodiDigits();
                     startActivity(new Intent(MarketGames.this, BettingScreen.class)
                             .putExtra("market", market)
-                            .putExtra("game", "jodi")
-                            .putExtra("session", "N/A")
+                            .putExtra("game", GameOption.JODI.name())
+                            .putExtra("session", "")
                             .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     );
                 } else {
@@ -143,7 +146,7 @@ public class MarketGames extends AppCompatActivity {
             public void onClick(View v) {
                 digits.clear();
                 singlePannaDigits();
-                askOpenClose("singlePanna", null);
+                askOpenClose(GameOption.SP, null);
             }
         });
 
@@ -152,7 +155,7 @@ public class MarketGames extends AppCompatActivity {
             public void onClick(View v) {
                 digits.clear();
                 doublePannaDigits();
-                askOpenClose("doublePanna", null);
+                askOpenClose(GameOption.DP, null);
             }
         });
 
@@ -161,7 +164,7 @@ public class MarketGames extends AppCompatActivity {
             public void onClick(View v) {
                 digits.clear();
                 triplePannaDigits();
-                askOpenClose("tripePanna", null);
+                askOpenClose(GameOption.TP, null);
             }
         });
 
@@ -169,14 +172,14 @@ public class MarketGames extends AppCompatActivity {
         spMotorGame.setOnClickListener(v -> {
             digits.clear();
             singlePannaDigits();
-            askOpenClose("spMotor", SpMotor.class);
+            askOpenClose(GameOption.SP_MOTOR, SpMotor.class);
         });
 
 
         choicePannaGame.setOnClickListener(v -> {
             digits.clear();
             singlePannaDigits();
-            askOpenClose("choicePanna", SpMotor.class);
+            askOpenClose(GameOption.CHOICE_PANA, SpMotor.class);
 
         });
 
@@ -184,14 +187,14 @@ public class MarketGames extends AppCompatActivity {
         dpMotorGame.setOnClickListener(v -> {
             digits.clear();
             doublePannaDigits();
-            askOpenClose("dpMotor", SpMotor.class);
+            askOpenClose(GameOption.DP, SpMotor.class);
 
         });
 
         spDpTpGame.setOnClickListener(v -> {
             digits.clear();
             doublePannaDigits();
-            askOpenClose("spDpTp", SpMotor.class);
+            askOpenClose(GameOption.SP_DP_TP, SpMotor.class);
         });
 
 
@@ -199,9 +202,18 @@ public class MarketGames extends AppCompatActivity {
             if (market.getOpenSessionOn()) {
                 digits.clear();
                 jodiDigits();
+
+                GameOption gameOption;
+                if ("TWO_DIGIT".equalsIgnoreCase(market.getType())) {
+                    gameOption = GameOption.JODI_MOTOR;
+                } else {
+                    gameOption = GameOption.GROUP_JODI;
+                }
+
                 startActivity(new Intent(MarketGames.this, SpMotor.class)
                         .putExtra("market", market)
-                        .putExtra("game", "groupJodi")
+                        .putExtra("game", gameOption.name())
+                        .putExtra("session", "")
                         .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 );
             } else {
@@ -232,7 +244,7 @@ public class MarketGames extends AppCompatActivity {
         panelGroupGame.setOnClickListener(v -> {
             digits.clear();
             jodiDigits();
-            askOpenClose("panelGroup", SpMotor.class);
+            askOpenClose(GameOption.PANEL_GROUP, SpMotor.class);
         });
 
         twoDigitPanelGame.setOnClickListener(new View.OnClickListener() {
@@ -240,14 +252,14 @@ public class MarketGames extends AppCompatActivity {
             public void onClick(View v) {
                 digits.clear();
                 jodiDigits();
-                askOpenClose("twoDigitPanel", SpMotor.class);
+                askOpenClose(GameOption.TWO_D_PANEL, SpMotor.class);
             }
         });
 
         oddEvenGame.setOnClickListener(v -> {
             digits.clear();
             jodiDigits();
-            askOpenClose("oddEven", SpMotor.class);
+            askOpenClose(GameOption.ODD_EVEN, SpMotor.class);
         });
 
 
@@ -259,7 +271,7 @@ public class MarketGames extends AppCompatActivity {
                 jodiDigits();
                 startActivity(new Intent(MarketGames.this, SpMotor.class)
                         .putExtra("market", market)
-                        .putExtra("game", "redBracket")
+                        .putExtra("game", GameOption.RED_BRACKET.name())
                         .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 );
             }
@@ -293,9 +305,9 @@ public class MarketGames extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (market.getOpenSessionOn()) {
-                    startActivity(new Intent(MarketGames.this, halfsangam.class)
+                    startActivity(new Intent(MarketGames.this, HalfSangam.class)
                             .putExtra("market", market)
-                            .putExtra("game", "halfSangam")
+                            .putExtra("game", GameOption.HALF_SANGAM.name())
                             .putExtra("digits", digits)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     );
@@ -330,9 +342,9 @@ public class MarketGames extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (market.getOpenSessionOn()) {
-                    startActivity(new Intent(MarketGames.this, fullsangam.class)
+                    startActivity(new Intent(MarketGames.this, FullSangam.class)
                             .putExtra("market", market)
-                            .putExtra("game", "fullSangam")
+                            .putExtra("game", GameOption.FULL_SANGAM.name())
                             .putExtra("digits", digits)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     );
@@ -365,7 +377,7 @@ public class MarketGames extends AppCompatActivity {
 
     }
 
-    public void askOpenClose(String game, Class<? extends Activity> ActivityToOpen) {
+    public void askOpenClose(GameOption game, Class<? extends Activity> ActivityToOpen) {
         if (ActivityToOpen == null) {
             ActivityToOpen = BettingScreen.class;
         }
@@ -391,14 +403,14 @@ public class MarketGames extends AppCompatActivity {
                    if ("TWO_DIGIT".equalsIgnoreCase(market.getType())){
                         startActivity(new Intent(MarketGames.this, finalActivityToOpen)
                                 .putExtra("market", market)
-                                .putExtra("game", "Open Harf")
+                                .putExtra("game", GameOption.HARF.name())
                                 .putExtra("session", "OPEN")
                                 .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         );
                    } else{
                        startActivity(new Intent(MarketGames.this, finalActivityToOpen)
                                .putExtra("market", market)
-                               .putExtra("game", game)
+                               .putExtra("game", game.name())
                                .putExtra("session", "OPEN")
                                .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                        );
@@ -423,14 +435,14 @@ public class MarketGames extends AppCompatActivity {
                     if ("TWO_DIGIT".equalsIgnoreCase(market.getType())) {
                         startActivity(new Intent(MarketGames.this, finalActivityToOpen)
                                 .putExtra("market", market)
-                                .putExtra("game", "Close Harf")
+                                .putExtra("game", GameOption.HARF.name())
                                 .putExtra("session", "CLOSE")
                                 .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         );
                     }else{
                         startActivity(new Intent(MarketGames.this, finalActivityToOpen)
                                 .putExtra("market", market)
-                                .putExtra("game", game)
+                                .putExtra("game", game.name())
                                 .putExtra("session", "CLOSE")
                                 .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         );
@@ -466,16 +478,6 @@ public class MarketGames extends AppCompatActivity {
             alert11.show();
         }
     }
-//
-//    @Override
-//    public void onBackPressed() {
-//        if (alert11 != null && alert11.isShowing()){
-//            Log.e("alert","dismiss");
-//            alert11.dismiss();
-//            return;
-//        }
-//        super.onBackPressed();
-//    }
 
     public void digitsForSingleGame() {
         digits.add("0");
@@ -748,5 +750,6 @@ public class MarketGames extends AppCompatActivity {
         panelGroupGame = findViewById(R.id.panel_group);
         twoDigitPanelGame = findViewById(R.id.two_digit_panel);
         title = findViewById(R.id.title);
+        crossingOp = findViewById(R.id.crossingOp);
     }
 }

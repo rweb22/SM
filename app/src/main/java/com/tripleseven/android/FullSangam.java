@@ -8,11 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,32 +34,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class fullsangam extends AppCompatActivity {
+public class FullSangam extends AppCompatActivity {
 
     protected RelativeLayout toolbar;
-    protected latonormal firstitle;
+    protected latonormal firstTitle;
     protected EditText first;
-    protected latonormal secondtitle;
+    protected latonormal secondTitle;
     protected EditText second;
-    protected EditText totalamount;
+    protected EditText totalAmount;
     protected latobold submit;
     protected ScrollView scrollView;
 
     ArrayList<String> patti = new ArrayList<>();
 
-    String market, game;
+    GameOption game;
+    MarketDto market;
 
     SharedPreferences prefs;
 
     ViewDialog progressDialog;
     String url;
 
+    ArrayList<HalfSangam.Item> betItems = new ArrayList<>();
+
+    protected latonormal marketText;
+
+    public static class Item {
+        public String number1;
+        public String number2;
+
+        public String amount;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_fullsangam);
         initView();
-        url = constant.prefix + getString(R.string.sangam);
+        url = constant.prefix2 + getString(R.string.bet);
         prefs = getSharedPreferences(constant.prefs, MODE_PRIVATE);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,38 +79,33 @@ public class fullsangam extends AppCompatActivity {
                 finish();
             }
         });
-        game = getIntent().getStringExtra("game");
-        market = getIntent().getStringExtra("market");
+        game = GameOption.valueOf(getIntent().getStringExtra("game"));
+        market = (MarketDto) getIntent().getSerializableExtra("market");
 
-        patti.addAll(getpatti());
+        marketText.setText(market.getName());
 
-//        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(fullsangam.this, R.layout.simple_list_item_2, patti);
-//        first.setAdapter(arrayAdapter2);
-//
-//        ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<String>(fullsangam.this, R.layout.simple_list_item_2, patti);
-//        second.setAdapter(arrayAdapter3);
-
+        patti.addAll(getPatti());
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (first.getText().toString().isEmpty() || second.getText().toString().isEmpty() || !patti.contains(first.getText().toString()) || !patti.contains(second.getText().toString()))
                 {
-                    Toast.makeText(fullsangam.this, "Please enter A valid number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FullSangam.this, getString(R.string.invalid_number), Toast.LENGTH_SHORT).show();
                 }
-                else if (Integer.parseInt(totalamount.getText().toString()) < (Integer.parseInt(prefs.getString("wallet",null))+Integer.parseInt(prefs.getString("winning",null))+Integer.parseInt(prefs.getString("bonus",null)))) {
+                else if (Integer.parseInt(totalAmount.getText().toString()) < (Integer.parseInt(prefs.getString("wallet","0"))+Integer.parseInt(prefs.getString("winning","0"))+Integer.parseInt(prefs.getString("bonus","0")))) {
                     apicall();
                 }
                 else
                 {
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(fullsangam.this);
-                    builder1.setMessage("You don't have enough wallet balance to place this bet, Recharge your wallet to play");
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(FullSangam.this);
+                    builder1.setMessage(getString(R.string.insufficient_balance));
                     builder1.setCancelable(true);
                     builder1.setPositiveButton(
                             "Recharge",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    openWhatsApp();
+                                    startActivity(new Intent(getApplicationContext(), wallet.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                     dialog.dismiss();
                                 }
                             });
@@ -121,7 +129,7 @@ public class fullsangam extends AppCompatActivity {
 
 
 
-    public ArrayList<String> getpatti() {
+    public ArrayList<String> getPatti() {
 
         ArrayList<String> number = new ArrayList<>();
 
@@ -148,6 +156,7 @@ public class fullsangam extends AppCompatActivity {
         number.add("560");
         number.add("678");
         number.add("579");
+        number.add("777");
 
         //2
         number.add("Line of 2");
@@ -173,6 +182,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("679");
         number.add("589");
 
+        number.add("444");
+
         // 3
         number.add("Line of 3");
         number.add("300");
@@ -196,6 +207,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("580");
         number.add("670");
         number.add("689");
+
+        number.add("111");
 
         // 4
         number.add("Line of 4");
@@ -221,6 +234,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("680");
         number.add("789");
 
+        number.add("888");
+
         // 5
         number.add("Line of 5");
         number.add("500");
@@ -244,6 +259,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("456");
         number.add("690");
         number.add("780");
+
+        number.add("555");
 
         // 6
         number.add("Line of 6");
@@ -269,6 +286,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("367");
         number.add("790");
 
+        number.add("222");
+
         // 7
         number.add("Line of 7");
         number.add("700");
@@ -292,6 +311,7 @@ public class fullsangam extends AppCompatActivity {
         number.add("458");
         number.add("467");
         number.add("890");
+        number.add("999");
 
         // 8
         number.add("Line of 8");
@@ -317,6 +337,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("567");
         number.add("468");
 
+        number.add("666");
+
         // 9
         number.add("Line of 9");
         number.add("900");
@@ -340,6 +362,8 @@ public class fullsangam extends AppCompatActivity {
         number.add("469");
         number.add("478");
         number.add("568");
+
+        number.add("333");
 
         // 0
         number.add("Line of 0");
@@ -365,14 +389,15 @@ public class fullsangam extends AppCompatActivity {
         number.add("389");
         number.add("578");
 
+        number.add("000");
+
 
         return number;
     }
 
 
     private void apicall() {
-
-        progressDialog = new ViewDialog(fullsangam.this);
+        progressDialog = new ViewDialog(FullSangam.this);
         progressDialog.showDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -386,13 +411,13 @@ public class fullsangam extends AppCompatActivity {
                             JSONObject jsonObject1 = new JSONObject(response);
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
 
-                                AlertDialog.Builder builder1 = new AlertDialog.Builder(fullsangam.this);
-                                LayoutInflater factory = LayoutInflater.from(fullsangam.this);
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(FullSangam.this);
+                                LayoutInflater factory = LayoutInflater.from(FullSangam.this);
                                 View v = factory.inflate(R.layout.msg_dialog, null);
 
                                 TextView close = v.findViewById(R.id.close);
                                 TextView msgView = v.findViewById(R.id.msg);
-                                msgView.setText("Your bet placed successfully");
+                                msgView.setText(getString(R.string.bet_placed));
 
                                 builder1.setView(v);
                                 builder1.setCancelable(false);
@@ -400,7 +425,7 @@ public class fullsangam extends AppCompatActivity {
                                 alert11.setOnCancelListener(new DialogInterface.OnCancelListener() {
                                     @Override
                                     public void onCancel(DialogInterface dialog) {
-                                        Intent in = new Intent(fullsangam.this, HomeScreen.class);
+                                        Intent in = new Intent(FullSangam.this, HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.putExtra("market",constant.market);
@@ -408,7 +433,7 @@ public class fullsangam extends AppCompatActivity {
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
                                         startActivity(in);
-                                        fullsangam.this.finish();
+                                        FullSangam.this.finish();
                                     }
                                 });
                                 close.setOnClickListener(new View.OnClickListener() {
@@ -416,7 +441,7 @@ public class fullsangam extends AppCompatActivity {
                                     public void onClick(View v) {
                                         alert11.dismiss();
 
-                                        Intent in = new Intent(fullsangam.this, HomeScreen.class);
+                                        Intent in = new Intent(FullSangam.this, HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.putExtra("market",constant.market);
@@ -424,7 +449,7 @@ public class fullsangam extends AppCompatActivity {
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
                                         startActivity(in);
-                                        fullsangam.this.finish();
+                                        FullSangam.this.finish();
                                     }
                                 });
                                 alert11.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -442,10 +467,9 @@ public class fullsangam extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         error.printStackTrace();
                         progressDialog.hideDialog();
-                        Toast.makeText(fullsangam.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FullSangam.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -453,13 +477,26 @@ public class fullsangam extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("number", first.getText().toString()+" - "+second.getText().toString());
-                params.put("amount", totalamount.getText().toString());
-                params.put("bazar", market);
-                params.put("total", totalamount.getText().toString());
-                params.put("game", game);
+                HalfSangam.Item item = new HalfSangam.Item();
+                item.number1 = first.getText().toString();
+                item.number2 = second.getText().toString();
+                item.amount = totalAmount.getText().toString();
+
+                betItems.add(item);
+
+                Gson gson = new Gson();
+                String betItemsString = gson.toJson(betItems);
+
+                params.put("items", betItemsString);
+                params.put("market_id", market.getMarketId());
+                params.put("market_name", market.getName());
+                params.put("total", totalAmount.getText().toString());
+                params.put("game_option", game.getId());
+                params.put("game_session", "N/A");
                 params.put("mobile", prefs.getString("mobile", null));
 
+                System.out.println(params.toString());
+                params.put("session", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
                 return params;
             }
         };
@@ -476,12 +513,13 @@ public class fullsangam extends AppCompatActivity {
     }
 
     private void initView() {
-        firstitle = (latonormal) findViewById(R.id.firstitle);
+        firstTitle = (latonormal) findViewById(R.id.firstitle);
         first = findViewById(R.id.first);
-        secondtitle = (latonormal) findViewById(R.id.secondtitle);
+        secondTitle = (latonormal) findViewById(R.id.secondtitle);
         second = findViewById(R.id.second);
-        totalamount = (EditText) findViewById(R.id.totalamount);
+        totalAmount = (EditText) findViewById(R.id.totalamount);
         submit = (latobold) findViewById(R.id.submit);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
+        marketText = (latonormal) findViewById(R.id.marketText);
     }
 }

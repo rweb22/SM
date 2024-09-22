@@ -9,28 +9,24 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 
+import com.tripleseven.android.dto.GameOption;
 import com.tripleseven.android.dto.MarketDto;
 
 import java.util.Objects;
 
 public class BettingScreen extends AppCompatActivity {
-    private RelativeLayout back;
-    private latonormal balanceHome;
-    private LinearLayout walletBlock;
-    private RelativeLayout toolbar;
     private latobold easyText;
     private View easyLine;
     private LinearLayout easyMode;
     private latobold sepcialText;
     private View specialLine;
     private LinearLayout specialMode;
-    private FragmentContainerView fragmentContainer;
     int red, white, font;
     private latobold title;
     private latonormal game;
-    String timing, type = "";
     private MarketDto market;
     private String session;
+    private GameOption gameOption;
 
 
     @Override
@@ -41,6 +37,7 @@ public class BettingScreen extends AppCompatActivity {
 
         this.market = (MarketDto) getIntent().getSerializableExtra("market");
         this.session = getIntent().getStringExtra("session");
+        this.gameOption = GameOption.valueOf(getIntent().getStringExtra("game"));
 
         red = getResources().getColor(R.color.red);
         white = getResources().getColor(R.color.background);
@@ -56,12 +53,10 @@ public class BettingScreen extends AppCompatActivity {
             }
         });
 
-        String gameName = getIntent().getStringExtra("game");
-
-        title.setText(gameName);
+        title.setText(gameOption.getDisplayName());
         game.setText(getMarketName());
 
-        if (gameName.equals("singlePanna") || gameName.equals("doublePanna")) {
+        if (gameOption.equals(GameOption.SP) || gameOption.equals(GameOption.DP)) {
             EasyBettingPanna easyBetting = new EasyBettingPanna();
             getSupportFragmentManager()
                     .beginTransaction()
@@ -81,7 +76,7 @@ public class BettingScreen extends AppCompatActivity {
             specialLine.setBackgroundColor(white);
             sepcialText.setTextColor(font);
 
-            if (gameName.equals("singlePanna") || gameName.equals("doublePanna")) {
+            if (gameOption.equals(GameOption.SP) || gameOption.equals(GameOption.DP)) {
                 EasyBettingPanna easyBetting = new EasyBettingPanna();
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -112,7 +107,6 @@ public class BettingScreen extends AppCompatActivity {
     }
 
     private String getMarketName() {
-        String session = getIntent().getStringExtra("session");
         if (Objects.isNull(session) || Objects.requireNonNull(session).isEmpty()) {
             return market.getName();
         } else {
@@ -121,17 +115,17 @@ public class BettingScreen extends AppCompatActivity {
     }
 
     private void initViews() {
-        back = findViewById(R.id.back);
-        balanceHome = findViewById(R.id.balance_home);
-        walletBlock = findViewById(R.id.wallet_block);
-        toolbar = findViewById(R.id.toolbar);
+        RelativeLayout back = findViewById(R.id.back);
+        latonormal balanceHome = findViewById(R.id.balance_home);
+        LinearLayout walletBlock = findViewById(R.id.wallet_block);
+        RelativeLayout toolbar = findViewById(R.id.toolbar);
         easyText = findViewById(R.id.easy_text);
         easyLine = findViewById(R.id.easy_line);
         easyMode = findViewById(R.id.easy_mode);
         sepcialText = findViewById(R.id.sepcial_text);
         specialLine = findViewById(R.id.special_line);
         specialMode = findViewById(R.id.special_mode);
-        fragmentContainer = findViewById(R.id.fragment_container);
+        FragmentContainerView fragmentContainer = findViewById(R.id.fragment_container);
         title = findViewById(R.id.title);
         game = findViewById(R.id.game);
     }

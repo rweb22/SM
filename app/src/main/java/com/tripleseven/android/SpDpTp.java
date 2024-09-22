@@ -47,14 +47,12 @@ import java.util.Locale;
 import java.util.Map;
 
 public class SpDpTp extends AppCompatActivity {
-
-    private CardView back;
     private Spinner type;
     private EditText number;
     private EditText amount;
     private latobold add;
     private RecyclerView recyclerview;
-    private EditText totalamount;
+    private EditText totalAmount;
     private latobold submit;
     TextView open_game, close_game;
     LinearLayout type_container, digit_header;
@@ -67,7 +65,6 @@ public class SpDpTp extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    AdapterBetItem adapterbetting;
     String market, game;
     ViewDialog progressDialog;
     String url;
@@ -157,7 +154,7 @@ public class SpDpTp extends AppCompatActivity {
                     fillnumber.clear();
                     fillamount.clear();
                     fillmarket.clear();
-                    AdapterSingleGames rc = new AdapterSingleGames(SpDpTp.this, fillnumber, fillamount, fillmarket);
+                    AdapterSingleGames rc = new AdapterSingleGames(SpDpTp.this, fillnumber, fillamount, new ArrayList<>());
                     recyclerview.setLayoutManager(new GridLayoutManager(SpDpTp.this, 1));
                     recyclerview.setAdapter(rc);
                     rc.notifyDataSetChanged();
@@ -392,7 +389,7 @@ public class SpDpTp extends AppCompatActivity {
                 fillnumber.remove(Integer.parseInt(num));
                 fillmarket.remove(Integer.parseInt(num));
 
-                AdapterSingleGames rc = new AdapterSingleGames(SpDpTp.this, fillnumber, fillamount, fillmarket);
+                AdapterSingleGames rc = new AdapterSingleGames(SpDpTp.this, fillnumber, fillamount, new ArrayList<>());
                 recyclerview.setLayoutManager(new GridLayoutManager(SpDpTp.this, 1));
                 recyclerview.setAdapter(rc);
                 rc.notifyDataSetChanged();
@@ -407,7 +404,7 @@ public class SpDpTp extends AppCompatActivity {
                 for (int a = 0; a < fillamount.size(); a++) {
                     total = total + Integer.parseInt(fillamount.get(a));
                 }
-                totalamount.setText(total + "");
+                totalAmount.setText(total + "");
             }
         };
 
@@ -438,7 +435,7 @@ public class SpDpTp extends AppCompatActivity {
                     }
 
 
-                    AdapterSingleGames rc = new AdapterSingleGames(SpDpTp.this, fillnumber, fillamount, fillmarket);
+                    AdapterSingleGames rc = new AdapterSingleGames(SpDpTp.this, fillnumber, fillamount, new ArrayList<>());
                     recyclerview.setLayoutManager(new GridLayoutManager(SpDpTp.this, 1));
                     recyclerview.setAdapter(rc);
 
@@ -453,7 +450,7 @@ public class SpDpTp extends AppCompatActivity {
                     for (int a = 0; a < fillamount.size(); a++) {
                         total = total + Integer.parseInt(fillamount.get(a));
                     }
-                    totalamount.setText(total + "");
+                    totalAmount.setText(total + "");
 
 
                     number.setText("");
@@ -644,13 +641,13 @@ public class SpDpTp extends AppCompatActivity {
     }
 
     private void initViews() {
-        back = findViewById(R.id.back);
+        CardView backButton = findViewById(R.id.back);
         type = findViewById(R.id.type);
         number = findViewById(R.id.number);
         amount = findViewById(R.id.amount2);
         add = findViewById(R.id.add);
         recyclerview = findViewById(R.id.recyclerview);
-        totalamount = findViewById(R.id.totalamount);
+        totalAmount = findViewById(R.id.totalamount);
         submit = findViewById(R.id.submit);
         open_game = findViewById(R.id.open_game);
         close_game = findViewById(R.id.close_game);
@@ -659,7 +656,7 @@ public class SpDpTp extends AppCompatActivity {
 
         date = findViewById(R.id.date2);
         date.setText(new SimpleDateFormat("MMM, d\nyyyy", Locale.getDefault()).format(new Date()));
-        back.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

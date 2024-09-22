@@ -146,7 +146,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingTop="10dp"
-                                android:text="Play Jodi"
+                                android:text="Jodi"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -198,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingTop="10dp"
-                                android:text="Single Panna"
+                                android:text="Single Pana"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -245,7 +245,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingTop="10dp"
-                                android:text="Double Panna"
+                                android:text="Double Pana"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -299,7 +299,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingTop="10dp"
-                                android:text="Triple Panna"
+                                android:text="Triple Pana"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -602,14 +602,14 @@
 
 
                             <com.tripleseven.android.latobold
+                                android:id="@+id/crossingOp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingTop="10dp"
-                                android:text="Crossing"
+                                android:text="Jodi Family"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
-
                         </LinearLayout>
 
 
@@ -751,7 +751,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingTop="10dp"
-                                android:text="Choice Panna"
+                                android:text="Choice Pana"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -805,7 +805,7 @@
                                 android:gravity="center"
                                 android:lines="1"
                                 android:paddingTop="10dp"
-                                android:text="Panel Group"
+                                android:text="Pana Family"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 

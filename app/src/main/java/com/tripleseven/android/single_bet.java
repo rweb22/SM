@@ -32,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tripleseven.android.dto.GameType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,14 +58,13 @@ public class single_bet extends AppCompatActivity {
     SharedPreferences prefs;
     ArrayList<String> list;
     ArrayList<String> numbers = new ArrayList<>();
-    AdapterBetItem adapterbetting;
     String market,game;
     ViewDialog progressDialog;
     String url;
     int total = 0;
-    ArrayList<String> fillnumber = new ArrayList<>();
-    ArrayList<String> fillamount = new ArrayList<>();
-    ArrayList<String> fillmarket = new ArrayList<>();
+    ArrayList<String> fillNumber = new ArrayList<>();
+    ArrayList<String> fillAmount = new ArrayList<>();
+    ArrayList<GameType> fillGameType = new ArrayList<>();
     String numb,amou,types;
 
 
@@ -129,19 +129,19 @@ public class single_bet extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 String num = intent.getStringExtra("number");
-                fillamount.remove(Integer.parseInt(num));
-                fillnumber.remove(Integer.parseInt(num));
-                fillmarket.remove(Integer.parseInt(num));
+                fillAmount.remove(Integer.parseInt(num));
+                fillNumber.remove(Integer.parseInt(num));
+                fillGameType.remove(Integer.parseInt(num));
 
-                AdapterSingleGames rc = new AdapterSingleGames(single_bet.this,fillnumber,fillamount,fillmarket);
+                AdapterSingleGames rc = new AdapterSingleGames(single_bet.this, fillNumber, fillAmount, fillGameType);
                 recyclerview.setLayoutManager(new GridLayoutManager(single_bet.this, 1));
                 recyclerview.setAdapter(rc);
                 rc.notifyDataSetChanged();
 
 
                 total = 0;
-                for (int a = 0; a < fillamount.size(); a++) {
-                    total = total+Integer.parseInt(fillamount.get(a));
+                for (int a = 0; a < fillAmount.size(); a++) {
+                    total = total+Integer.parseInt(fillAmount.get(a));
                 }
                 totalamount.setText(total+"");
             }
@@ -158,25 +158,25 @@ public class single_bet extends AppCompatActivity {
                 } else if (amount.getText().toString().isEmpty() || Integer.parseInt(amount.getText().toString()) < constant.min_single){
                     amount.setError("Enter amount between "+constant.min_single+" - "+constant.max_single);
                 } else {
-                    fillnumber.add(number.getText().toString());
-                    fillamount.add(amount.getText().toString());
+                    fillNumber.add(number.getText().toString());
+                    fillAmount.add(amount.getText().toString());
                     if (game.equals("jodi"))
                     {
-                        fillmarket.add("");
+                        fillGameType.add(GameType.JODI);
                     }
                     else {
-                        fillmarket.add(type.getSelectedItem().toString());
+                        fillGameType.add(GameType.SINGLE);
                     }
 
-                    AdapterSingleGames rc = new AdapterSingleGames(single_bet.this,fillnumber,fillamount,fillmarket);
+                    AdapterSingleGames rc = new AdapterSingleGames(single_bet.this, fillNumber, fillAmount, fillGameType);
                     recyclerview.setLayoutManager(new GridLayoutManager(single_bet.this, 1));
                     recyclerview.setAdapter(rc);
                     rc.notifyDataSetChanged();
 
 
                     total = 0;
-                    for (int a = 0; a < fillamount.size(); a++) {
-                        total = total+Integer.parseInt(fillamount.get(a));
+                    for (int a = 0; a < fillAmount.size(); a++) {
+                        total = total+Integer.parseInt(fillAmount.get(a));
                     }
                     totalamount.setText(total+"");
 
@@ -190,15 +190,15 @@ public class single_bet extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fillnumber.size() > 0){
+                if (fillNumber.size() > 0){
                     if (total <= (Integer.parseInt(prefs.getString("wallet",null))+Integer.parseInt(prefs.getString("winning",null))+Integer.parseInt(prefs.getString("bonus",null)))) {
                         numb = "";
                         amou = "";
                         types = "";
 
-                        numb = TextUtils.join(",", fillnumber);
-                        amou = TextUtils.join(",", fillamount);
-                        types = TextUtils.join(",", fillmarket);
+                        numb = TextUtils.join(",", fillNumber);
+                        amou = TextUtils.join(",", fillAmount);
+                        types = TextUtils.join(",", fillGameType);
 
 
                         apicall();

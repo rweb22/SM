@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tripleseven.android.dto.GameType;
+
 import java.util.ArrayList;
 
 class AdapterSingleGames extends RecyclerView.Adapter<AdapterSingleGames.ViewHolder> {
@@ -21,9 +23,9 @@ class AdapterSingleGames extends RecyclerView.Adapter<AdapterSingleGames.ViewHol
     Context context;
     ArrayList<String> digit = new ArrayList<>();
     ArrayList<String> amount = new ArrayList<>();
-    ArrayList<String> game = new ArrayList<>();
+    ArrayList<GameType> game = new ArrayList<>();
 
-    public AdapterSingleGames(Context context, ArrayList<String> digit, ArrayList<String> amount, ArrayList<String> game) {
+    public AdapterSingleGames(Context context, ArrayList<String> digit, ArrayList<String> amount, ArrayList<GameType> game) {
         this.context = context;
         this.digit = digit;
         this.amount = amount;
@@ -42,8 +44,11 @@ class AdapterSingleGames extends RecyclerView.Adapter<AdapterSingleGames.ViewHol
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         holder.date.setText(digit.get(position));
-        holder.remark.setText(game.get(position));
+        holder.remark.setText(game.get(position).getDisplayName());
         holder.amount.setText(amount.get(position));
+
+        System.out.println("Position: " + position  + " -  " + holder.getAbsoluteAdapterPosition());
+        System.out.println(digit.toString() + " : " + amount.toString());
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +57,8 @@ class AdapterSingleGames extends RecyclerView.Adapter<AdapterSingleGames.ViewHol
 
                 IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
                 context.registerReceiver(mReceiver, intentFilter);
+
+                System.out.println("Position: " + position  + " -  " + holder.getAbsoluteAdapterPosition());
 
                 Intent i = new Intent("android.intent.action.MAIN");
                 i.putExtra("number",position + "");

@@ -195,8 +195,8 @@
         <activity android:name=".charts" />
         <activity android:name=".crossing" />
         <activity android:name=".earn" />
-        <activity android:name=".fullsangam" />
-        <activity android:name=".halfsangam" />
+        <activity android:name=".FullSangam" />
+        <activity android:name=".HalfSangam" />
         <activity android:name=".betting" />
         <activity
             android:name=".splash"

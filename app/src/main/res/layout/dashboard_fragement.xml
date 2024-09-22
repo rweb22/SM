@@ -121,52 +121,59 @@
                             <LinearLayout
                                 android:id="@+id/play_starline2"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="57dp"
                                 android:layout_marginLeft="7dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="7dp"
-                                android:background="@drawable/small_round_button_home"
-                                android:orientation="horizontal"
                                 android:layout_weight="1"
-                                android:padding="10dp">
+                                android:background="@drawable/ludo2"
+                                android:orientation="horizontal"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:padding="10dp"
+                                >
 
-                                <com.tripleseven.android.latobold
-                                    android:id="@+id/latobold"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="7dp"
-                                    android:layout_marginRight="7dp"
-                                    android:layout_weight="1"
-                                    android:text="Invite and Earn"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/md_white_1000"
-                                    android:textSize="16sp" />
+
+<!--                                <com.tripleseven.android.latobold-->
+<!--                                    android:id="@+id/latobold"-->
+<!--                                    android:layout_width="0dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginLeft="7dp"-->
+<!--                                    android:layout_marginRight="7dp"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:text="Play Ludo"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="#EA3A2D"-->
+<!--                                    android:textSize="16sp"-->
+<!--                                    android:alpha="1"/>-->
                             </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/play_starline3"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="57dp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="10dp"
-                                android:background="@drawable/small_round_button_home"
+                                android:background="@drawable/cpg"
                                 android:orientation="horizontal"
                                 android:layout_weight="1"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:padding="10dp">
 
-                                <com.tripleseven.android.latobold
-                                    android:id="@+id/latobold3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"
-                                    android:layout_weight="1"
-                                    android:text="Samrat Line"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/md_white_1000"
-                                    android:textSize="16sp" />
+<!--                                <com.tripleseven.android.latobold-->
+<!--                                    android:id="@+id/latobold3"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginLeft="10dp"-->
+<!--                                    android:layout_marginRight="10dp"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:text="Samrat Line"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/md_white_1000"-->
+<!--                                    android:textSize="16sp" />-->
                             </LinearLayout>
 
                         </LinearLayout>

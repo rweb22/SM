@@ -61,14 +61,32 @@
                     android:layout_toRightOf="@id/back">
 
 
-                    <com.tripleseven.android.latonormal
+                    <com.tripleseven.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
+                        android:layout_marginLeft="1dp"
                         android:text="GAMES"
                         android:id="@+id/title"
                         android:textColor="@color/font"
-                        android:textSize="19sp" />
+                        android:textSize="17sp" />
+
+
+                    <com.tripleseven.android.latonormal
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="-"
+                        android:textColor="@color/font"
+                        android:textSize="15sp" />
+
+                    <com.tripleseven.android.latonormal
+                        android:id="@+id/session"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text=""
+                        android:textColor="@color/font"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 

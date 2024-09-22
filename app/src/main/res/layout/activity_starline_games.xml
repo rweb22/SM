@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_margin="15dp"
-                            android:text="Single Panna"
+                            android:text="Single Pana"
                             android:textColor="@color/font"
                             android:textSize="16sp"
                             />
@@ -202,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_margin="15dp"
-                            android:text="Double Panna"
+                            android:text="Double Pana"
                             android:textColor="@color/font"
                             android:textSize="16sp"
                             />
@@ -248,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_margin="15dp"
-                            android:text="Triple Panna"
+                            android:text="Triple Pana"
                             android:textColor="@color/font"
                             android:textSize="16sp"
                             />

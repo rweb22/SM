@@ -34,6 +34,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
@@ -47,20 +49,20 @@ import java.util.Objects;
 public class SpecialMode extends Fragment {
     SharedPreferences prefs;
     ArrayList<String> numbers = new ArrayList<>();
-    String game;
+    GameOption game;
     MarketDto market;
     ViewDialog progressDialog;
     String url;
     int total = 0;
     ArrayList<String> fillNumber = new ArrayList<>();
     ArrayList<String> fillAmount = new ArrayList<>();
-    ArrayList<String> fillMarket = new ArrayList<>();
+    ArrayList<GameType> fillGameTypes = new ArrayList<>();
 
     ArrayList<Item> betItems = new ArrayList<>();
 
     public static class Item {
         public String number1;
-        public String number2;
+        public String gameType;
         public String amount;
     }
 
@@ -90,7 +92,7 @@ public class SpecialMode extends Fragment {
         url = constant.prefix2 + getString(R.string.bet);
 
         prefs = requireActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE);
-        game = requireActivity().getIntent().getStringExtra("game");
+        game = GameOption.valueOf(requireActivity().getIntent().getStringExtra("game"));
         numbers = requireActivity().getIntent().getStringArrayListExtra("digits");
         session = requireActivity().getIntent().getStringExtra("session");
 
@@ -124,15 +126,19 @@ public class SpecialMode extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String num = intent.getStringExtra("number");
+                System.out.println("Number in special mode : " + num);
 
-                System.out.println("number");
-                System.out.println(num);
+                if (Objects.isNull(num) || fillNumber.isEmpty()) {
+                    return;
+                }
+
+                System.out.println(fillNumber.toString() + " : " + fillAmount.toString());
 
                 fillAmount.remove(Integer.parseInt(num));
                 fillNumber.remove(Integer.parseInt(num));
-                fillMarket.remove(Integer.parseInt(num));
+                fillGameTypes.remove(Integer.parseInt(num));
 
-                AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillNumber, fillAmount, fillMarket);
+                AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillNumber, fillAmount, fillGameTypes);
                 recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                 recyclerview.setAdapter(rc);
                 rc.notifyDataSetChanged();
@@ -159,9 +165,9 @@ public class SpecialMode extends Fragment {
                 } else {
                     fillNumber.add(number.getText().toString());
                     fillAmount.add(amount.getText().toString());
-                    fillMarket.add(session);
+                    fillGameTypes.add(GameOption.toGameType(game));
 
-                    AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillNumber, fillAmount, fillMarket);
+                    AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillNumber, fillAmount, fillGameTypes);
                     recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     recyclerview.setAdapter(rc);
                     rc.notifyDataSetChanged();
@@ -184,7 +190,7 @@ public class SpecialMode extends Fragment {
             @Override
             public void onClick(View v) {
                 if (fillNumber.size() > 0){
-                    if (total <= (Integer.parseInt(prefs.getString("wallet",null))+Integer.parseInt(prefs.getString("winning",null))+Integer.parseInt(prefs.getString("bonus",null)))) {
+                    if (total <= (Integer.parseInt(prefs.getString("wallet", String.valueOf(0)))+Integer.parseInt(prefs.getString("winning",String.valueOf(0)))+Integer.parseInt(prefs.getString("bonus",String.valueOf(0))))) {
                         apicall();
                     }
                     else
@@ -210,6 +216,10 @@ public class SpecialMode extends Fragment {
         });
 
         return view;
+    }
+
+    private GameType getGameType() {
+        return null;
     }
 
 
@@ -311,9 +321,10 @@ public class SpecialMode extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                for(int i=0; i<fillNumber.size(); i++) {
+                for(int i=0; i < fillNumber.size(); i++) {
                     Item item = new Item();
                     item.number1 = fillNumber.get(i);
+                    item.gameType = fillGameTypes.get(i).getId();
                     item.amount = fillAmount.get(i);
 
                     betItems.add(item);
@@ -325,10 +336,11 @@ public class SpecialMode extends Fragment {
                 params.put("items", betItemsString);
                 params.put("market_id", market.getMarketId());
                 params.put("market_name", market.getName());
-                params.put("game_display_name", getMarketName());
                 params.put("total",total+"");
-                params.put("game", game);
+                params.put("game_option", game.getId());
                 params.put("game_session", session);
+
+                System.out.println(params.toString());
 
                 params.put("session", requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
                 return params;

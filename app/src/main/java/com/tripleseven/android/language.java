@@ -275,8 +275,6 @@ public class language extends AppCompatActivity {
         bangla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 LocaleManager.setNewLocale(language.this, LocaleManager.LANGUAGE_KEY_BANGLA);
 
                 String languageToLoad = LocaleManager.LANGUAGE_KEY_BANGLA; // your language

@@ -351,7 +351,7 @@ public class OddEven extends AppCompatActivity {
                 params.put("amount",amou);
                 params.put("bazar",market);
                 params.put("total",total+"");
-                params.put("game",game);
+                params.put("game", game);
                 params.put("mobile", prefs.getString("mobile",null));
                 params.put("types",types);
                 if (!timing.equals("")){
