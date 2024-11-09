@@ -14,7 +14,7 @@
     <string name="games" translatable="false">get_bets</string>
     <string name="profile" translatable="false">update_profile</string>
     <string name="password" translatable="false">update_password</string>
-    <string name="rate" translatable="false">rate.php</string>
+    <string name="rate" translatable="false">game_rate</string>
     <string name="register" translatable="false">signup</string>
     <string name="transaction" translatable="false">get_transactions</string>
     <string name="get_gateway" translatable="false">get_gateway.php</string>

@@ -126,9 +126,11 @@ public class SpecialMode extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String num = intent.getStringExtra("number");
+                String type = intent.getStringExtra("type");
                 System.out.println("Number in special mode : " + num);
+                System.out.println("type in special mode : " + type);
 
-                if (Objects.isNull(num) || fillNumber.isEmpty()) {
+                if (Objects.isNull(num) || fillNumber.isEmpty() || "panna".equalsIgnoreCase(type)) {
                     return;
                 }
 
@@ -274,7 +276,7 @@ public class SpecialMode extends Fragment {
                                         in.putExtra("is_open",constant.is_open);
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         getActivity().finish();
                                     }
                                 });
@@ -290,7 +292,7 @@ public class SpecialMode extends Fragment {
                                         in.putExtra("is_open",constant.is_open);
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         getActivity().finish();
                                     }
                                 });

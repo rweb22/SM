@@ -81,7 +81,7 @@ public class transactions extends AppCompatActivity {
                                 remark.add(jsonObject.getString("remark"));
                                 type.add(jsonObject.getString("type"));
 
-                                adaptertransaction rc = new adaptertransaction(transactions.this,date,remark,amount,type);
+                                AdapterTransactionItem rc = new AdapterTransactionItem(transactions.this,date,remark,amount,type);
                                 recyclerview.setLayoutManager(new GridLayoutManager(transactions.this, 1));
                                 recyclerview.setAdapter(rc);
                                 rc.notifyDataSetChanged();

@@ -27,7 +27,7 @@ public class constant {
     ///// CONFIGURATION /////
 
     // API FOLDER URL
-    static String prefix = "https://samratmatka.com/";
+    static String prefix = "http://10.0.2.2:5001/";
     static String prefix2 = "http://10.0.2.2:5001/";
 
     static String SUCCESS = "success";
@@ -121,7 +121,7 @@ public class constant {
                             context.startActivity(new Intent(context, Notifications.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(24)) {
-                            context.startActivity(new Intent(context, chart_menu.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            context.startActivity(new Intent(context, ChartMenu.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(32)) {
                             context.startActivity(new Intent(context, change_bank.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -136,7 +136,7 @@ public class constant {
                             context.startActivity(new Intent(context, MarketList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(2)) {
-                            context.startActivity(new Intent(context, rate.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            context.startActivity(new Intent(context, GameRate.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(21)) {
                             context.startActivity(new Intent(context, earn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -176,13 +176,13 @@ public class constant {
                             context.finish();
                         }
                         if (drawerItem.equals(6)) {
-                            context.startActivity(new Intent(context, ledger.class));
+                            context.startActivity(new Intent(context, PassBook.class));
                         }
                         if (drawerItem.equals(8)) {
                             context.startActivity(new Intent(context, WithdrawHistory.class));
                         }
                         if (drawerItem.equals(9)) {
-                            context.startActivity(new Intent(context, played.class));
+                            context.startActivity(new Intent(context, BetHistory.class));
                         }
 
                         return false;

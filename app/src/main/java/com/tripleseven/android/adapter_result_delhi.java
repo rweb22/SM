@@ -79,7 +79,7 @@ class adapter_result_delhi extends RecyclerView.Adapter<adapter_result_delhi.Vie
         holder.chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"get_charts?market="+name.get(position)));
+                context.startActivity(new Intent(context, Charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"get_charts?market="+name.get(position)));
             }
         });
 

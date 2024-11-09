@@ -8,7 +8,7 @@ public enum GameType {
     DP("DP", "DP"),
     TP("TP", "TP"),
     HALF_SANGAM("HALF_SANGAM", "Half Sangam"),
-    FULL_SANGAM("HALF_SANGAM", "Half Sangam");
+    FULL_SANGAM("FULL_SANGAM", "Full Sangam");
 
     public String getId() {
         return id;

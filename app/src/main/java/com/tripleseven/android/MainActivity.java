@@ -27,7 +27,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -253,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         game_charts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, chart_menu.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivity(new Intent(MainActivity.this, ChartMenu.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
@@ -269,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         wallet_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, played.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivity(new Intent(MainActivity.this, BetHistory.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
@@ -311,10 +310,10 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, profile.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(101)) {
-                            startActivity(new Intent(MainActivity.this, chart_menu.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(new Intent(MainActivity.this, ChartMenu.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(2)) {
-                            startActivity(new Intent(MainActivity.this, rate.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(new Intent(MainActivity.this, GameRate.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         if (drawerItem.equals(21)) {
                             startActivity(new Intent(MainActivity.this, earn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -353,13 +352,13 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         }
                         if (drawerItem.equals(6)) {
-                            startActivity(new Intent(MainActivity.this, ledger.class));
+                            startActivity(new Intent(MainActivity.this, PassBook.class));
                         }
                         if (drawerItem.equals(8)) {
                             startActivity(new Intent(MainActivity.this, transactions.class));
                         }
                         if (drawerItem.equals(9)) {
-                            startActivity(new Intent(MainActivity.this, played.class));
+                            startActivity(new Intent(MainActivity.this, BetHistory.class));
                         }
 
                         return false;

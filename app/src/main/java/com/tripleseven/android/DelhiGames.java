@@ -67,7 +67,7 @@ public class DelhiGames extends AppCompatActivity {
         resultHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DelhiGames.this, ledger.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivity(new Intent(DelhiGames.this, PassBook.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
@@ -81,7 +81,7 @@ public class DelhiGames extends AppCompatActivity {
         chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DelhiGames.this, charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href","https://satta-king-online.in/result-chart.php"));
+                startActivity(new Intent(DelhiGames.this, Charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href","https://satta-king-online.in/result-chart.php"));
             }
         });
 

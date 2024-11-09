@@ -22,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -182,7 +181,7 @@ public class cardBidHistory extends AppCompatActivity {
                             JSONObject jsonObject1 = new JSONObject(response);
 
                             ArrayList<String> date = new ArrayList<>();
-                            ArrayList<ArrayList<playedModel>> models = new ArrayList<>();
+                            ArrayList<ArrayList<BetModel>> models = new ArrayList<>();
 
                             if (jsonObject1.has("dates")){
                                 JSONArray jsonArray = jsonObject1.getJSONArray("dates");
@@ -194,35 +193,35 @@ public class cardBidHistory extends AppCompatActivity {
 
                                     date.add(jsonArray.getString(a));
 
-                                    ArrayList<playedModel> models1 = new ArrayList<>();
+                                    ArrayList<BetModel> models1 = new ArrayList<>();
 
                                     JSONArray jsonArray1 = jsonObject1.getJSONArray(jsonArray.getString(a));
                                     for (int a2 = 0; jsonArray1.length() > a2; a2++) {
                                         JSONObject jsonObject = jsonArray1.getJSONObject(a2);
 
-                                        playedModel playedModel = new playedModel();
+                                        BetModel BetModel = new BetModel();
 
-                                        playedModel.setAmount(jsonObject.getString("amount"));
-                                        playedModel.setNumber(jsonObject.getString("number"));
-                                        playedModel.setDate(jsonObject.getString("date"));
-                                        playedModel.setMarketName(jsonObject.getString("timing"));
+                                        BetModel.setAmount(jsonObject.getString("amount"));
+                                        BetModel.setNumber(jsonObject.getString("number"));
+                                        BetModel.setDate(jsonObject.getString("date"));
+                                        BetModel.setMarketName(jsonObject.getString("timing"));
 
                                         String bgame = jsonObject.getString("game").replace("singlepatti","Single Pana");
                                         bgame = bgame.replace("doublepatti","Double Pana");
                                         bgame = bgame.replace("triplepatti","Triple Pana");
-                                        playedModel.setBid_type(bgame);
+                                        BetModel.setBid_type(bgame);
 
-                                        playedModel.setStatus(jsonObject.getString("status"));
-                                        playedModel.setMsg(jsonObject.getString("msg"));
-                                        playedModel.setSn(jsonObject.getString("sn"));
+                                        BetModel.setStatus(jsonObject.getString("status"));
+                                        BetModel.setMsg(jsonObject.getString("msg"));
+                                        BetModel.setSn(jsonObject.getString("sn"));
 
-                                        models1.add(playedModel);
+                                        models1.add(BetModel);
                                     }
                                     models.add(models1);
                                 }
                             }
 
-                            adapter_played_group rc = new adapter_played_group(cardBidHistory.this, date, models);
+                            AdapterBetHistoryItemsGroup rc = new AdapterBetHistoryItemsGroup(cardBidHistory.this, date, models);
                             recyclerview.setLayoutManager(new GridLayoutManager(cardBidHistory.this, 1));
                             recyclerview.setAdapter(rc);
 
@@ -231,9 +230,9 @@ public class cardBidHistory extends AppCompatActivity {
                             progressDialog.hideDialog();
 
                             ArrayList<String> date = new ArrayList<>();
-                            ArrayList<ArrayList<playedModel>> models = new ArrayList<>();
+                            ArrayList<ArrayList<BetModel>> models = new ArrayList<>();
 
-                            adapter_played_group rc = new adapter_played_group(cardBidHistory.this, date, models);
+                            AdapterBetHistoryItemsGroup rc = new AdapterBetHistoryItemsGroup(cardBidHistory.this, date, models);
                             recyclerview.setLayoutManager(new GridLayoutManager(cardBidHistory.this, 1));
                             recyclerview.setAdapter(rc);
                         }

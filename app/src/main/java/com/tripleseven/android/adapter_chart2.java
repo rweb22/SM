@@ -48,7 +48,7 @@ class adapter_chart2 extends RecyclerView.Adapter<adapter_chart2.ViewHolder> {
                 Log.e("type",type.get(position));
 
                 //   context.startActivity(new Intent(context,charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",result.get(position)));
-                context.startActivity(new Intent(context, charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"charted/index2.php?market="+name.get(position)));
+                context.startActivity(new Intent(context, Charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"charted/index2.php?market="+name.get(position)));
             }
         });
 

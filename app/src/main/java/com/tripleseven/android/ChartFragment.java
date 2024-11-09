@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,7 +132,6 @@ public class ChartFragment extends Fragment {
                         progressDialog.hideDialog();
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
-
                             JSONArray jsonArray = jsonObject1.getJSONArray("data");
 
 
@@ -146,7 +143,7 @@ public class ChartFragment extends Fragment {
                                 type.add(jsonObject.getString("type"));
 
                             }
-                            adapter_chart rc = new adapter_chart(getActivity(),name,result, type);
+                            AdapterChartItem rc = new AdapterChartItem(getActivity(), name, result, type);
                             recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                             recyclerview.setAdapter(rc);
 

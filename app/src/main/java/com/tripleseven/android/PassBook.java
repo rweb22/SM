@@ -1,8 +1,6 @@
 package com.tripleseven.android;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ledger extends AppCompatActivity {
+public class PassBook extends AppCompatActivity {
 
     protected RecyclerView recyclerview;
-
     ViewDialog progressDialog;
     String url;
 
@@ -37,30 +34,19 @@ public class ledger extends AppCompatActivity {
         super.setContentView(R.layout.activity_ledger);
         initView();
         url = constant.prefix2 + "get_transactions";
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        apicall();
+        findViewById(R.id.back).setOnClickListener(v -> finish());
+        apiCall();
     }
 
-    private void apicall() {
-
-        progressDialog = new ViewDialog(ledger.this);
+    private void apiCall() {
+        progressDialog = new ViewDialog(PassBook.this);
         progressDialog.showDialog();
-
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         final StringRequest postRequest = new MyStringRequest(getSharedPreferences(constant.prefs, MODE_PRIVATE), Request.Method.POST, url,
                 response -> {
-                    Log.e("edsa", "efsdc" + response);
                     progressDialog.hideDialog();
                     try {
                         JSONObject jsonObject1 = new JSONObject(response);
-
 
                         ArrayList<String> type = new ArrayList<>();
                         ArrayList<String> date = new ArrayList<>();
@@ -77,30 +63,26 @@ public class ledger extends AppCompatActivity {
                             remark.add(jsonObject.getString("remark"));
                             type.add(jsonObject.getString("type"));
 
-                            adaptertransaction rc = new adaptertransaction(ledger.this,date,remark,amount,type);
-                            recyclerview.setLayoutManager(new GridLayoutManager(ledger.this, 1));
+                            AdapterTransactionItem rc = new AdapterTransactionItem(PassBook.this,date,remark,amount,type);
+                            recyclerview.setLayoutManager(new GridLayoutManager(PassBook.this, 1));
                             recyclerview.setAdapter(rc);
                             rc.notifyDataSetChanged();
                         }
 
                     } catch (JSONException e) {
-                        e.printStackTrace();
                         progressDialog.hideDialog();
+                        Toast.makeText(PassBook.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-                    error.printStackTrace();
                     progressDialog.hideDialog();
-                    Toast.makeText(ledger.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PassBook.this, getString(R.string.api_error_msg), Toast.LENGTH_SHORT).show();
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-
                 params.put("mobile", getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("mobile",null));
-
-
                 return params;
             }
         };
@@ -110,6 +92,6 @@ public class ledger extends AppCompatActivity {
 
 
     private void initView() {
-        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerview = findViewById(R.id.recyclerview);
     }
 }

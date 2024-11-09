@@ -83,7 +83,7 @@ class adapter_result extends RecyclerView.Adapter<adapter_result.ViewHolder> {
         holder.chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"charted/index.php?market="+result.get_name()));
+                context.startActivity(new Intent(context, Charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"charted/index.php?market="+result.get_name()));
                 Log.e("curl",constant.prefix+"chart2/getChart.php?market="+result.get_name());
             }
         });

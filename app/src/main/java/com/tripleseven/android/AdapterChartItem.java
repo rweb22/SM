@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-class adapter_chart extends RecyclerView.Adapter<adapter_chart.ViewHolder> {
+class AdapterChartItem extends RecyclerView.Adapter<AdapterChartItem.ViewHolder> {
 
     Context context;
     ArrayList<String> name = new ArrayList<>();
@@ -23,7 +23,7 @@ class adapter_chart extends RecyclerView.Adapter<adapter_chart.ViewHolder> {
     ArrayList<String> type = new ArrayList<>();
 
 
-    public adapter_chart(Context context, ArrayList<String> name, ArrayList<String> result,ArrayList<String> type) {
+    public AdapterChartItem(Context context, ArrayList<String> name, ArrayList<String> result, ArrayList<String> type) {
         this.context = context;
         this.name = name;
         this.result = result;
@@ -45,10 +45,9 @@ class adapter_chart extends RecyclerView.Adapter<adapter_chart.ViewHolder> {
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("type",type.get(position));
-
-                 //   context.startActivity(new Intent(context,charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",result.get(position)));
-                context.startActivity(new Intent(context, charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("href",constant.prefix+"get_charts?market="+name.get(position)));
+                context.startActivity(new Intent(context, Charts.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra("href",constant.prefix + "get_charts?market_id=" + result.get(position)));
             }
         });
 
@@ -61,20 +60,16 @@ class adapter_chart extends RecyclerView.Adapter<adapter_chart.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         RelativeLayout layout;
+
+
 
         public ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.ntitle);
             layout = view.findViewById(R.id.layoutj);
-
-
         }
     }
-
-
-
 }

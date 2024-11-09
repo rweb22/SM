@@ -15,15 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-class adapter_transaction extends RecyclerView.Adapter<adapter_transaction.ViewHolder> {
+class AdapterTransactionItem2 extends RecyclerView.Adapter<AdapterTransactionItem2.ViewHolder> {
 
     Context context;
     ArrayList<String> date = new ArrayList<>();
     ArrayList<String> remark = new ArrayList<>();
     ArrayList<String> amount = new ArrayList<>();
     ArrayList<String> type = new ArrayList<>();
+    ArrayList<String> status = new ArrayList<>();
 
-    public adapter_transaction(Context context, ArrayList<String> date, ArrayList<String> remark, ArrayList<String> amount, ArrayList<String> type) {
+    public AdapterTransactionItem2(Context context, ArrayList<String> date,
+                                   ArrayList<String> remark,
+                                   ArrayList<String> amount,
+                                   ArrayList<String> type,
+                                   ArrayList<String> status) {
         this.context = context;
         this.date = date;
         this.remark = remark;

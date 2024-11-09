@@ -252,7 +252,6 @@ public class SpMotor extends AppCompatActivity {
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 String num = intent.getStringExtra("number");
                 System.out.println("Number :" + num);
                 System.out.println(fillNumbers.toString() + " - " + fillAmounts.toString() + " - " + fillGameTypes.toString());
@@ -290,21 +289,10 @@ public class SpMotor extends AppCompatActivity {
                 } else {
                     switch (game) {
                         case GROUP_JODI:
-                            if ("TWO_DIGIT".equalsIgnoreCase(market.getType())) {
-                                //Logic for 2D markets
-                                if (number.getText().length() < 2) {
-                                    number.setError("Enter at least two digits");
-                                } else if (number.getText().length() > 7) {
-                                    number.setError("Enter 7 Digit Only");
-                                } else {
-                                    characterCountJodiCrossingFamily(number.getText().toString());
-                                }
+                            if (number.getText().length() != 2) {
+                                number.setError("Enter a valid Jodi");
                             } else {
-                                if (number.getText().length() != 2) {
-                                    number.setError("Enter a valid Jodi");
-                                } else {
-                                    characterCountFamily(number.getText().toString());
-                                }
+                                characterCountFamily(number.getText().toString());
                             }
                             break;
                         case PANEL_GROUP:
@@ -355,6 +343,9 @@ public class SpMotor extends AppCompatActivity {
                             break;
                         case RED_BRACKET:
                             red_bracket();
+                            break;
+                        case JODI_MOTOR:
+                            characterCountJodiCrossingFamily(number.getText().toString());
                             break;
                         default:
                             characterCount(number.getText().toString());
@@ -906,6 +897,9 @@ public class SpMotor extends AppCompatActivity {
 //                        }
 
                         if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
+                            fillNumbers.clear();
+                            fillAmounts.clear();
+                            fillGameTypes.clear();
 
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(SpMotor.this);
                             LayoutInflater factory = LayoutInflater.from(SpMotor.this);
@@ -928,7 +922,7 @@ public class SpMotor extends AppCompatActivity {
                                     in.putExtra("is_open",constant.is_open);
                                     in.putExtra("is_close",constant.is_close);
                                     in.putExtra("market_type",constant.market_type);
-                                    startActivity(in);
+                                    //startActivity(in);
                                     SpMotor.this.finish();
                                 }
                             });
@@ -944,7 +938,7 @@ public class SpMotor extends AppCompatActivity {
                                     in.putExtra("is_open",constant.is_open);
                                     in.putExtra("is_close",constant.is_close);
                                     in.putExtra("market_type",constant.market_type);
-                                    startActivity(in);
+                                    //startActivity(in);
                                     SpMotor.this.finish();
                                 }
                             });
@@ -1722,6 +1716,9 @@ public class SpMotor extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fillNumbers.clear();
+                fillAmounts.clear();
+                fillGameTypes.clear();
                 onBackPressed();
             }
         });

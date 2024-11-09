@@ -191,8 +191,8 @@
         <activity android:name=".MarketGames" />
         <activity android:name=".deposit_money" />
         <activity android:name=".webview" />
-        <activity android:name=".chart_menu" />
-        <activity android:name=".charts" />
+        <activity android:name=".ChartMenu" />
+        <activity android:name=".Charts" />
         <activity android:name=".crossing" />
         <activity android:name=".earn" />
         <activity android:name=".FullSangam" />
@@ -207,14 +207,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ledger" />
+        <activity android:name=".PassBook" />
         <activity android:name=".transactions" />
-        <activity android:name=".played" />
+        <activity android:name=".BetHistory" />
         <activity android:name=".howot" />
         <activity android:name=".thankyou" />
         <activity android:name=".bazar" />
         <activity android:name=".notice" />
-        <activity android:name=".rate" />
+        <activity android:name=".GameRate" />
         <activity android:name=".profile" />
         <activity android:name=".signup" />
         <activity android:name=".login" />

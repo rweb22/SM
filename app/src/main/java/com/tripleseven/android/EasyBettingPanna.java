@@ -286,7 +286,6 @@ public class EasyBettingPanna extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("edsa", "efsdc" + response);
                         progressDialog.hideDialog();
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
@@ -302,6 +301,8 @@ public class EasyBettingPanna extends Fragment {
 
 
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
+                                fillAmount.clear();
+                                fillNumber.clear();
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                                 LayoutInflater factory = LayoutInflater.from(getActivity());
                                 View v = factory.inflate(R.layout.msg_dialog, null);
@@ -323,7 +324,7 @@ public class EasyBettingPanna extends Fragment {
                                         in.putExtra("is_open", constant.is_open);
                                         in.putExtra("is_close", constant.is_close);
                                         in.putExtra("market_type", constant.market_type);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         getActivity().finish();
                                     }
                                 });
@@ -339,7 +340,7 @@ public class EasyBettingPanna extends Fragment {
                                         in.putExtra("is_open", constant.is_open);
                                         in.putExtra("is_close", constant.is_close);
                                         in.putExtra("market_type", constant.market_type);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         requireActivity().finish();
                                     }
                                 });

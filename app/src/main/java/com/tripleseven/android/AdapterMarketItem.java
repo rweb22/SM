@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,8 +65,8 @@ public class AdapterMarketItem extends RecyclerView.Adapter<AdapterMarketItem.Vi
             @Override
             public void onClick(View v) {
                 context.startActivity(
-                        new Intent(context, charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                .putExtra("href",constant.prefix + "get_charts?marketId=" + markets.get(position).getMarketId())
+                        new Intent(context, Charts.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("href",constant.prefix + "get_charts?market_id=" + markets.get(position).getMarketId())
                 );
             }
         });

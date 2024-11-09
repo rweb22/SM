@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back"
-    tools:context=".rate">
+    tools:context=".GameRate">
 
 
     <RelativeLayout
@@ -62,32 +62,23 @@
                 android:padding="40dp">
 
 
-                <com.tripleseven.android.latonormal
-                    android:id="@+id/single3"
+                <com.tripleseven.android.latobold
+                    android:id="@+id/delhi_market_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
-                    android:text="Full Gali Desawer Win Ratio"
-                    android:textColor="@color/font"
+                    android:text="Delhi Market Rates"
+                    android:textColor="@color/white"
                     android:textSize="19sp"
+                    android:background="@color/font"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:textStyle="bold" />
 
-                <com.tripleseven.android.latonormal
-                    android:id="@+id/single"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Single - Loading"
-                    android:textColor="@color/font"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
-
 
                 <com.tripleseven.android.latonormal
-                    android:id="@+id/doublegame"
+                    android:id="@+id/delhi_jodi_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -100,7 +91,7 @@
 
 
                 <com.tripleseven.android.latonormal
-                    android:id="@+id/singlepatti"
+                    android:id="@+id/delhi_harf_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -111,9 +102,61 @@
                     android:textColor="@color/font"
                     android:textSize="16sp" />
 
+                <com.tripleseven.android.latobold
+                    android:id="@+id/other_market_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="40dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:text="Other Markets Rates"
+                    android:textColor="@color/white"
+                    android:background="@color/font"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
 
                 <com.tripleseven.android.latonormal
-                    android:id="@+id/doublepatti"
+                    android:id="@+id/single_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Single - Loading"
+                    android:textColor="@color/font"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+
+                <com.tripleseven.android.latonormal
+                    android:id="@+id/jodi_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Jodi - Loading"
+                    android:textColor="@color/font"
+                    android:textSize="16sp" />
+
+
+                <com.tripleseven.android.latonormal
+                    android:id="@+id/sp_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Sinle Pana - Loading"
+                    android:textColor="@color/font"
+                    android:textSize="16sp" />
+
+                <com.tripleseven.android.latonormal
+                    android:id="@+id/dp_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -123,11 +166,11 @@
                     android:text="Double Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
 
                 <com.tripleseven.android.latonormal
-                    android:id="@+id/tripepatti"
+                    android:id="@+id/tp_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -137,10 +180,10 @@
                     android:text="Triple Pana - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <com.tripleseven.android.latonormal
-                    android:id="@+id/halfsangam"
+                    android:id="@+id/halfsangam_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -150,11 +193,11 @@
                     android:text="Half Sangam - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
 
                 <com.tripleseven.android.latonormal
-                    android:id="@+id/fullsangam"
+                    android:id="@+id/fullsangam_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -164,7 +207,7 @@
                     android:text="Full Sangam - Loading"
                     android:textColor="@color/font"
                     android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <com.tripleseven.android.latonormal
                     android:id="@+id/single2"

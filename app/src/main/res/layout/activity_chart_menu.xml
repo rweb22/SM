@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back"
-    tools:context=".chart_menu">
+    tools:context=".ChartMenu">
 
 
         <RelativeLayout
@@ -57,7 +57,6 @@
                     android:layout_width="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:hint="Search chart"
                     android:textSize="16sp"

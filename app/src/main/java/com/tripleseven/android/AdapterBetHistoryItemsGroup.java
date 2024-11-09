@@ -13,16 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-class adapter_played_group extends RecyclerView.Adapter<adapter_played_group.ViewHolder> {
-
+class AdapterBetHistoryItemsGroup extends RecyclerView.Adapter<AdapterBetHistoryItemsGroup.ViewHolder> {
     Context context;
-    ArrayList<String> date = new ArrayList<>();
-    ArrayList<ArrayList<playedModel>> models = new ArrayList<>();
+    ArrayList<String> dates = new ArrayList<>();
+    ArrayList<ArrayList<BetModel>> models = new ArrayList<>();
 
 
-    public adapter_played_group(Context context, ArrayList<String> date, ArrayList<ArrayList<playedModel>> models) {
+    public AdapterBetHistoryItemsGroup(Context context, ArrayList<String> dates, ArrayList<ArrayList<BetModel>> models) {
         this.context = context;
-        this.date = date;
+        this.dates = dates;
         this.models = models;
     }
 
@@ -37,25 +36,21 @@ class adapter_played_group extends RecyclerView.Adapter<adapter_played_group.Vie
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        holder.name.setText(date.get(position));
+        holder.name.setText(dates.get(position));
 
-        adapterplayed rc = new adapterplayed(holder.itemView.getContext(), models.get(position));
+        AdapterBetHistoryItem rc = new AdapterBetHistoryItem(holder.itemView.getContext(), models.get(position));
         holder.recycler.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(), 1));
         holder.recycler.setAdapter(rc);
-
-
-
     }
 
 
     @Override
     public int getItemCount() {
-        return date.size();
+        return dates.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         RecyclerView recycler;
 
@@ -63,11 +58,6 @@ class adapter_played_group extends RecyclerView.Adapter<adapter_played_group.Vie
             super(view);
             name = view.findViewById(R.id.date2);
             recycler = view.findViewById(R.id.recycler);
-
-
         }
     }
-
-
-
 }

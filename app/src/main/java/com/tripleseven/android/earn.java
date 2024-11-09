@@ -3,7 +3,6 @@ package com.tripleseven.android;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -266,9 +265,9 @@ public class earn extends AppCompatActivity {
                                 }
                             }
 
-                            adapter_transaction adapter_transaction = new adapter_transaction(earn.this, date2, remark, amount, type);
+                            AdapterTransactionItem2 AdapterTransactionItem2 = new AdapterTransactionItem2(earn.this, date2, remark, amount, type);
                             transactions.setLayoutManager(new GridLayoutManager(earn.this, 1));
-                            transactions.setAdapter(adapter_transaction);
+                            transactions.setAdapter(AdapterTransactionItem2);
 
                             totalEarning.setText(jsonObject1.getString("total_amount") + "");
 

@@ -1,6 +1,6 @@
 package com.tripleseven.android;
 
-public class playedModel {
+public class BetModel {
 
     public String getSn() {
         return sn;

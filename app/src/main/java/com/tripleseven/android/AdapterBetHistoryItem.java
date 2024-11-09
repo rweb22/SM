@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-class adapterplayed extends RecyclerView.Adapter<adapterplayed.ViewHolder> {
+class AdapterBetHistoryItem extends RecyclerView.Adapter<AdapterBetHistoryItem.ViewHolder> {
 
     Context context;
 
-    ArrayList<playedModel> models = new ArrayList<>();
+    ArrayList<BetModel> models = new ArrayList<>();
 
-    public adapterplayed(Context context, ArrayList<playedModel> models) {
+    public AdapterBetHistoryItem(Context context, ArrayList<BetModel> models) {
         this.context = context;
         this.models = models;
     }
@@ -34,24 +34,22 @@ class adapterplayed extends RecyclerView.Adapter<adapterplayed.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        playedModel playedModel = models.get(position);
+        BetModel BetModel = models.get(position);
 
-        holder.market.setText(playedModel.getMarketName());
-        holder.date.setText(playedModel.getDate());
-        holder.bidType.setText(playedModel.getBid_type());
-        holder.bidNumber.setText(playedModel.getNumber());
-        holder.amount.setText(playedModel.getAmount());
-        holder.status.setText(playedModel.getMsg());
-        holder.id.setText(playedModel.getSn());
+        holder.market.setText(BetModel.getMarketName());
+        holder.date.setText(BetModel.getDate());
+        holder.bidType.setText(BetModel.getBid_type());
+        holder.bidNumber.setText(BetModel.getNumber());
+        holder.amount.setText(BetModel.getAmount());
+        holder.status.setText(BetModel.getMsg());
+        holder.id.setText(BetModel.getSn());
 
-        if (playedModel.getStatus().equals("0")){
+        if (BetModel.getStatus().equals("0")){
             holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.md_deep_orange_500));
-           // holder.img.setBackground(Glide.with(context).load();
-        } else if (playedModel.getStatus().equals("1")){
+        } else if (BetModel.getStatus().equals("1")){
             holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.green));
         } else {
             holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.red));
-            //holder.img.setBackground(context.getResources().getDrawable(R.drawable.lose));
         }
     }
 
@@ -85,6 +83,4 @@ class adapterplayed extends RecyclerView.Adapter<adapterplayed.ViewHolder> {
             this.img = view.findViewById(R.id.img);
         }
     }
-
-
 }

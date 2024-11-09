@@ -267,6 +267,8 @@ public class EasyBetting extends Fragment {
 
 
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
+                                fillNumber.clear();
+                                fillAmount.clear();
                                 android.app.AlertDialog.Builder builder1 = new android.app.AlertDialog.Builder(getActivity());
                                 LayoutInflater factory = LayoutInflater.from(getActivity());
                                 View v = factory.inflate(R.layout.msg_dialog, null);
@@ -285,7 +287,7 @@ public class EasyBetting extends Fragment {
                                         Intent in = new Intent(getActivity(), HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         getActivity().finish();
                                     }
                                 });
@@ -297,7 +299,7 @@ public class EasyBetting extends Fragment {
                                         Intent in = new Intent(getActivity(), HomeScreen.class);
                                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         getActivity().finish();
                                     }
                                 });

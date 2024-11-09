@@ -272,6 +272,7 @@ public class MarketGames extends AppCompatActivity {
                 startActivity(new Intent(MarketGames.this, SpMotor.class)
                         .putExtra("market", market)
                         .putExtra("game", GameOption.RED_BRACKET.name())
+                        .putExtra("session", "")
                         .putExtra("digits", digits).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 );
             }

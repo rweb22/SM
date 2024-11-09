@@ -28,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
@@ -218,8 +219,8 @@ public class HalfSangam extends AppCompatActivity {
                                         in.putExtra("is_open",constant.is_open);
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
-                                        startActivity(in);
-                                        HalfSangam.this.finish();
+                                        //startActivity(in);
+                                        finish();
                                     }
                                 });
                                 close.setOnClickListener(new View.OnClickListener() {
@@ -234,8 +235,8 @@ public class HalfSangam extends AppCompatActivity {
                                         in.putExtra("is_open",constant.is_open);
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
-                                        startActivity(in);
-                                        HalfSangam.this.finish();
+                                       // startActivity(in);
+                                        finish();
                                     }
                                 });
                                 alert11.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -267,6 +268,7 @@ public class HalfSangam extends AppCompatActivity {
                 item.number1 = first.getText().toString();
                 item.number2 = second.getText().toString();
                 item.amount = totalAmount.getText().toString();
+                item.gameType = GameType.HALF_SANGAM.getId();
 
                 betItems.add(item);
 
@@ -291,15 +293,6 @@ public class HalfSangam extends AppCompatActivity {
         postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(postRequest);
     }
-
-    private void openWhatsApp() {
-        String url = constant.getWhatsapp(getApplicationContext());
-
-        Uri uri = Uri.parse(url);
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(sendIntent);
-    }
-
 
 
     public ArrayList<String> getpatti() {

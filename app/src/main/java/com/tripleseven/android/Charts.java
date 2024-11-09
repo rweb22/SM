@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import im.delight.android.webview.AdvancedWebView;
 
-public class charts extends AppCompatActivity implements AdvancedWebView.Listener {
+public class Charts extends AppCompatActivity implements AdvancedWebView.Listener {
 
     private AdvancedWebView mWebView;
 
@@ -30,14 +30,13 @@ public class charts extends AppCompatActivity implements AdvancedWebView.Listene
         });
 
 
-        progressDialog = new ViewDialog(charts.this);
+        progressDialog = new ViewDialog(Charts.this);
         progressDialog.showDialog();
 
         mWebView = (AdvancedWebView) findViewById(R.id.webview);
         mWebView.setListener(this, this);
         mWebView.setMixedContentAllowed(true);
         if (getIntent().getStringExtra("href").contains("http")){
-            Log.e("chart_url - ", getIntent().getStringExtra("href"));
             mWebView.loadUrl(getIntent().getStringExtra("href"));
         } else {
             Log.e("chart_url2 - ",constant.prefix+"chart_single.php?url="+getIntent().getStringExtra("href"));

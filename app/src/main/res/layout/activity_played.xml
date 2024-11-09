@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical"
-    tools:context=".played">
+    tools:context=".BetHistory">
 
 
 

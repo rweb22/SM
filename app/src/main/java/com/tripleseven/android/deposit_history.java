@@ -87,7 +87,7 @@ public class deposit_history extends AppCompatActivity {
                                 remark.add(jsonObject.getString("remark"));
                                 type.add(jsonObject.getString("type"));
 
-                                adapter_transaction rc = new adapter_transaction(deposit_history.this,date,remark,amount,type);
+                                AdapterTransactionItem2 rc = new AdapterTransactionItem2(deposit_history.this,date,remark,amount,type);
                                 recyclerview.setLayoutManager(new GridLayoutManager(deposit_history.this, 1));
                                 recyclerview.setAdapter(rc);
                                 rc.notifyDataSetChanged();

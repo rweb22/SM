@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.tripleseven.android.dto.GameOption;
+import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
 
 import org.json.JSONException;
@@ -432,7 +433,7 @@ public class FullSangam extends AppCompatActivity {
                                         in.putExtra("is_open",constant.is_open);
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         FullSangam.this.finish();
                                     }
                                 });
@@ -448,7 +449,7 @@ public class FullSangam extends AppCompatActivity {
                                         in.putExtra("is_open",constant.is_open);
                                         in.putExtra("is_close",constant.is_close);
                                         in.putExtra("market_type",constant.market_type);
-                                        startActivity(in);
+                                        //startActivity(in);
                                         FullSangam.this.finish();
                                     }
                                 });
@@ -481,6 +482,7 @@ public class FullSangam extends AppCompatActivity {
                 item.number1 = first.getText().toString();
                 item.number2 = second.getText().toString();
                 item.amount = totalAmount.getText().toString();
+                item.gameType = GameType.FULL_SANGAM.getId();
 
                 betItems.add(item);
 

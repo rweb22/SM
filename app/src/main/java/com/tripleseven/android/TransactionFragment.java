@@ -30,8 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TransactionFragment extends Fragment {
-
-
     private RecyclerView recyclerview;
     ViewDialog progressDialog;
     String url;
@@ -48,55 +46,53 @@ public class TransactionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         initViews(view);
         url = constant.prefix2 + getString(R.string.transaction);
-        apicall();
+        apiCall();
         return view;
     }
 
 
-    private void apicall() {
-
+    private void apiCall() {
         progressDialog = new ViewDialog((AppCompatActivity) getActivity());
         progressDialog.showDialog();
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
 
         final StringRequest postRequest = new MyStringRequest(
-                getActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE),
+                requireActivity().getSharedPreferences(constant.prefs, MODE_PRIVATE),
                 Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.hideDialog();
-                        try {
-                            JSONObject jsonObject1 = new JSONObject(response);
+                response -> {
+                    progressDialog.hideDialog();
+                    try {
+                        JSONObject jsonObject1 = new JSONObject(response);
 
-                            ArrayList<String> date = new ArrayList<>();
-                            ArrayList<String> remark = new ArrayList<>();
-                            ArrayList<String> amount = new ArrayList<>();
-                            ArrayList<String> type = new ArrayList<>();
+                        ArrayList<String> date = new ArrayList<>();
+                        ArrayList<String> remark = new ArrayList<>();
+                        ArrayList<String> amount = new ArrayList<>();
+                        ArrayList<String> type = new ArrayList<>();
+                        ArrayList<String> status = new ArrayList<>();
 
-                            JSONArray jsonArray = jsonObject1.getJSONArray("data");
-                            for (int a= 0; jsonArray.length()>a;a++)
-                            {
+                        JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                        for (int a= 0; jsonArray.length()>a;a++)
+                        {
 
-                                JSONObject jsonObject = jsonArray.getJSONObject(a);
+                            JSONObject jsonObject = jsonArray.getJSONObject(a);
 
 
-                                date.add(jsonObject.getString("date"));
-                                amount.add(jsonObject.getString("amount"));
-                                remark.add(jsonObject.getString("remark"));
-                                type.add(jsonObject.getString("type"));
+                            date.add(jsonObject.getString("date"));
+                            amount.add(jsonObject.getString("amount"));
+                            remark.add(jsonObject.getString("remark"));
+                            type.add(jsonObject.getString("type"));
+                            status.add(jsonObject.getString("status"));
 
-                                adapter_transaction rc = new adapter_transaction(getActivity(),date,remark,amount,type);
-                                recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                                recyclerview.setAdapter(rc);
-                                rc.notifyDataSetChanged();
-                            }
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.hideDialog();
+                            AdapterTransactionItem2 rc = new AdapterTransactionItem2(getActivity(),date,remark,amount,type);
+                            recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                            recyclerview.setAdapter(rc);
+                            rc.notifyDataSetChanged();
                         }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        progressDialog.hideDialog();
                     }
                 },
                 new Response.ErrorListener() {

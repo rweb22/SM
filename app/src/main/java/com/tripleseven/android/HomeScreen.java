@@ -82,46 +82,44 @@ public class HomeScreen extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
-            switch (item.getItemId()) {
-                case R.id.home:
-                    TextView tx = findViewById(R.id.balance_home);
-                    tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
-
-                    selectedFragment = new DashboardFragment();
-                    break;
-                case R.id.charts:
-                    selectedFragment = new TransactionFragment();
-                    break;
-                case R.id.wallet:
-                    startActivity(new Intent(HomeScreen.this, played.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                    break;
-                case R.id.played:
-                    startActivity(new Intent(HomeScreen.this, wallet.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                    break;
-                case R.id.feed:
-                    openWhatsApp(HomeScreen.this);
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+        Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.home:
+                TextView tx = findViewById(R.id.balance_home);
+                tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
+                selectedFragment = new DashboardFragment();
+                break;
+            case R.id.charts:
+                selectedFragment = new TransactionFragment();
+                break;
+            case R.id.wallet:
+                startActivity(new Intent(HomeScreen.this, BetHistory.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                break;
+            case R.id.played:
+                startActivity(new Intent(HomeScreen.this, wallet.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                break;
+            case R.id.feed:
+                openWhatsApp(HomeScreen.this);
 //                    Intent crispIntent = new Intent(HomeScreen.this, ChatActivity.class);
 //                    startActivity(crispIntent);
 
-                   // selectedFragment = new ContactFragment();
-                    break;
-            }
-
-
-            if (selectedFragment == null) {
-                return false;
-            }
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, selectedFragment)
-                    .commit();
-            return true;
+               // selectedFragment = new ContactFragment();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
+
+
+        if (selectedFragment == null) {
+            return false;
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, selectedFragment)
+                .commit();
+        return true;
     };
 
     static public String getWhatsapp(Context context){

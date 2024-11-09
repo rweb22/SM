@@ -25,4 +25,27 @@
     <color name="orange">#FF5722</color>
     <color name="winColor">#c8f7c3</color>
     <color name="loseColor">#fa918c</color>
+
+
+
+    <color name="yellow">#FFD700</color>
+    <color name="dark_red">#B22222</color>
+    <color name="gray">#808080</color>
+
+    <color name="light_green">#9ACD32</color>
+    <color name="dark_green">#006400</color>
+
+    <color name="blue">#1E90FF</color>
+    <color name="light_blue">#87CEEB</color>
+    <color name="dark_blue">#00008B</color>
+
+    <color name="gold">#FFD700</color>
+    <color name="bright_yellow">#FFEB3B</color>
+    <color name="light_yellow">#F5DEB3</color>
+    <color name="brown">#8B4513</color>
+
+    <color name="purple">#800080</color>
+    <color name="light_purple">#D8BFD8</color>
+    <color name="dark_purple">#4B0082</color>
+
 </resources>
