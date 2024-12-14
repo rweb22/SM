@@ -55,6 +55,7 @@ class AdapterSingleGames extends RecyclerView.Adapter<AdapterSingleGames.ViewHol
 
                 Intent i = new Intent("android.intent.action.MAIN");
                 i.putExtra("number",position+"");
+                i.putExtra("game", "ASG");
                 context.sendBroadcast(i);
 
                 context.unregisterReceiver(mReceiver);

@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment {
                                 getActivity().finish();
                             }
 
-                            if (jsonObject1.getString("logout").equals("1")) {
+                            if (jsonObject1.has("logout") && jsonObject1.getString("logout").equals("1")) {
                                 preferences.edit().clear().apply();
                                 Intent in = new Intent(getActivity(), login.class);
                                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

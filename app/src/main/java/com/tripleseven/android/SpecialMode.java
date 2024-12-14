@@ -128,13 +128,16 @@ public class SpecialMode extends Fragment {
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                String flag = intent.getStringExtra("game");
+
+                if (!"ASG".equalsIgnoreCase(flag)) return;
 
                 String num = intent.getStringExtra("number");
                 fillamount.remove(Integer.parseInt(num));
                 fillnumber.remove(Integer.parseInt(num));
                 fillmarket.remove(Integer.parseInt(num));
 
-                AdapterSingleGames rc = new AdapterSingleGames(getActivity(),fillnumber,fillamount,fillmarket);
+                AdapterSingleGames rc = new AdapterSingleGames(getActivity(), fillnumber, fillamount,fillmarket);
                 recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                 recyclerview.setAdapter(rc);
                 rc.notifyDataSetChanged();
