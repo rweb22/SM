@@ -46,8 +46,8 @@ public class splash extends AppCompatActivity {
     final int UPDATE_REQUEST = 99;
 
     private void launchApp() {
-        FirebaseMessaging.getInstance().subscribeToTopic("all")
-                .addOnCompleteListener(task -> {
+       // FirebaseMessaging.getInstance().subscribeToTopic("all")
+        //        .addOnCompleteListener(task -> {
                     if (getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("first_time", null) == null) {
                         Intent in = new Intent(getApplicationContext(), OnBoarding.class);
                         in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -70,8 +70,9 @@ public class splash extends AppCompatActivity {
                             finish();
                         }
                     }
-                });
-    }
+                }
+                //);
+   // }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

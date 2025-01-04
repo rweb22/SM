@@ -68,6 +68,7 @@ public class transactions extends AppCompatActivity {
                             ArrayList<String> remark = new ArrayList<>();
                             ArrayList<String> amount = new ArrayList<>();
                             ArrayList<String> type = new ArrayList<>();
+                            ArrayList<String> status = new ArrayList<>();
 
                             JSONArray jsonArray = jsonObject1.getJSONArray("data");
                             for (int a= 0; jsonArray.length()>a;a++)
@@ -80,8 +81,9 @@ public class transactions extends AppCompatActivity {
                                 amount.add(jsonObject.getString("amount"));
                                 remark.add(jsonObject.getString("remark"));
                                 type.add(jsonObject.getString("type"));
+                                status.add(jsonObject.getString("status"));
 
-                                AdapterTransactionItem rc = new AdapterTransactionItem(transactions.this,date,remark,amount,type);
+                                AdapterTransactionItem rc = new AdapterTransactionItem(transactions.this,date,remark,amount,type, status);
                                 recyclerview.setLayoutManager(new GridLayoutManager(transactions.this, 1));
                                 recyclerview.setAdapter(rc);
                                 rc.notifyDataSetChanged();

@@ -52,6 +52,7 @@ public class PassBook extends AppCompatActivity {
                         ArrayList<String> date = new ArrayList<>();
                         ArrayList<String> remark = new ArrayList<>();
                         ArrayList<String> amount = new ArrayList<>();
+                        ArrayList<String> status = new ArrayList<>();
 
                         JSONArray jsonArray = jsonObject1.getJSONArray("data");
                         for (int a= 0; jsonArray.length()>a;a++)
@@ -62,8 +63,9 @@ public class PassBook extends AppCompatActivity {
                             amount.add(jsonObject.getString("amount"));
                             remark.add(jsonObject.getString("remark"));
                             type.add(jsonObject.getString("type"));
+                            status.add(jsonObject.getString("status"));
 
-                            AdapterTransactionItem rc = new AdapterTransactionItem(PassBook.this,date,remark,amount,type);
+                            AdapterTransactionItem rc = new AdapterTransactionItem(PassBook.this,date,remark,amount,type, status);
                             recyclerview.setLayoutManager(new GridLayoutManager(PassBook.this, 1));
                             recyclerview.setAdapter(rc);
                             rc.notifyDataSetChanged();

@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.BetItem;
 import com.tripleseven.android.dto.GameOption;
 import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
@@ -56,7 +57,7 @@ public class FullSangam extends AppCompatActivity {
     ViewDialog progressDialog;
     String url;
 
-    ArrayList<HalfSangam.Item> betItems = new ArrayList<>();
+    ArrayList<BetItem> betItems = new ArrayList<>();
 
     protected latonormal marketText;
 
@@ -478,7 +479,7 @@ public class FullSangam extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                HalfSangam.Item item = new HalfSangam.Item();
+                BetItem item = new BetItem();
                 item.number1 = first.getText().toString();
                 item.number2 = second.getText().toString();
                 item.amount = totalAmount.getText().toString();

@@ -27,8 +27,8 @@ public class constant {
     ///// CONFIGURATION /////
 
     // API FOLDER URL
-    static String prefix = "http://10.0.2.2:5001/";
-    static String prefix2 = "http://10.0.2.2:5001/";
+    static String prefix = "http://139.59.58.67:8008/";
+    static String prefix2 = "http://139.59.58.67:8008/";
 
     static String SUCCESS = "success";
     static String ACTIVE = "active";
@@ -39,10 +39,10 @@ public class constant {
     static String link = "https://samratmatka.com/admin/static/download/samrat.apk";
 
     // PROJECT ROOT URL
-    static String project_root = "http://10.0.2.2:5001/";
+    static String project_root = "http://139.59.58.67:8008/";
 
     // PROJECT ROOT URL
-    static String admin_root = "http://10.0.2.2:5001/admin/";
+    static String admin_root = "http://139.59.58.67:8008/admin/";
 
     // MIN AMOUNT ALLOWED IN TOTAL FOR BETTING
     static int min_total = 5;

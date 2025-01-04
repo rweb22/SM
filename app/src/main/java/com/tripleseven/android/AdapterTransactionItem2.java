@@ -27,8 +27,7 @@ class AdapterTransactionItem2 extends RecyclerView.Adapter<AdapterTransactionIte
     public AdapterTransactionItem2(Context context, ArrayList<String> date,
                                    ArrayList<String> remark,
                                    ArrayList<String> amount,
-                                   ArrayList<String> type,
-                                   ArrayList<String> status) {
+                                   ArrayList<String> type) {
         this.context = context;
         this.date = date;
         this.remark = remark;

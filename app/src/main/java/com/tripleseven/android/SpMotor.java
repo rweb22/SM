@@ -31,6 +31,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.BetItem;
 import com.tripleseven.android.dto.GameOption;
 import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
@@ -963,10 +964,10 @@ public class SpMotor extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                List<HalfSangam.Item> betItems = new ArrayList<>();
+                List<BetItem> betItems = new ArrayList<>();
 
                 for(int i = 0; i < fillNumbers.size(); i++) {
-                    HalfSangam.Item item = new HalfSangam.Item();
+                    BetItem item = new BetItem();
                     item.number1 = fillNumbers.get(i);
                     item.amount = fillAmounts.get(i);
                     item.gameType = fillGameTypes.get(i).getId();

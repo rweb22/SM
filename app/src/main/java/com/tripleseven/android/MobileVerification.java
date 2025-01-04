@@ -273,20 +273,44 @@ public class MobileVerification extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("response",response);
-                        viewDialog.hideDialog();
-                        Toast.makeText(context, getString(R.string.otp_sent), Toast.LENGTH_SHORT).show();
+                        try {
+                            viewDialog.hideDialog();
+                            JSONObject jsonObject1 = new JSONObject(response);
+                            if (!jsonObject1.getString(constant.SUCCESS).equals(constant.ONE)) {
+                                Toast.makeText(getApplicationContext(), jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
+                                getSharedPreferences(constant.prefs, MODE_PRIVATE).edit().clear().apply();
 
-                        new CountDownTimer(60000, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                resendButton.setText("wait " + millisUntilFinished / 1000+" sec");
-                                //here you can have your logic to set text to edittext
+                                if (jsonObject1.getString("msg").equalsIgnoreCase("User already exists")) {
+                                    Intent in = new Intent(getApplicationContext(), login.class);
+                                    in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(in);
+                                } else {
+                                    Intent in = new Intent(getApplicationContext(), signup.class);
+                                    in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(in);
+                                }
+
+                                finish();
+                            } else {
+                                Toast.makeText(context, getString(R.string.otp_sent), Toast.LENGTH_SHORT).show();
+                                new CountDownTimer(60000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        resendButton.setText("wait " + millisUntilFinished / 1000 + " sec");
+                                        //here you can have your logic to set text to edittext
+                                    }
+
+                                    public void onFinish() {
+                                        resendButton.setText(getString(R.string.resend_otp));
+                                    }
+
+                                }.start();
                             }
-
-                            public void onFinish() {
-                                resendButton.setText(getString(R.string.resend_otp));
-                            }
-
-                        }.start();
+                        } catch (JSONException e) {
+                            viewDialog.hideDialog();
+                            Toast.makeText(getApplicationContext(), R.string.api_error_msg, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -304,6 +328,7 @@ public class MobileVerification extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mobile", mobileNumber);
                 params.put("otp", otp);
+                params.put("purpose", "SIGNUP");
                 params.put("code","38ho3f3ws");
 
                 return params;

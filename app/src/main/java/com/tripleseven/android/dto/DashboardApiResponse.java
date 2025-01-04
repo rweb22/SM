@@ -1,6 +1,9 @@
 package com.tripleseven.android.dto;
 
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +14,9 @@ public class DashboardApiResponse extends BaseApiResponse implements Serializabl
     private String bonusBalance;
     private String userName;
     private String referralCode;
+
+    @Expose
+    @SerializedName("clubs")
     private List<ClubDto> clubs;
     private String whatsAppLink;
     private String telegramLink;

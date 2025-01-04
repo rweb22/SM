@@ -32,6 +32,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.tripleseven.android.dto.BetItem;
 import com.tripleseven.android.dto.GameOption;
 import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
@@ -39,8 +41,10 @@ import com.tripleseven.android.dto.MarketDto;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -62,12 +66,6 @@ public class EasyBetting extends Fragment {
     ArrayList<String> fillNumber = new ArrayList<>();
     ArrayList<String> fillAmount = new ArrayList<>();
     String session;
-
-    public static class Item {
-        public String number1;
-        public String gameType;
-        public String amount;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -328,19 +326,21 @@ public class EasyBetting extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                ArrayList<Item> betItems = new ArrayList<>();
+                ArrayList<BetItem> betItems = new ArrayList<>();
 
                 for (int i = 0; i < fillNumber.size(); i++) {
-                    Item item = new Item();
-                    item.number1 = fillNumber.get(i);
-                    item.amount = fillAmount.get(i);
-                    item.gameType = GameOption.toGameType(game).getId();
+                    BetItem item = new BetItem();
+                    item.setNumber1(fillNumber.get(i));
+                    item.setAmount(fillAmount.get(i));
+                    item.setGameType(Objects.requireNonNull(GameOption.toGameType(game)).getId());
 
                     betItems.add(item);
                 }
 
+
                 Gson gson = new Gson();
                 String betItemsString = gson.toJson(betItems);
+                System.out.println(betItemsString);
 
                 params.put("items", betItemsString);
                 params.put("market_id", market.getMarketId());

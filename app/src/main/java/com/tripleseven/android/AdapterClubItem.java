@@ -35,6 +35,7 @@ public class AdapterClubItem extends RecyclerView.Adapter<AdapterClubItem.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        System.out.println("inside recycler view item");
         ClubDto clubDto = clubs.get(position);
 
         String overlayTextContent = clubDto.getTotalPlayingUser() + constant.SPACE + context.getString(R.string.PLAYING);
@@ -46,6 +47,7 @@ public class AdapterClubItem extends RecyclerView.Adapter<AdapterClubItem.ViewHo
         holder.itemLayout.setOnClickListener(view ->
                 context.startActivity(new Intent(context, ClubDashboard.class).putExtra("clubDto", clubDto))
         );
+        System.out.println("end of recycler view item");
     }
 
     @Override

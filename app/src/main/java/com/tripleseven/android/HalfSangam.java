@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.BetItem;
 import com.tripleseven.android.dto.GameOption;
 import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
@@ -64,14 +65,7 @@ public class HalfSangam extends AppCompatActivity {
 
     String session;
 
-    ArrayList<Item> betItems = new ArrayList<>();
-
-    public static class Item {
-        public String number1;
-        public String number2;
-        public String gameType;
-        public String amount;
-    }
+    ArrayList<BetItem> betItems = new ArrayList<>();
 
     private String getMarketName() {
         if (session == null || session.isEmpty()) {
@@ -264,7 +258,7 @@ public class HalfSangam extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                Item item = new Item();
+                BetItem item = new BetItem();
                 item.number1 = first.getText().toString();
                 item.number2 = second.getText().toString();
                 item.amount = totalAmount.getText().toString();

@@ -106,14 +106,14 @@
                     android:id="@+id/other_market_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/font"
+                    android:gravity="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:gravity="center"
-                    android:text="Other Markets Rates"
+                    android:text="Kalyan Market Rates"
                     android:textColor="@color/white"
-                    android:background="@color/font"
                     android:textSize="19sp"
                     android:textStyle="bold" />
 

@@ -57,10 +57,11 @@ public class GameRate extends AppCompatActivity {
 
                         if (responseObject.has("rates")) {
                             JSONObject rates = responseObject.getJSONObject("rates");
+                            System.out.println(response);
                             if (rates.has("TWO_DIGIT")) {
                                 JSONObject twoDigit = rates.getJSONObject("TWO_DIGIT");
                                 delhiJodi.setText(String.format("Jodi - %s", twoDigit.getString("JODI")));
-                                delhiHarf.setText(String.format("Harf - %s", twoDigit.getString("HARF")));
+                                delhiHarf.setText(String.format("Harf - %s", twoDigit.getString("OPEN_HARF")));
                             }
 
                             if (rates.has("THREE_DIGIT")) {
@@ -96,7 +97,7 @@ public class GameRate extends AppCompatActivity {
     private void initView() {
         delhiJodi = findViewById(R.id.delhi_jodi_rate);
         delhiHarf = findViewById(R.id.delhi_harf_rate);
-        single = findViewById(R.id.single);
+        single = findViewById(R.id.single_rate);
         jodi = findViewById(R.id.jodi_rate);
         singlePatti = findViewById(R.id.sp_rate);
         doublePatti = findViewById(R.id.dp_rate);

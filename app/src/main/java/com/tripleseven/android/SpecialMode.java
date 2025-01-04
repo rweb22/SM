@@ -34,6 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tripleseven.android.dto.BetItem;
 import com.tripleseven.android.dto.GameOption;
 import com.tripleseven.android.dto.GameType;
 import com.tripleseven.android.dto.MarketDto;
@@ -58,7 +59,7 @@ public class SpecialMode extends Fragment {
     ArrayList<String> fillAmount = new ArrayList<>();
     ArrayList<GameType> fillGameTypes = new ArrayList<>();
 
-    ArrayList<Item> betItems = new ArrayList<>();
+    ArrayList<BetItem> betItems = new ArrayList<>();
 
     public static class Item {
         public String number1;
@@ -324,7 +325,7 @@ public class SpecialMode extends Fragment {
                 Map<String, String> params = new HashMap<String, String>();
 
                 for(int i=0; i < fillNumber.size(); i++) {
-                    Item item = new Item();
+                    BetItem item = new BetItem();
                     item.number1 = fillNumber.get(i);
                     item.gameType = fillGameTypes.get(i).getId();
                     item.amount = fillAmount.get(i);

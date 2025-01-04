@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -40,6 +41,7 @@ import com.tripleseven.android.dto.DashboardApiResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +95,16 @@ public class DashboardFragment extends Fragment {
                             JSONObject jsonObject1 = new JSONObject(response);
                             if (!jsonObject1.getString(constant.SUCCESS).equals(constant.ONE)) {
                                 Toast.makeText(getActivity(), jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
+                                if (jsonObject1.getString("logout").equals(constant.ONE)) {
+                                    preferences.edit().clear().apply();
+
+                                    Intent in = new Intent(getActivity(), login.class);
+                                    in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(in);
+
+                                    requireActivity().finish();
+                                }
                             } else {
                                 if (jsonObject1.getString(constant.SUCCESS).equals(constant.ZERO)) {
                                     Toast.makeText(getActivity(), R.string.ACCOUNT_DISABLE_ALERT, Toast.LENGTH_SHORT).show();
@@ -118,12 +130,16 @@ public class DashboardFragment extends Fragment {
                                 }
 
                                 Gson gson = new Gson();
-                                DashboardApiResponse apiResponse = gson.fromJson(response,
-                                        DashboardApiResponse.class);
+
+                                DashboardApiResponse apiResponse = gson.fromJson(response, DashboardApiResponse.class);
+                                System.out.println("Clubs: " + apiResponse.getClubs());
 
                                 AdapterClubItem marketItemAdapter = new AdapterClubItem(getActivity(), apiResponse.getClubs());
                                 marketRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                                 marketRecyclerView.setAdapter(marketItemAdapter);
+
+                                System.out.println("after recycler view");
+                                System.out.println(apiResponse.getClubs());
 
 
                                 sliderAdapter = new SliderAdapter(getActivity());
@@ -141,6 +157,8 @@ public class DashboardFragment extends Fragment {
                                 } else {
                                     sliderView.setVisibility(View.GONE);
                                 }
+
+                                System.out.println("after slider view");
 
                                 marqueText.setText(apiResponse.getMarqueeText());
                                 telegram.setOnClickListener(new View.OnClickListener() {
