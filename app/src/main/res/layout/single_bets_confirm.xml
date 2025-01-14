@@ -19,7 +19,7 @@
             android:orientation="horizontal"
             tools:layout_gravity="fill">
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:id="@+id/date2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:textColor="@color/font" />
 
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:id="@+id/amount2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:textColor="@color/font" />
 
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:id="@+id/remark"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

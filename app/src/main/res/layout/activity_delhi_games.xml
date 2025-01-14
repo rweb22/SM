@@ -46,7 +46,7 @@
                 </androidx.cardview.widget.CardView>
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -102,7 +102,7 @@
                             app:tint="@color/accent"
                             />
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -146,7 +146,7 @@
                             app:tint="@color/accent"
                             />
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -203,7 +203,7 @@
                             android:src="@drawable/ic_single_pana"
                             />
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -249,7 +249,7 @@
                             />
 
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -305,7 +305,7 @@
                             />
 
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -349,7 +349,7 @@
                             />
 
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -408,7 +408,7 @@
                             />
 
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"

@@ -1,4 +1,4 @@
-package com.tripleseven.android;
+package com.samratmatka.android;
 
 import android.content.Context;
 

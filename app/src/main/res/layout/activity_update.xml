@@ -35,7 +35,7 @@
                     android:src="@drawable/logo" />
             </androidx.cardview.widget.CardView>
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -58,14 +58,14 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Release notes"
                 android:textColor="@color/font"
                 android:textSize="18sp" />
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:id="@+id/updatelog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
             android:textColor="#fff"
             android:textSize="18sp" />
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:id="@+id/update"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

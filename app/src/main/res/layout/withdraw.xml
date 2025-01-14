@@ -25,7 +25,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mode "
@@ -35,7 +35,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.tripleseven.android.latonormal
+                <com.samratmatka.android.latonormal
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="9865755215644"
@@ -57,7 +57,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Withdraw Details"
@@ -66,7 +66,7 @@
                     android:textSize="15sp"
                     />
 
-                <com.tripleseven.android.latonormal
+                <com.samratmatka.android.latonormal
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="codegente@oksbi"
@@ -94,14 +94,14 @@
                     android:orientation="vertical"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Status"
                         android:textColor="@color/white"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -120,14 +120,14 @@
                     android:orientation="vertical"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Amount"
                         android:textColor="@color/white"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -140,7 +140,7 @@
 
             </LinearLayout>
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="05:18 AM 12 Feb 2021"

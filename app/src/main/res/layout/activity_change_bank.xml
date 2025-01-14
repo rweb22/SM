@@ -28,7 +28,7 @@
                 android:src="@drawable/back"
                 app:tint="@color/font" />
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -102,7 +102,7 @@
 
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/update"

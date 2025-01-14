@@ -46,7 +46,7 @@
                         android:layout_weight="1"
                         app:srcCompat="@drawable/clock" />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="  Close Time : "
@@ -54,7 +54,7 @@
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:id="@+id/closeTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                         android:layout_marginLeft="15dp"
                         app:srcCompat="@drawable/clock" />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="  Result Time  : "
@@ -78,7 +78,7 @@
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:id="@+id/close_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="CHART"
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/ntitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <com.tripleseven.android.latobold
+                        <com.samratmatka.android.latobold
                             android:id="@+id/result2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                             android:textColor="@color/font"
                             android:textSize="17sp" />
 
-                        <com.tripleseven.android.latobold
+                        <com.samratmatka.android.latobold
                             android:id="@+id/latobold5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                             android:layout_marginRight="10dp"
                             android:src="@drawable/giff" />
 
-                        <com.tripleseven.android.latobold
+                        <com.samratmatka.android.latobold
                             android:id="@+id/result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                             android:textSize="17sp" />
                     </LinearLayout>
 
-                    <com.tripleseven.android.herobold
+                    <com.samratmatka.android.herobold
                         android:id="@+id/info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                     app:cardBackgroundColor="@color/colorPrimary"
                     app:cardCornerRadius="50dp">
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -322,7 +322,7 @@
                         android:gravity="center"
                         android:visibility="gone">
 
-                        <com.tripleseven.android.latobold
+                        <com.samratmatka.android.latobold
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -386,7 +386,7 @@
                         android:src="@drawable/game_icon"
                         app:tint="@color/md_white_1000" />
 
-                    <com.tripleseven.android.heronormal
+                    <com.samratmatka.android.heronormal
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -406,7 +406,7 @@
                     android:padding="5dp"
                     android:visibility="gone">
 
-                    <com.tripleseven.android.heronormal
+                    <com.samratmatka.android.heronormal
                         android:id="@+id/top"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"

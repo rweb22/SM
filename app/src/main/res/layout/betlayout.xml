@@ -27,7 +27,7 @@
                 app:cardCornerRadius="100dp"
                 app:cardElevation="5dp">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:id="@+id/number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -39,7 +39,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <com.tripleseven.android.BoldEditText
+            <com.samratmatka.android.BoldEditText
                 android:id="@+id/amount2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

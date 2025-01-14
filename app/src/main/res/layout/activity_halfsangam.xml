@@ -38,7 +38,7 @@
                         android:id="@+id/back"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/half_sangam"
@@ -47,7 +47,7 @@
                         android:textSize="16sp"
                         />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -55,7 +55,7 @@
                         android:textColor="@color/font"
                         android:textSize="15sp" />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:id="@+id/marketText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     >
 
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -114,7 +114,7 @@
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -145,7 +145,7 @@
                         android:orientation="vertical"
                         android:layout_height="wrap_content">
 
-                        <com.tripleseven.android.latonormal
+                        <com.samratmatka.android.latonormal
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -189,7 +189,7 @@
                         android:textSize="13sp"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/submit"

@@ -47,7 +47,7 @@
                 </androidx.cardview.widget.CardView>
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -84,7 +84,7 @@
                     android:weightSum="4"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -100,7 +100,7 @@
                         android:layout_height="match_parent"
                         />
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -117,7 +117,7 @@
                         />
 
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"

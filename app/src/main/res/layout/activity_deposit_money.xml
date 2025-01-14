@@ -48,7 +48,7 @@
                 </androidx.cardview.widget.CardView>
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -158,7 +158,7 @@
                     app:selectedColor="@color/accent"
                     app:textSize="13sp" />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Proceed to Payment"
@@ -199,7 +199,7 @@
             android:src="@drawable/whatsapp"
             />
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"

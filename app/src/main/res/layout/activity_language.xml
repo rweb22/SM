@@ -24,14 +24,14 @@
             android:padding="20dp">
 
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Your"
                 android:textColor="@color/colorPrimary"
                 android:textSize="34sp" />
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Language"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -57,7 +57,7 @@
                     android:textColor="@color/lightfont"
                     android:textSize="18sp" />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -92,7 +92,7 @@
                     android:textColor="@color/lightfont"
                     android:textSize="18sp" />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -127,7 +127,7 @@
                     android:textColor="@color/lightfont"
                     android:textSize="18sp" />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -163,7 +163,7 @@
                     android:textColor="@color/lightfont"
                     android:textSize="18sp" />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -207,7 +207,7 @@
                 android:background="@drawable/small_round_button_home"
                 android:padding="15dp">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"

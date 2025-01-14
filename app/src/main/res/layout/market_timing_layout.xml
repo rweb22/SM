@@ -31,7 +31,7 @@
                 android:padding="10dp">
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:id="@+id/ntitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="4dp">
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/nmsg"
                         android:layout_width="40dp"
                         android:layout_height="60dp"
@@ -61,7 +61,7 @@
                         android:textSize="19sp" />
                 </androidx.cardview.widget.CardView>
 
-                <com.tripleseven.android.latonormal
+                <com.samratmatka.android.latonormal
                     android:id="@+id/ndate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

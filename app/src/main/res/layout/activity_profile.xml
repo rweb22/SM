@@ -35,7 +35,7 @@
                     android:id="@+id/back"
                     />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/title"
@@ -65,7 +65,7 @@
                 >
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/manage_profile"
@@ -112,7 +112,7 @@
                     />
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/update_profile"
@@ -125,7 +125,7 @@
 
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/change_password"
@@ -161,7 +161,7 @@
                     />
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/update_password"

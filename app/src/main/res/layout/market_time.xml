@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Market Time"
@@ -37,7 +37,7 @@
                 app:tint="@color/accent"
                 />
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -49,7 +49,7 @@
                 android:id="@+id/title"
                 />
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/closeTime"
@@ -84,7 +84,7 @@
                 app:tint="@color/accent"
                 />
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -96,7 +96,7 @@
                 android:id="@+id/title2"
                 />
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -119,7 +119,7 @@
             />
 
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button"

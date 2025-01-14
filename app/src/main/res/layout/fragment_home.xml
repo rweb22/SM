@@ -130,7 +130,7 @@
                             android:layout_weight="1"
                             android:padding="10dp">
 
-                            <com.tripleseven.android.latobold
+                            <com.samratmatka.android.latobold
                                 android:id="@+id/latobold"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
                             android:layout_weight="1"
                             android:padding="10dp">
 
-                            <com.tripleseven.android.latobold
+                            <com.samratmatka.android.latobold
                                 android:id="@+id/latobold3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                         android:padding="10dp"
                         android:visibility="gone">
 
-                        <com.tripleseven.android.latobold
+                        <com.samratmatka.android.latobold
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
@@ -259,7 +259,7 @@
                         android:scaleType="fitXY"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/ntitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -319,7 +319,7 @@
                         android:layout_marginLeft="-3dp"
                         android:src="@drawable/social_network"/>
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:id="@+id/socialNetworkTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"

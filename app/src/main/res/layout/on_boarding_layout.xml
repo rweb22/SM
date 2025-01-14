@@ -20,7 +20,7 @@
             android:layout_marginBottom="20dp"
             android:src="@drawable/withdraw_anim" />
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:layout_width="wrap_content"
             android:id="@+id/title"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:textFontWeight="600"
             android:textSize="34sp" />
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/desc"

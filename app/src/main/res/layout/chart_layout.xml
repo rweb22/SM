@@ -28,7 +28,7 @@
                 android:orientation="vertical">
 
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:id="@+id/ntitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

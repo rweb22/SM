@@ -32,7 +32,7 @@
                     android:src="@drawable/user_profile"
                     />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Codegente Jaipur"
@@ -61,14 +61,14 @@
                     android:orientation="vertical"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rank"
                         android:textColor="@color/lightfont"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
@@ -87,14 +87,14 @@
                     android:orientation="vertical"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Won"
                         android:textColor="@color/lightfont"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/amount2"
@@ -107,7 +107,7 @@
 
             </LinearLayout>
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Playing since march 2021"

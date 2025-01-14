@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="match_parent"
                 android:textColor="@color/white"
                 android:layout_height="match_parent"
@@ -42,7 +42,7 @@
                     android:padding="5dp"
                     android:layout_height="wrap_content">
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -50,7 +50,7 @@
                         android:gravity="center"
                         android:textColor="@color/font"
                         />
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -58,7 +58,7 @@
                         android:gravity="center"
                         android:textColor="@color/font"
                         />
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -92,14 +92,14 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/total_bids"
                         android:textColor="@color/font"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/total_bid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,14 +119,14 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/total_bid_amount"
                         android:textColor="@color/font"
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -140,7 +140,7 @@
 
             </LinearLayout>
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/note_bid_once_played_will_not_be_cancelled"
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 >
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:padding="10dp"
@@ -170,7 +170,7 @@
                     android:id="@+id/cancel"
                     />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:padding="10dp"

@@ -6,7 +6,7 @@
 
 
 
-    <com.tripleseven.android.latonormal
+    <com.samratmatka.android.latonormal
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:layout_height="wrap_content">
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
@@ -47,7 +47,7 @@
                 android:textSize="12sp"
                 />
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9"
@@ -83,7 +83,7 @@
             android:gravity="center"
             android:layout_height="wrap_content">
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
@@ -96,7 +96,7 @@
                 android:textSize="12sp"
                 />
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9"
@@ -130,7 +130,7 @@
             android:layout_height="match_parent">
 
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"

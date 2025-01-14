@@ -33,7 +33,7 @@
             app:tint="@color/white"
             />
 
-        <com.tripleseven.android.herobold
+        <com.samratmatka.android.herobold
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -53,7 +53,7 @@
         android:padding="15dp"
         >
 
-        <com.tripleseven.android.herobold
+        <com.samratmatka.android.herobold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -62,7 +62,7 @@
             android:textSize="22sp" />
 
 
-        <com.tripleseven.android.heronormal
+        <com.samratmatka.android.heronormal
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -72,7 +72,7 @@
             android:textSize="15sp"
             />
 
-        <com.tripleseven.android.latobold
+        <com.samratmatka.android.latobold
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="REGISTER"
@@ -85,7 +85,7 @@
             android:background="@drawable/register_button"
             />
 
-        <com.tripleseven.android.herobold
+        <com.samratmatka.android.herobold
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"

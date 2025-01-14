@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
-            <com.tripleseven.android.latobold
+            <com.samratmatka.android.latobold
                 android:layout_width="match_parent"
                 android:textColor="@color/white"
                 android:layout_height="match_parent"
@@ -49,7 +49,7 @@
                     android:layout_weight="1"
                     >
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="match_parent"
                         android:gravity="center"
                         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:layout_weight="1"
                     >
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:layout_width="match_parent"
                         android:gravity="center"
                         android:layout_height="wrap_content"

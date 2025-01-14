@@ -66,14 +66,14 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/back">
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MY"
                     android:textColor="@color/font"
                     android:textSize="19sp" />
 
-                <com.tripleseven.android.latonormal
+                <com.samratmatka.android.latonormal
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
@@ -101,7 +101,7 @@
                     android:paddingBottom="10dp">
 
 
-                    <com.tripleseven.android.latonormal
+                    <com.samratmatka.android.latonormal
                         android:id="@+id/balance_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

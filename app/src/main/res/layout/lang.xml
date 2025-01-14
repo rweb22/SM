@@ -16,7 +16,7 @@
             android:orientation="vertical"
             >
 
-            <com.tripleseven.android.latonormal
+            <com.samratmatka.android.latonormal
                 android:layout_width="wrap_content"
                 android:textColor="#000"
                 android:textSize="16sp"
@@ -44,7 +44,7 @@
                 android:id="@+id/submit"
                 >
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

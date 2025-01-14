@@ -61,7 +61,7 @@
 
                 </RelativeLayout>
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:id="@+id/ntitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/create_pass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                         android:textSize="17sp" />
 
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/view_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     android:padding="10dp"
                     android:visibility="gone">
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/deposit_money"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
 
                         />
 
-                    <com.tripleseven.android.latobold
+                    <com.samratmatka.android.latobold
                         android:id="@+id/withdraw_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

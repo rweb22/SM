@@ -36,7 +36,7 @@
                     android:src="@drawable/back"
                     app:tint="@color/md_white_1000" />
 
-                <com.tripleseven.android.latobold
+                <com.samratmatka.android.latobold
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
