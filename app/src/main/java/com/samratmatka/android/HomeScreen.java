@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -61,6 +62,7 @@ public class HomeScreen extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        Log.d("resumed in home screen", "yes");
         TextView tx = findViewById(R.id.balance_home);
         tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
 

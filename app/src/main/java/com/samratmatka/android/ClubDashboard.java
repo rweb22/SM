@@ -1,6 +1,7 @@
 package com.samratmatka.android;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -99,6 +100,10 @@ public class ClubDashboard extends AppCompatActivity {
                                         apiResponse.getMarkets(), apiResponse.getClubType());
                                 marketItemRecView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
                                 marketItemRecView.setAdapter(marketItemAdapter);
+
+                                TextView tx = findViewById(R.id.balance_home);
+                                tx.setText(apiResponse.getTotalBalance()+" ₹");
+
                                 loadingViewDialog.hideDialog();
                             }
                         } catch (JSONException e) {
@@ -134,8 +139,6 @@ public class ClubDashboard extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        TextView tx = findViewById(R.id.balance_home);
-        tx.setText((Integer.parseInt(getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
         getMarketList();
         super.onResume();
     }

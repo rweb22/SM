@@ -117,27 +117,20 @@ public class withdraw extends AppCompatActivity {
                 } else if (Integer.parseInt(amount.getText().toString()) > Integer.parseInt(getSharedPreferences(constant.prefs, Context.MODE_PRIVATE).getString("winning", "0"))) {
                     amount.setError("You don't have enough amount balance in winning wallet");
                 } else {
-
                     if (mode.getSelectedItem().toString().equals("Bank Account")){
                         if (ac.getText().toString().equals("Not Set")) {
                             Toast.makeText(withdraw.this, "Update bank info first", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                         withdrawInfo = "Bank Name - "+bank.getText().toString();
                         withdrawInfo += "<br>Account holder Name - "+holderName.getText().toString();
                         withdrawInfo += "<br>Account number - "+ac.getText().toString();
-                        withdrawInfo += "<br>IFSC Code - "+ifsc.getText().toString();}
+                        withdrawInfo += "<br>IFSC Code - "+ifsc.getText().toString();
                         apicall();
+                       }
                     } else {
                         withdrawInfo = info.getText().toString();
                         apicall();
                     }
-
-//                    withdrawInfo = "Bank Name - " + bank.getText().toString();
-//                    withdrawInfo += "<br>Account holder Name - " + holderName.getText().toString();
-//                    withdrawInfo += "<br>Account number - " + ac.getText().toString();
-//                    withdrawInfo += "<br>IFSC Code - " + ifsc.getText().toString();
-
-
                 }
             }
         });
@@ -281,9 +274,11 @@ public class withdraw extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.hideDialog();
-                        Log.e("edsa", "efsdc" + response);
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
+                            if (!jsonObject1.getString("success").equals("1")) {
+                                Toast.makeText(withdraw.this, jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
+                            }
 
                             if (jsonObject1.getString("active").equals("0")) {
                                 Toast.makeText(withdraw.this, "Your account temporarily disabled by admin", Toast.LENGTH_SHORT).show();
@@ -299,6 +294,7 @@ public class withdraw extends AppCompatActivity {
 
                             if (jsonObject1.getString("success").equalsIgnoreCase("1")) {
                                 SharedPreferences.Editor editor = getSharedPreferences(constant.prefs, MODE_PRIVATE).edit();
+                                System.out.println(jsonObject1);
                                 editor.putString("winning", jsonObject1.getString("winning")).apply();
 
 

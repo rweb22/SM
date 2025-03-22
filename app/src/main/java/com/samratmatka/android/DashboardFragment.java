@@ -199,6 +199,12 @@ public class DashboardFragment extends Fragment {
 
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("wallet", apiResponse.getTotalBalance()).apply();
+                                editor.putString("winning", apiResponse.getWinningBalance()).apply();
+                                editor.putString("bonus", apiResponse.getBonusBalance()).apply();
+
+                                TextView tx = requireActivity().findViewById(R.id.balance_home);
+                                tx.setText((Integer.parseInt(requireActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("wallet","0")))+" ₹");
+
                                 editor.putString("code", apiResponse.getReferralCode()).apply();
                                 editor.putString("whatsapp", apiResponse.getWhatsAppLink()).apply();
 
@@ -246,7 +252,6 @@ public class DashboardFragment extends Fragment {
     public void onResume() {
         doDashboardApiCall();
         super.onResume();
-
     }
 
     private void initViews(View view) {

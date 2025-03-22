@@ -40,4 +40,14 @@ public class ClubDashboardApiResponse extends BaseApiResponse implements Seriali
     private String clubName;
     private String clubType;
     private List<MarketDto> markets;
+
+    public String getTotalBalance() {
+        return totalBalance;
+    }
+
+    public void setTotalBalance(String totalBalance) {
+        this.totalBalance = totalBalance;
+    }
+
+    private String totalBalance;
 }

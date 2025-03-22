@@ -61,11 +61,12 @@ public class GameRate extends AppCompatActivity {
                             if (rates.has("TWO_DIGIT")) {
                                 JSONObject twoDigit = rates.getJSONObject("TWO_DIGIT");
                                 delhiJodi.setText(String.format("Jodi - %s", twoDigit.getString("JODI")));
-                                delhiHarf.setText(String.format("Harf - %s", twoDigit.getString("OPEN_HARF")));
+                                delhiHarf.setText(String.format("Harf - %s", twoDigit.getString("HARF")));
                             }
 
                             if (rates.has("THREE_DIGIT")) {
                                 JSONObject threeDigit = rates.getJSONObject("THREE_DIGIT");
+                                System.out.println(threeDigit);
                                 single.setText(String.format("Single - %s", threeDigit.getString("SINGLE")));
                                 jodi.setText(String.format("Jodi - %s", threeDigit.getString("JODI")));
                                 singlePatti.setText(String.format("Single Panna - %s", threeDigit.getString("SP")));

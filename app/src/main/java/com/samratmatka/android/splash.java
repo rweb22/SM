@@ -77,6 +77,7 @@ public class splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Inside create of splash", "dee");
 
         if (getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("lang","").equals("")){
             startActivity(new Intent(getApplicationContext(),language.class)
