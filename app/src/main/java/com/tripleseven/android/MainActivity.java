@@ -115,11 +115,19 @@ public class MainActivity extends AppCompatActivity {
         support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = constant.getWhatsapp(getApplicationContext());
-
-                Uri uri = Uri.parse(url);
-                Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(sendIntent);
+                try {
+                    String url = constant.getWhatsapp(getApplicationContext());
+                    if (url != null && !url.isEmpty()) {
+                        Uri uri = Uri.parse(url);
+                        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(sendIntent);
+                    } else {
+                        Toast.makeText(MainActivity.this, "WhatsApp support not available", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Error opening WhatsApp support", e);
+                    Toast.makeText(MainActivity.this, "Unable to open WhatsApp", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

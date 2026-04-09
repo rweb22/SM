@@ -129,17 +129,34 @@ public class DashboardFragment extends Fragment {
                                     requireActivity().finish();
                                 }
 
-                                Gson gson = new Gson();
+                                DashboardApiResponse apiResponse = null;
+                                try {
+                                    Gson gson = new Gson();
+                                    apiResponse = gson.fromJson(response, DashboardApiResponse.class);
+                                } catch (Exception e) {
+                                    Log.e("DashboardFragment", "Failed to parse API response", e);
+                                    Toast.makeText(getActivity(), "Error loading dashboard data", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
 
-                                DashboardApiResponse apiResponse = gson.fromJson(response, DashboardApiResponse.class);
+                                if (apiResponse == null) {
+                                    Log.e("DashboardFragment", "API response is null");
+                                    Toast.makeText(getActivity(), "Error loading dashboard data", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                                 System.out.println("Clubs: " + apiResponse.getClubs());
 
-                                AdapterClubItem marketItemAdapter = new AdapterClubItem(getActivity(), apiResponse.getClubs());
-                                marketRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                                marketRecyclerView.setAdapter(marketItemAdapter);
-
-                                System.out.println("after recycler view");
-                                System.out.println(apiResponse.getClubs());
+                                if (apiResponse.getClubs() != null && !apiResponse.getClubs().isEmpty()) {
+                                    AdapterClubItem marketItemAdapter = new AdapterClubItem(getActivity(), apiResponse.getClubs());
+                                    marketRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                                    marketRecyclerView.setAdapter(marketItemAdapter);
+                                    System.out.println("after recycler view");
+                                    System.out.println(apiResponse.getClubs());
+                                } else {
+                                    Log.w("DashboardFragment", "No clubs data available");
+                                    marketRecyclerView.setVisibility(View.GONE);
+                                }
 
 
                                 sliderAdapter = new SliderAdapter(getActivity());
@@ -160,19 +177,31 @@ public class DashboardFragment extends Fragment {
 
                                 System.out.println("after slider view");
 
-                                marqueText.setText(apiResponse.getMarqueeText());
+                                // Set marquee text with null check
+                                if (apiResponse.getMarqueeText() != null && !apiResponse.getMarqueeText().isEmpty()) {
+                                    marqueText.setText(apiResponse.getMarqueeText());
+                                } else {
+                                    marqueText.setVisibility(View.GONE);
+                                }
                                 telegram.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        String link = apiResponse.getTelegramLink();
-                                        if (link != null && !link.isEmpty()) {
-                                            // Ensure link has proper format
-                                            if (!link.startsWith("http")) {
-                                                link = "https://" + link;
+                                        try {
+                                            String link = apiResponse.getTelegramLink();
+                                            if (link != null && !link.isEmpty()) {
+                                                // Ensure link has proper format
+                                                if (!link.startsWith("http")) {
+                                                    link = "https://" + link;
+                                                }
+                                                Uri uri = Uri.parse(link);
+                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                startActivity(sendIntent);
+                                            } else {
+                                                Toast.makeText(getActivity(), "Telegram link not available", Toast.LENGTH_SHORT).show();
                                             }
-                                            Uri uri = Uri.parse(link);
-                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                            startActivity(sendIntent);
+                                        } catch (Exception e) {
+                                            Log.e("DashboardFragment", "Error opening Telegram", e);
+                                            Toast.makeText(getActivity(), "Unable to open Telegram", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -180,17 +209,24 @@ public class DashboardFragment extends Fragment {
                                 whatsApp.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        String link = apiResponse.getWhatsAppLink();
-                                        if (link != null && !link.isEmpty()) {
-                                            // Ensure link has proper format
-                                            if (!link.startsWith("http") && !link.contains("wa.me")) {
-                                                link = "https://wa.me/" + link;
-                                            } else if (!link.startsWith("http")) {
-                                                link = "https://" + link;
+                                        try {
+                                            String link = apiResponse.getWhatsAppLink();
+                                            if (link != null && !link.isEmpty()) {
+                                                // Ensure link has proper format
+                                                if (!link.startsWith("http") && !link.contains("wa.me")) {
+                                                    link = "https://wa.me/" + link;
+                                                } else if (!link.startsWith("http")) {
+                                                    link = "https://" + link;
+                                                }
+                                                Uri uri = Uri.parse(link);
+                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                startActivity(sendIntent);
+                                            } else {
+                                                Toast.makeText(getActivity(), "WhatsApp link not available", Toast.LENGTH_SHORT).show();
                                             }
-                                            Uri uri = Uri.parse(link);
-                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                            startActivity(sendIntent);
+                                        } catch (Exception e) {
+                                            Log.e("DashboardFragment", "Error opening WhatsApp", e);
+                                            Toast.makeText(getActivity(), "Unable to open WhatsApp", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -198,15 +234,22 @@ public class DashboardFragment extends Fragment {
                                 instagram.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        String link = apiResponse.getInstagramLink();
-                                        if (link != null && !link.isEmpty()) {
-                                            // Ensure link has proper format
-                                            if (!link.startsWith("http")) {
-                                                link = "https://" + link;
+                                        try {
+                                            String link = apiResponse.getInstagramLink();
+                                            if (link != null && !link.isEmpty()) {
+                                                // Ensure link has proper format
+                                                if (!link.startsWith("http")) {
+                                                    link = "https://" + link;
+                                                }
+                                                Uri uri = Uri.parse(link);
+                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                startActivity(sendIntent);
+                                            } else {
+                                                Toast.makeText(getActivity(), "Instagram link not available", Toast.LENGTH_SHORT).show();
                                             }
-                                            Uri uri = Uri.parse(link);
-                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                            startActivity(sendIntent);
+                                        } catch (Exception e) {
+                                            Log.e("DashboardFragment", "Error opening Instagram", e);
+                                            Toast.makeText(getActivity(), "Unable to open Instagram", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -214,15 +257,22 @@ public class DashboardFragment extends Fragment {
                                 youtube.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        String link = apiResponse.getYoutubeLink();
-                                        if (link != null && !link.isEmpty()) {
-                                            // Ensure link has proper format
-                                            if (!link.startsWith("http")) {
-                                                link = "https://" + link;
+                                        try {
+                                            String link = apiResponse.getYoutubeLink();
+                                            if (link != null && !link.isEmpty()) {
+                                                // Ensure link has proper format
+                                                if (!link.startsWith("http")) {
+                                                    link = "https://" + link;
+                                                }
+                                                Uri uri = Uri.parse(link);
+                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                                startActivity(sendIntent);
+                                            } else {
+                                                Toast.makeText(getActivity(), "YouTube link not available", Toast.LENGTH_SHORT).show();
                                             }
-                                            Uri uri = Uri.parse(link);
-                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                            startActivity(sendIntent);
+                                        } catch (Exception e) {
+                                            Log.e("DashboardFragment", "Error opening YouTube", e);
+                                            Toast.makeText(getActivity(), "Unable to open YouTube", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });

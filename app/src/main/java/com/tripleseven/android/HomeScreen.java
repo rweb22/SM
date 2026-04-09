@@ -136,10 +136,11 @@ public class HomeScreen extends AppCompatActivity {
 
     static private void openWhatsApp(Context context) {
         String url = constant.getWhatsapp(context);
-
-        Uri uri = Uri.parse(url);
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-        context.startActivity(sendIntent);
+        if (url != null && !url.isEmpty()) {
+            Uri uri = Uri.parse(url);
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+            context.startActivity(sendIntent);
+        }
     }
 
     private void initViews() {

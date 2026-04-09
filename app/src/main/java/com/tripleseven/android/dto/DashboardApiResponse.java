@@ -19,16 +19,16 @@ public class DashboardApiResponse extends BaseApiResponse implements Serializabl
     @SerializedName("clubs")
     private List<ClubDto> clubs;
 
-    @SerializedName("whatsapp")
+    @SerializedName("whatsAppLink")
     private String whatsAppLink;
 
-    @SerializedName("telegram")
+    @SerializedName("telegramLink")
     private String telegramLink;
 
-    @SerializedName("instagram")
+    @SerializedName("instagramLink")
     private String instagramLink;
 
-    @SerializedName("youtube")
+    @SerializedName("youtubeLink")
     private String youtubeLink;
 
     @SerializedName("marqueeText")

@@ -133,6 +133,7 @@ public class ChartMenu extends AppCompatActivity {
                             checkAndUpdateUI();
 
                         } catch (JSONException e) {
+                            Log.e("ChartMenu", "Error parsing Delhi markets response", e);
                             e.printStackTrace();
                             delhiDataLoaded = true; // Mark as done even on error
                             checkAndUpdateUI();
@@ -142,6 +143,7 @@ public class ChartMenu extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("ChartMenu", "Error fetching Delhi markets", error);
                         error.printStackTrace();
                         delhiDataLoaded = true; // Mark as done even on error
                         checkAndUpdateUI();
@@ -187,6 +189,7 @@ public class ChartMenu extends AppCompatActivity {
                             checkAndUpdateUI();
 
                         } catch (JSONException e) {
+                            Log.e("ChartMenu", "Error parsing Kalyan markets response", e);
                             e.printStackTrace();
                             kalyanDataLoaded = true; // Mark as done even on error
                             checkAndUpdateUI();
@@ -196,6 +199,7 @@ public class ChartMenu extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("ChartMenu", "Error fetching Kalyan markets", error);
                         error.printStackTrace();
                         kalyanDataLoaded = true; // Mark as done even on error
                         checkAndUpdateUI();

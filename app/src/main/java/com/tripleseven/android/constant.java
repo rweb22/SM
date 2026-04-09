@@ -64,6 +64,9 @@ public class constant {
     static public String getWhatsapp(Context context){
 
         String number = context.getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("whatsapp",null);
+        if (number == null || number.isEmpty()) {
+            return null;  // Return null if no WhatsApp number is set
+        }
         if (number.contains("+91")){
             return  "http://wa.me/"+context.getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("whatsapp",null)+"?text=Hi Admin\nMy Login Mobile No. - "+context.getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("mobile",null);
         } else {

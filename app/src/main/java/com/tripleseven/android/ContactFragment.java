@@ -5,12 +5,14 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -34,11 +36,19 @@ public class ContactFragment extends Fragment {
         view.findViewById(R.id.whatsapp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = constant.getWhatsapp(getActivity());
-
-                Uri uri = Uri.parse(url);
-                Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(sendIntent);
+                try {
+                    String url = constant.getWhatsapp(getActivity());
+                    if (url != null && !url.isEmpty()) {
+                        Uri uri = Uri.parse(url);
+                        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(sendIntent);
+                    } else {
+                        Toast.makeText(getActivity(), "WhatsApp contact not available", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Log.e("ContactFragment", "Error opening WhatsApp", e);
+                    Toast.makeText(getActivity(), "Unable to open WhatsApp", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -46,9 +56,19 @@ public class ContactFragment extends Fragment {
         view.findViewById(R.id.telegram).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
-                telegramIntent.setData(Uri.parse(getActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("telegram","")));
-                startActivity(telegramIntent);
+                try {
+                    String telegramLink = getActivity().getSharedPreferences(constant.prefs,MODE_PRIVATE).getString("telegram","");
+                    if (telegramLink != null && !telegramLink.isEmpty()) {
+                        Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
+                        telegramIntent.setData(Uri.parse(telegramLink));
+                        startActivity(telegramIntent);
+                    } else {
+                        Toast.makeText(getActivity(), "Telegram contact not available", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Log.e("ContactFragment", "Error opening Telegram", e);
+                    Toast.makeText(getActivity(), "Unable to open Telegram", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
