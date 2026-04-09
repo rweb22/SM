@@ -105,13 +105,16 @@ class AdapterChartItem extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     // Determine the correct backend URL based on market type
                     String marketType = type.get(actualDataPosition);
                     String marketId = result.get(actualDataPosition);
+                    String marketName = name.get(actualDataPosition);
                     String chartUrl;
 
                     if (marketType.equalsIgnoreCase("delhi")) {
-                        // Delhi markets go to port 8006
-                        chartUrl = "http://139.59.58.67:8006/get_charts?market_id=" + marketId;
+                        // Delhi backend expects market name, not ID
+                        // URL: http://139.59.58.67:8006/get_charts?market=DESAWAR
+                        chartUrl = "http://139.59.58.67:8006/get_charts?market=" + marketName;
                     } else {
-                        // Kalyan markets go to port 8008
+                        // Kalyan backend accepts market_id
+                        // URL: http://139.59.58.67:8008/get_charts?market_id=13
                         chartUrl = "http://139.59.58.67:8008/get_charts?market_id=" + marketId;
                     }
 
