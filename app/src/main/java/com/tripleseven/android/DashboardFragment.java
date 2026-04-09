@@ -164,36 +164,66 @@ public class DashboardFragment extends Fragment {
                                 telegram.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Uri uri = Uri.parse(apiResponse.getTelegramLink());
-                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                        startActivity(sendIntent);
+                                        String link = apiResponse.getTelegramLink();
+                                        if (link != null && !link.isEmpty()) {
+                                            // Ensure link has proper format
+                                            if (!link.startsWith("http")) {
+                                                link = "https://" + link;
+                                            }
+                                            Uri uri = Uri.parse(link);
+                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(sendIntent);
+                                        }
                                     }
                                 });
 
                                 whatsApp.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Uri uri = Uri.parse(apiResponse.getWhatsAppLink());
-                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                        startActivity(sendIntent);
+                                        String link = apiResponse.getWhatsAppLink();
+                                        if (link != null && !link.isEmpty()) {
+                                            // Ensure link has proper format
+                                            if (!link.startsWith("http") && !link.contains("wa.me")) {
+                                                link = "https://wa.me/" + link;
+                                            } else if (!link.startsWith("http")) {
+                                                link = "https://" + link;
+                                            }
+                                            Uri uri = Uri.parse(link);
+                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(sendIntent);
+                                        }
                                     }
                                 });
 
                                 instagram.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Uri uri = Uri.parse(apiResponse.getInstagramLink());
-                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                        startActivity(sendIntent);
+                                        String link = apiResponse.getInstagramLink();
+                                        if (link != null && !link.isEmpty()) {
+                                            // Ensure link has proper format
+                                            if (!link.startsWith("http")) {
+                                                link = "https://" + link;
+                                            }
+                                            Uri uri = Uri.parse(link);
+                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(sendIntent);
+                                        }
                                     }
                                 });
 
                                 youtube.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Uri uri = Uri.parse(apiResponse.getYoutubeLink());
-                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                                        startActivity(sendIntent);
+                                        String link = apiResponse.getYoutubeLink();
+                                        if (link != null && !link.isEmpty()) {
+                                            // Ensure link has proper format
+                                            if (!link.startsWith("http")) {
+                                                link = "https://" + link;
+                                            }
+                                            Uri uri = Uri.parse(link);
+                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(sendIntent);
+                                        }
                                     }
                                 });
 
