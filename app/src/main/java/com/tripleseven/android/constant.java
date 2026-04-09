@@ -203,7 +203,7 @@ public class constant {
             String cap = str.substring(0,1).toUpperCase() + str.substring(1);
             mobile.setText(cap);
         }else{
-            mobile.setText("SAMRAT SATTA USER");
+            mobile.setText("Samrat777 USER");
 
         }
 

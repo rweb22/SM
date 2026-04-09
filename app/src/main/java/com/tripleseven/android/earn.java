@@ -87,7 +87,7 @@ public class earn extends AppCompatActivity {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
                 myIntent.setPackage(appName);
-                myIntent.putExtra(Intent.EXTRA_TEXT, "Download SAMRAT SATTA App and Play Matka Games in Genuine Safer App" +
+                myIntent.putExtra(Intent.EXTRA_TEXT, "Download Samrat777 App and Play Matka Games in Genuine Safer App" +
                         "\n"+
                         "\nEnjoy the Features like Instant withdrawls Quick support system, Use it in your native language and get a signup bonus" +
                         "\n" +
@@ -123,7 +123,7 @@ public class earn extends AppCompatActivity {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
                 myIntent.setPackage(appName);
-                myIntent.putExtra(Intent.EXTRA_TEXT, "Download SAMRAT SATTA App and Play Matka Games in Genuine Safer App" +
+                myIntent.putExtra(Intent.EXTRA_TEXT, "Download Samrat777 App and Play Matka Games in Genuine Safer App" +
                         "" +
                         "Enjoy the Features like Instant withdrawals Quick support system, Use it in your native language and get a signup bonus" +
                         "" +
@@ -138,7 +138,7 @@ public class earn extends AppCompatActivity {
                 Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                 whatsappIntent.setType("text/plain");
                 whatsappIntent.setPackage("com.whatsapp");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Download SAMRAT SATTA App and Play Matka Games in Genuine Safer App" +
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Download Samrat777 App and Play Matka Games in Genuine Safer App" +
                         "" +
                         "Enjoy the Features like Instant withdrawals Quick support system, Use it in your native language and get a signup bonus" +
                         "" +
@@ -158,7 +158,7 @@ public class earn extends AppCompatActivity {
                                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Download SAMRAT SATTA App and Play Matka Games in Genuine Safer App" +
+                        "Download Samrat777 App and Play Matka Games in Genuine Safer App" +
                                 "" +
                                 "Enjoy the Features like Instant withdrawals Quick support system, Use it in your native language and get a signup bonus" +
                                 "" +

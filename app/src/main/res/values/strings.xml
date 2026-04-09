@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SAMRAT SATTA</string>
+    <string name="app_name">Samrat777</string>
 
     <!--APIs-->
     <string name="market_api" translatable="false">market.php</string>
@@ -81,7 +81,7 @@
     <string name="refer_friends">REFER FRIENDS</string>
     <string name="my_earnings">MY EARNINGS</string>
     <string name="life_time_comission">Life Time % \nCommission on every deposit</string>
-    <string name="introduce_friends">Introduce friends to SAMRAT SATTA by referring our app using below link</string>
+    <string name="introduce_friends">Introduce friends to Samrat777 by referring our app using below link</string>
     <string name="referral_code">REFERRAL\nCODE</string>
     <string name="copy">Copy</string>
     <string name="recently_joined">Recently Joined</string>
