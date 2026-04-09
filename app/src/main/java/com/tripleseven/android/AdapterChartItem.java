@@ -94,13 +94,30 @@ class AdapterChartItem extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             // Calculate the actual data position (excluding headers)
             int dataPosition = getDataPosition(position);
 
-            ((ItemViewHolder) holder).name.setText(name.get(dataPosition));
+            ((ItemViewHolder) holder).name.setText(displayNames.get(position));
+
+            // Get the actual data position (accounting for headers)
+            final int actualDataPosition = getDataPosition(position);
+
             ((ItemViewHolder) holder).name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Determine the correct backend URL based on market type
+                    String marketType = type.get(actualDataPosition);
+                    String marketId = result.get(actualDataPosition);
+                    String chartUrl;
+
+                    if (marketType.equalsIgnoreCase("delhi")) {
+                        // Delhi markets go to port 8006
+                        chartUrl = "http://139.59.58.67:8006/get_charts?market_id=" + marketId;
+                    } else {
+                        // Kalyan markets go to port 8008
+                        chartUrl = "http://139.59.58.67:8008/get_charts?market_id=" + marketId;
+                    }
+
                     context.startActivity(new Intent(context, Charts.class)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("href",constant.prefix + "get_charts?market_id=" + result.get(dataPosition)));
+                            .putExtra("href", chartUrl));
                 }
             });
         }
