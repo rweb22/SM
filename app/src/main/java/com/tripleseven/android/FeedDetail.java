@@ -81,7 +81,7 @@ public class FeedDetail extends AppCompatActivity {
             Glide.with(FeedDetail.this).load(constant.project_root+"admin/"+feedModel.getMedia_url()).into(image);
             image.setVisibility(View.VISIBLE);
         } else if (feedModel.getMedia_type().equals("2")){
-            andExoPlayerView.setSource(constant.project_root+"admin/"+feedModel.getMedia_url());
+            andExoPlayerView.setSource(constant.project_root+"admin/"+feedModel.getMedia_url(), new HashMap<String, String>());
             andExoPlayerView.setPlayWhenReady(true);
             andExoPlayerView.setVisibility(View.VISIBLE);
         }
