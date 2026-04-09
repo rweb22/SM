@@ -129,7 +129,7 @@ public class DashboardFragment extends Fragment {
                                     requireActivity().finish();
                                 }
 
-                                DashboardApiResponse apiResponse = null;
+                                final DashboardApiResponse apiResponse;
                                 try {
                                     Gson gson = new Gson();
                                     apiResponse = gson.fromJson(response, DashboardApiResponse.class);
