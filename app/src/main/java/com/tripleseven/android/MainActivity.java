@@ -628,7 +628,7 @@ public class MainActivity extends AppCompatActivity {
 
         whatsappNumber.setText("Contact us - "+preferences.getString("whatsapp", ""));
         top.setText(preferences.getString("home_marq", ""));
-        homeTitle.setText(preferences.getString("home_title", ""));
+        homeTitle.setText(preferences.getString("home_title", "Samrat777"));
         homeTag.setText(preferences.getString("home_tag", ""));
 
         whatsappIcon.setOnClickListener(new View.OnClickListener() {
