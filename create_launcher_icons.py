@@ -30,9 +30,9 @@ def create_launcher_icon_with_text(output_path, size):
     draw = ImageDraw.Draw(canvas)
 
     # Calculate font sizes based on canvas size
-    # Using percentages to scale properly across densities
-    font_size_line1 = int(size * 0.20)  # "Samrat" - 20% of canvas
-    font_size_line2 = int(size * 0.28)  # "777" - 28% of canvas (bigger)
+    # Using smaller percentages to ensure text fits within safe zone
+    font_size_line1 = int(size * 0.15)  # "Samrat" - 15% of canvas (reduced from 20%)
+    font_size_line2 = int(size * 0.22)  # "777" - 22% of canvas (reduced from 28%)
 
     try:
         # Try to use a system font (bold for better visibility)
@@ -58,22 +58,26 @@ def create_launcher_icon_with_text(output_path, size):
 
     # Calculate total height and vertical spacing
     total_text_height = text_height1 + text_height2
-    spacing = int(size * 0.05)  # 5% spacing between lines
+    spacing = int(size * 0.03)  # 3% spacing between lines (reduced from 5%)
 
-    # Calculate vertical positions (centered)
-    y_line1 = (size - total_text_height - spacing) // 2
+    # Calculate vertical positions (centered within safe zone - 70% of canvas)
+    safe_zone_height = int(size * 0.70)
+    safe_zone_top = (size - safe_zone_height) // 2
+    y_line1 = safe_zone_top + (safe_zone_height - total_text_height - spacing) // 2
     y_line2 = y_line1 + text_height1 + spacing
 
     # Calculate horizontal positions (centered)
     x_line1 = (size - text_width1) // 2
     x_line2 = (size - text_width2) // 2
 
-    # Gold/Yellow color for premium look
-    text_color = (255, 215, 0, 255)  # Gold
+    # Use app's primary color scheme from colors.xml
+    # colorPrimary: #F64C16 (orange/red)
+    # font: #152A62 (dark blue)
+    text_color = (21, 42, 98, 255)  # Dark blue #152A62 - app's font color
 
-    # Draw text with outline for better visibility
-    outline_color = (0, 0, 0, 200)  # Semi-transparent black
-    outline_width = max(1, size // 100)
+    # Draw text with subtle outline for better visibility
+    outline_color = (246, 76, 22, 255)  # App's primary color #F64C16
+    outline_width = max(1, size // 80)  # Thinner outline
 
     # Draw outline
     for adj_x in range(-outline_width, outline_width + 1):
@@ -95,4 +99,5 @@ for density, size in densities.items():
     create_launcher_icon_with_text(output_path, size)
 
 print("\n✅ All launcher icons created successfully!")
-print("Two-line layout: 'Samrat' / '777' with gold text and black outline.")
+print("Two-line layout: 'Samrat' / '777' with app color scheme.")
+print("Text: Dark blue (#152A62), Outline: Orange (#F64C16)")
