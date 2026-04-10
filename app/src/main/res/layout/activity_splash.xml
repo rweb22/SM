@@ -21,6 +21,8 @@
             android:layout_centerHorizontal="true"
             android:padding="60dp"
             android:src="@drawable/logo"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:tint="@color/colorPrimary"
             app:civ_border_color="#FF000000"
 

@@ -130,26 +130,30 @@ public class splash extends AppCompatActivity {
                             JSONObject jsonObject1 = new JSONObject(response);
                             Log.d("result of config", jsonObject1.toString());
 
-                            String currentVersion = jsonObject1.getString("latest_version");
+                            // Update check disabled - keeping Update.class intact but removed from app flow
+                            // String currentVersion = jsonObject1.getString("latest_version");
+                            //
+                            // if (Integer.parseInt(currentVersion) > BuildConfig.VERSION_CODE) {
+                            //     Log.d("Update available", "yes");
+                            //     long lastShowAt = getSharedPreferences(constant.prefs, MODE_PRIVATE).getLong("last_update_warning", 0);
+                            //     long twoDaysInMillis = 24 * 60 * 60 * 1000;
+                            //     if (System.currentTimeMillis() > lastShowAt + twoDaysInMillis ) {
+                            //         Intent in = new Intent(getApplicationContext(), Update.class)
+                            //                 .putExtra("link", jsonObject1.getString("update_link"))
+                            //                 .putExtra("log", jsonObject1.getString("update_log"))
+                            //                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //
+                            //         startActivity(in);
+                            //         finish();
+                            //     } else {
+                            //         launchApp();
+                            //     }
+                            // } else {
+                            //     launchApp();
+                            // }
 
-                            if (Integer.parseInt(currentVersion) > BuildConfig.VERSION_CODE) {
-                                Log.d("Update available", "yes");
-                                long lastShowAt = getSharedPreferences(constant.prefs, MODE_PRIVATE).getLong("last_update_warning", 0);
-                                long twoDaysInMillis = 24 * 60 * 60 * 1000;
-                                if (System.currentTimeMillis() > lastShowAt + twoDaysInMillis ) {
-                                    Intent in = new Intent(getApplicationContext(), Update.class)
-                                            .putExtra("link", jsonObject1.getString("update_link"))
-                                            .putExtra("log", jsonObject1.getString("update_log"))
-                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                                    startActivity(in);
-                                    finish();
-                                } else {
-                                    launchApp();
-                                }
-                            } else {
-                                launchApp();
-                            }
+                            // Always launch app directly, bypassing update screen
+                            launchApp();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
