@@ -70,24 +70,13 @@ def create_launcher_icon_with_text(output_path, size):
     x_line1 = (size - text_width1) // 2
     x_line2 = (size - text_width2) // 2
 
-    # Use app's primary color scheme from colors.xml
-    # colorPrimary: #F64C16 (orange/red)
-    # font: #152A62 (dark blue)
-    text_color = (21, 42, 98, 255)  # Dark blue #152A62 - app's font color
+    # Colors: Orange for "Samrat", Black for "777"
+    color_line1 = (246, 76, 22, 255)  # Orange #F64C16 for "Samrat"
+    color_line2 = (0, 0, 0, 255)  # Black for "777"
 
-    # Draw text with subtle outline for better visibility
-    outline_color = (246, 76, 22, 255)  # App's primary color #F64C16
-    outline_width = max(1, size // 80)  # Thinner outline
-
-    # Draw outline
-    for adj_x in range(-outline_width, outline_width + 1):
-        for adj_y in range(-outline_width, outline_width + 1):
-            draw.text((x_line1 + adj_x, y_line1 + adj_y), text_line1, font=font_line1, fill=outline_color)
-            draw.text((x_line2 + adj_x, y_line2 + adj_y), text_line2, font=font_line2, fill=outline_color)
-
-    # Draw main text
-    draw.text((x_line1, y_line1), text_line1, font=font_line1, fill=text_color)
-    draw.text((x_line2, y_line2), text_line2, font=font_line2, fill=text_color)
+    # Draw text (no outline)
+    draw.text((x_line1, y_line1), text_line1, font=font_line1, fill=color_line1)
+    draw.text((x_line2, y_line2), text_line2, font=font_line2, fill=color_line2)
 
     # Save
     canvas.save(output_path, "PNG")
@@ -99,5 +88,5 @@ for density, size in densities.items():
     create_launcher_icon_with_text(output_path, size)
 
 print("\n✅ All launcher icons created successfully!")
-print("Two-line layout: 'Samrat' / '777' with app color scheme.")
-print("Text: Dark blue (#152A62), Outline: Orange (#F64C16)")
+print("Two-line layout: 'Samrat' (Orange #F64C16) / '777' (Black)")
+print("Clean design with no outline or shadow.")
