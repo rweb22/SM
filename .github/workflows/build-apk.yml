@@ -45,7 +45,17 @@ jobs:
       - name: Decode Keystore
         if: github.event_name != 'pull_request'
         run: |
+          if [ -z "${{ secrets.KEYSTORE_BASE64 }}" ]; then
+            echo "ERROR: KEYSTORE_BASE64 secret is not set!"
+            exit 1
+          fi
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/samrat-release.keystore
+          if [ ! -f app/samrat-release.keystore ]; then
+            echo "ERROR: Failed to create keystore file!"
+            exit 1
+          fi
+          echo "Keystore file created successfully"
+          ls -lh app/samrat-release.keystore
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace --refresh-dependencies
