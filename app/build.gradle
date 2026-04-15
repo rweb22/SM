@@ -19,10 +19,13 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('samrat-release.keystore')
-            storePassword System.getenv("KEYSTORE_PASSWORD") ?: 'samrat777secure'
-            keyAlias System.getenv("KEY_ALIAS") ?: 'samrat777-key'
-            keyPassword System.getenv("KEY_PASSWORD") ?: 'samrat777secure'
+            def keystoreFile = file('samrat-release.keystore')
+            if (keystoreFile.exists()) {
+                storeFile keystoreFile
+                storePassword System.getenv("KEYSTORE_PASSWORD") ?: 'samrat777secure'
+                keyAlias System.getenv("KEY_ALIAS") ?: 'samrat777-key'
+                keyPassword System.getenv("KEY_PASSWORD") ?: 'samrat777secure'
+            }
         }
     }
 
@@ -36,7 +39,9 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            if (signingConfigs.release.storeFile?.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
