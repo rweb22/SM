@@ -111,9 +111,6 @@
         <activity
             android:name=".ForgotPassword"
             android:exported="false" />
-        <activity
-            android:name=".Update"
-            android:exported="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
