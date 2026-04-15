@@ -42,14 +42,23 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Decode Keystore
+        if: github.event_name != 'pull_request'
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/samrat-release.keystore
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace --refresh-dependencies
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m"
-        
-      - name: Build Release APK (unsigned)
+
+      - name: Build Release APK (signed)
+        if: github.event_name != 'pull_request'
         run: ./gradlew assembleRelease --stacktrace
-        continue-on-error: true
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         
       - name: Get APK file name
         id: apk_name

@@ -16,6 +16,16 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    signingConfigs {
+        release {
+            storeFile file('samrat-release.keystore')
+            storePassword System.getenv("KEYSTORE_PASSWORD") ?: 'samrat777secure'
+            keyAlias System.getenv("KEY_ALIAS") ?: 'samrat777-key'
+            keyPassword System.getenv("KEY_PASSWORD") ?: 'samrat777secure'
+        }
+    }
+
     buildTypes {
         debug {
             debuggable true
@@ -26,7 +36,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }
