@@ -210,6 +210,13 @@ public class HomeFragment extends Fragment {
                                 marketList.add(market);
                             }
 
+                            // Log markets before sorting
+                            Log.d("HomeFragment", "=== BEFORE SORTING ===");
+                            for (int i = 0; i < marketList.size() && i < 5; i++) {
+                                MarketData m = marketList.get(i);
+                                Log.d("HomeFragment", i + ": " + m.name + " | mOpen=" + m.mOpen + " | open_time=" + m.open_time);
+                            }
+
                             // Sort markets: DESAWAR first, then active markets, then by open_time
                             marketList.sort((m1, m2) -> {
                                 // DESAWAR always at top
@@ -224,6 +231,13 @@ public class HomeFragment extends Fragment {
                                 // Sort by open_time for same status
                                 return m1.open_time.compareTo(m2.open_time);
                             });
+
+                            // Log markets after sorting
+                            Log.d("HomeFragment", "=== AFTER SORTING ===");
+                            for (int i = 0; i < marketList.size() && i < 5; i++) {
+                                MarketData m = marketList.get(i);
+                                Log.d("HomeFragment", i + ": " + m.name + " | mOpen=" + m.mOpen + " | open_time=" + m.open_time);
+                            }
 
                             // Extract sorted data back to ArrayLists
                             for (MarketData market : marketList) {
