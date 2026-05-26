@@ -25,7 +25,7 @@ public class OnBoarding extends AppCompatActivity {
             public void onClick(View v) {
                 if (imageSlider.getCurrentPagePosition() == 2){
                     getSharedPreferences(constant.prefs,MODE_PRIVATE).edit().putString("first_time","done").apply();
-                    startActivity(new Intent(OnBoarding.this, signup.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    startActivity(new Intent(OnBoarding.this, login.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 } else {
                     imageSlider.slideToNextPosition();
                 }
