@@ -72,7 +72,7 @@ dependencies {
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //implementation 'com.kcrimi.tooltipdialog:tooltipdialog:1.1.0'
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.16'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:3.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
