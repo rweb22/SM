@@ -214,10 +214,10 @@ public class HomeFragment extends Fragment {
                             Log.d("HomeFragment", "=== BEFORE SORTING ===");
                             for (int i = 0; i < Math.min(marketList.size(), 5); i++) {
                                 MarketData m = marketList.get(i);
-                                Log.d("HomeFragment", i + ": " + m.name + " | mOpen=" + m.mOpen + " | result_time=" + m.result_time);
+                                Log.d("HomeFragment", i + ": " + m.name + " | mOpen=" + m.mOpen + " | close_time=" + m.close_time);
                             }
 
-                            // Sort markets: DESAWAR first, then active markets, then by result_time
+                            // Sort markets: DESAWAR first, then active markets, then by close_time
                             marketList.sort((m1, m2) -> {
                                 // DESAWAR always at top
                                 if (m1.name.equalsIgnoreCase("DESAWAR")) return -1;
@@ -228,16 +228,16 @@ public class HomeFragment extends Fragment {
                                     return m2.mOpen.compareTo(m1.mOpen); // "1" comes before "0"
                                 }
 
-                                // Sort by result_time (when results are declared) - parse 12-hour format
+                                // Sort by close_time (when betting closes) - parse 12-hour format
                                 try {
                                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", java.util.Locale.ENGLISH);
-                                    java.util.Date time1 = sdf.parse(m1.result_time);
-                                    java.util.Date time2 = sdf.parse(m2.result_time);
+                                    java.util.Date time1 = sdf.parse(m1.close_time);
+                                    java.util.Date time2 = sdf.parse(m2.close_time);
                                     return time1.compareTo(time2);
                                 } catch (Exception e) {
                                     // Fallback to string comparison if parsing fails
                                     Log.e("HomeFragment", "Error parsing time: " + e.getMessage());
-                                    return m1.result_time.compareTo(m2.result_time);
+                                    return m1.close_time.compareTo(m2.close_time);
                                 }
                             });
 
@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment {
                             Log.d("HomeFragment", "=== AFTER SORTING ===");
                             for (int i = 0; i < Math.min(marketList.size(), 5); i++) {
                                 MarketData m = marketList.get(i);
-                                Log.d("HomeFragment", i + ": " + m.name + " | mOpen=" + m.mOpen + " | result_time=" + m.result_time);
+                                Log.d("HomeFragment", i + ": " + m.name + " | mOpen=" + m.mOpen + " | close_time=" + m.close_time);
                             }
 
                             // Extract sorted data back to ArrayLists
