@@ -187,25 +187,58 @@ public class HomeFragment extends Fragment {
                             ArrayList<String> mOpen = new ArrayList<>();
                             ArrayList<String> mClose = new ArrayList<>();
 
+                            // Create a list to hold all market data for sorting
+                            ArrayList<MarketData> marketList = new ArrayList<>();
+
                             JSONArray jsonArray2 = jsonObject1.getJSONArray("markets");
                             for (int a = 0; a < jsonArray2.length(); a++) {
                                 JSONObject jsonObject = jsonArray2.getJSONObject(a);
 
-                                open_time2.add(jsonObject.getString("open_time"));
-                                close_time2.add(jsonObject.getString("close_time"));
+                                MarketData market = new MarketData();
+                                market.name = jsonObject.getString("market");
+                                market.result = jsonObject.getString("result");
+                                market.result3 = jsonObject.getString("result3");
+                                market.is_open = jsonObject.getString("is_open");
+                                market.open_time = jsonObject.getString("open_time");
+                                market.close_time = jsonObject.getString("close_time");
+                                market.open_av = jsonObject.getString("is_close");
+                                market.market_type = jsonObject.getString("market_type");
+                                market.result_time = jsonObject.getString("result_time");
+                                market.mOpen = jsonObject.getString("mOpen");
+                                market.mClose = jsonObject.getString("mClose");
 
-                                name2.add(jsonObject.getString("market"));
-                                result2.add(jsonObject.getString("result"));
-                                result3.add(jsonObject.getString("result3"));
-                                is_open2.add(jsonObject.getString("is_open"));
-                                open_av2.add(jsonObject.getString("is_close"));
-                                market_type2.add(jsonObject.getString("market_type"));
-                                result_time.add(jsonObject.getString("result_time"));
-                                mOpen.add(jsonObject.getString("mOpen"));
-                                mClose.add(jsonObject.getString("mClose"));
-
+                                marketList.add(market);
                             }
 
+                            // Sort markets: DESAWAR first, then active markets, then by open_time
+                            marketList.sort((m1, m2) -> {
+                                // DESAWAR always at top
+                                if (m1.name.equalsIgnoreCase("DESAWAR")) return -1;
+                                if (m2.name.equalsIgnoreCase("DESAWAR")) return 1;
+
+                                // Active markets first (mOpen == "1")
+                                if (!m1.mOpen.equals(m2.mOpen)) {
+                                    return m2.mOpen.compareTo(m1.mOpen); // "1" comes before "0"
+                                }
+
+                                // Sort by open_time for same status
+                                return m1.open_time.compareTo(m2.open_time);
+                            });
+
+                            // Extract sorted data back to ArrayLists
+                            for (MarketData market : marketList) {
+                                name2.add(market.name);
+                                result2.add(market.result);
+                                result3.add(market.result3);
+                                is_open2.add(market.is_open);
+                                open_time2.add(market.open_time);
+                                close_time2.add(market.close_time);
+                                open_av2.add(market.open_av);
+                                market_type2.add(market.market_type);
+                                result_time.add(market.result_time);
+                                mOpen.add(market.mOpen);
+                                mClose.add(market.mClose);
+                            }
 
                             adapter_result_delhi rc2 = new adapter_result_delhi(getActivity(), name2, result2,result3, is_open2, open_time2, close_time2, open_av2, market_type2,result_time,mOpen,mClose);
                             recyclerview2.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -380,5 +413,20 @@ public class HomeFragment extends Fragment {
         bidHistory = view.findViewById(R.id.bid_history);
         recyclerview2 = view.findViewById(R.id.recyclerview2);
         delhiMarkets = view.findViewById(R.id.delhi_markets);
+    }
+
+    // Helper class to hold market data for sorting
+    private static class MarketData {
+        String name;
+        String result;
+        String result3;
+        String is_open;
+        String open_time;
+        String close_time;
+        String open_av;
+        String market_type;
+        String result_time;
+        String mOpen;
+        String mClose;
     }
 }
