@@ -135,21 +135,29 @@ public class deposit_money extends AppCompatActivity {
                     if (mSwitchMultiButton.getVisibility() == View.VISIBLE) {
                         gateway = gateways.get(mSwitchMultiButton.getSelectedTab());
                         gateway = gateway.toLowerCase();
+                        Log.d("deposit_money", "Gateway selected: " + gateway);
                         if (gateway.toLowerCase().equals("gpay") || gateway.toLowerCase().equals("paytm") || gateway.toLowerCase().equals("phonepe")) {
+                            Log.d("deposit_money", "Launching UPI gateway: " + gateway);
                             apicall3(gateway.toLowerCase());
                         } else if (gateway.toLowerCase().equals("razorpay")) {
+                            Log.d("deposit_money", "Launching Razorpay native SDK");
                             // Use native Razorpay SDK instead of WebView
                             startActivity(new Intent(deposit_money.this, RazorpayPaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
                         } else {
+                            Log.d("deposit_money", "Launching WebView for gateway: " + gateway);
                             startActivity(new Intent(deposit_money.this, webview.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()).putExtra("gateway", gateway));
                         }
                     } else {
+                        Log.d("deposit_money", "Gateway (no switch): " + gateway);
                         if (gateway.toLowerCase().equals("gpay") || gateway.toLowerCase().equals("paytm") || gateway.toLowerCase().equals("phonepe")) {
+                            Log.d("deposit_money", "Launching UPI gateway: " + gateway);
                             apicall3(gateway.toLowerCase());
                         } else if (gateway.toLowerCase().equals("razorpay")) {
+                            Log.d("deposit_money", "Launching Razorpay native SDK");
                             // Use native Razorpay SDK instead of WebView
                             startActivity(new Intent(deposit_money.this, RazorpayPaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
                         } else {
+                            Log.d("deposit_money", "Launching WebView for gateway: " + gateway);
                             startActivity(new Intent(deposit_money.this, webview.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()).putExtra("gateway", gateway));
                         }
                     }
@@ -491,27 +499,32 @@ public class deposit_money extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("edsa", "efsdc" + response);
+                        Log.d("deposit_money", "get_gateway response: " + response);
                         progressDialog.hideDialog();
                         try {
                             JSONObject jsonObject1 = new JSONObject(response);
 
                             JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                            Log.d("deposit_money", "Gateway count: " + jsonArray.length());
 
                             if (jsonArray.length() == 1) {
 
                                 gateway = jsonArray.getJSONObject(0).getString("name").toLowerCase();
+                                Log.d("deposit_money", "Single gateway: " + gateway);
                                 return;
                             }
                             String[] tabTexts1 = new String[jsonArray.length()];
 
                             for (int a = 0; jsonArray.length() > a; a++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(a);
-                                gateways.add(jsonObject.getString("name").toLowerCase());
+                                String gatewayName = jsonObject.getString("name").toLowerCase();
+                                gateways.add(gatewayName);
                                 tabTexts1[a] = jsonObject.getString("name").toUpperCase();
+                                Log.d("deposit_money", "Gateway " + a + ": " + gatewayName);
                             }
 
                             if (gateways.size() > 0) {
+                                Log.d("deposit_money", "Showing gateway switch with " + gateways.size() + " options");
                                 mSwitchMultiButton.setText(tabTexts1);
                                 mSwitchMultiButton.setVisibility(View.VISIBLE);
                             }

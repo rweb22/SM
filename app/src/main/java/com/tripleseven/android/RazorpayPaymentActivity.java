@@ -33,22 +33,31 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d(TAG, "RazorpayPaymentActivity onCreate");
+
         // Get amount from intent
         amount = getIntent().getStringExtra("amount");
 
+        Log.d(TAG, "Amount from intent: " + amount);
+
         if (amount == null || amount.isEmpty()) {
+            Log.e(TAG, "Amount is null or empty");
             Toast.makeText(this, "Invalid amount", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
         // Initialize Razorpay payment
+        Log.d(TAG, "Calling initiateRazorpayPayment");
         initiateRazorpayPayment();
     }
 
     private void initiateRazorpayPayment() {
         // Call backend to create Razorpay order
         String url = constant.prefix + "initiate_gw_payment";
+
+        Log.d(TAG, "Initiating payment - URL: " + url);
+        Log.d(TAG, "Amount: " + amount);
 
         RequestQueue queue = Volley.newRequestQueue(this);
         MyStringRequest stringRequest = new MyStringRequest(
@@ -57,6 +66,7 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d(TAG, "Backend response: " + response);
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
 
@@ -105,6 +115,12 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
     }
 
     private void startRazorpayCheckout(String orderId, String keyId, int amount, String currency) {
+        Log.d(TAG, "Starting Razorpay checkout");
+        Log.d(TAG, "Order ID: " + orderId);
+        Log.d(TAG, "Key ID: " + keyId);
+        Log.d(TAG, "Amount: " + amount);
+        Log.d(TAG, "Currency: " + currency);
+
         Checkout checkout = new Checkout();
         checkout.setKeyID(keyId);
 
