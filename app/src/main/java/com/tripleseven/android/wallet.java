@@ -258,7 +258,9 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                startActivity(new Intent(wallet.this, webview.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()).putExtra("gateway", "razorpay"));
+                Log.d("wallet", "Razorpay button clicked - Launching native SDK");
+                // Use native Razorpay SDK instead of WebView
+                startActivity(new Intent(wallet.this, RazorpayPaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
             }
         });
 
