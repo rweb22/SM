@@ -51,7 +51,9 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
         String url = constant.prefix + "initiate_gw_payment";
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        MyStringRequest stringRequest = new MyStringRequest(
+                getSharedPreferences(constant.prefs, MODE_PRIVATE),
+                Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -93,7 +95,8 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("amount", amount);
-                params.put("token", constant.token);
+                params.put("mobile", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("mobile", null));
+                params.put("session", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
                 return params;
             }
         };
@@ -115,8 +118,9 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
 
             // Prefill user details if available
             JSONObject prefill = new JSONObject();
-            if (constant.name != null && !constant.name.isEmpty()) {
-                prefill.put("contact", constant.name);
+            String mobile = getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("mobile", null);
+            if (mobile != null && !mobile.isEmpty()) {
+                prefill.put("contact", mobile);
             }
             options.put("prefill", prefill);
 
