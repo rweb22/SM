@@ -23,6 +23,16 @@
         </intent>
     </queries>
 
+    <!-- UPI Payment Apps for Razorpay Integration -->
+    <queries>
+        <package android:name="com.google.android.apps.nbu.paisa.user" /> <!-- Google Pay -->
+        <package android:name="com.phonepe.app" /> <!-- PhonePe -->
+        <package android:name="net.one97.paytm" /> <!-- Paytm -->
+        <package android:name="in.org.npci.upiapp" /> <!-- BHIM UPI -->
+        <package android:name="com.amazon.mShop.android.shopping" /> <!-- Amazon Pay -->
+        <package android:name="in.amazon.mShop.android.shopping" /> <!-- Amazon Pay (alternate) -->
+    </queries>
+
     <application
 
         android:name=".Betplay"
