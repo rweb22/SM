@@ -137,12 +137,18 @@ public class deposit_money extends AppCompatActivity {
                         gateway = gateway.toLowerCase();
                         if (gateway.toLowerCase().equals("gpay") || gateway.toLowerCase().equals("paytm") || gateway.toLowerCase().equals("phonepe")) {
                             apicall3(gateway.toLowerCase());
+                        } else if (gateway.toLowerCase().equals("razorpay")) {
+                            // Use native Razorpay SDK instead of WebView
+                            startActivity(new Intent(deposit_money.this, RazorpayPaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
                         } else {
                             startActivity(new Intent(deposit_money.this, webview.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()).putExtra("gateway", gateway));
                         }
                     } else {
                         if (gateway.toLowerCase().equals("gpay") || gateway.toLowerCase().equals("paytm") || gateway.toLowerCase().equals("phonepe")) {
                             apicall3(gateway.toLowerCase());
+                        } else if (gateway.toLowerCase().equals("razorpay")) {
+                            // Use native Razorpay SDK instead of WebView
+                            startActivity(new Intent(deposit_money.this, RazorpayPaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
                         } else {
                             startActivity(new Intent(deposit_money.this, webview.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()).putExtra("gateway", gateway));
                         }

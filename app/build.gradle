@@ -81,4 +81,7 @@ dependencies {
     implementation 'com.github.iwgang:countdownview:2.1.6'
 
     implementation 'com.github.CanHub:Android-Image-Cropper:3.3.6'
+
+    // Razorpay Android SDK
+    implementation 'com.razorpay:checkout:1.6.33'
 }

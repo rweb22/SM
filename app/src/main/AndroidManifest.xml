@@ -43,6 +43,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".RazorpayPaymentActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".change_bank"
             android:exported="false" />
         <activity
