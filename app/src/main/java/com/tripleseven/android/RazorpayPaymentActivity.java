@@ -35,7 +35,27 @@ public class RazorpayPaymentActivity extends AppCompatActivity implements Paymen
 
         Log.d(TAG, "RazorpayPaymentActivity onCreate");
 
-        // Get amount from intent
+        // Check if order details are already provided (from wallet.java UPI gateway flow)
+        boolean skipBackendCall = getIntent().getBooleanExtra("skip_backend_call", false);
+
+        if (skipBackendCall) {
+            Log.d(TAG, "Order already created - using provided details");
+            String orderId = getIntent().getStringExtra("order_id");
+            String keyId = getIntent().getStringExtra("key_id");
+            int amountPaise = getIntent().getIntExtra("amount_paise", 0);
+            String currency = getIntent().getStringExtra("currency");
+
+            if (orderId != null && keyId != null && amountPaise > 0) {
+                startRazorpayCheckout(orderId, keyId, amountPaise, currency);
+            } else {
+                Log.e(TAG, "Invalid order details provided");
+                Toast.makeText(this, "Invalid payment details", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            return;
+        }
+
+        // Normal flow: Get amount from intent and create order
         amount = getIntent().getStringExtra("amount");
 
         Log.d(TAG, "Amount from intent: " + amount);

@@ -647,12 +647,24 @@ public class wallet extends AppCompatActivity {
 
                         if (jsonObject1.getString("success").equals("1")) {
                             JSONObject res = jsonObject1.getJSONObject("data");
-                            Log.d("Start UPIG W payment", "yes");
-                            String payUrl = res.getString("payment_url");
-                            startActivity(
-                                    new Intent(wallet.this, webview.class)
-                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("url", payUrl)
-                            );
+                            Log.d("wallet", "UPI Gateway payment - Using native Razorpay SDK");
+
+                            // Use native Razorpay SDK instead of WebView
+                            // The backend already created the order, so we need to extract the details
+                            String orderId = res.getString("order_id");
+                            String keyId = res.getString("key_id");
+                            int amountPaise = res.getInt("amount");
+                            String currency = res.getString("currency");
+
+                            // Launch native SDK directly with order details
+                            Intent intent = new Intent(wallet.this, RazorpayPaymentActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("order_id", orderId);
+                            intent.putExtra("key_id", keyId);
+                            intent.putExtra("amount_paise", amountPaise);
+                            intent.putExtra("currency", currency);
+                            intent.putExtra("skip_backend_call", true);  // Skip backend call since we already have order
+                            startActivity(intent);
                         } else {
                             Toast.makeText(wallet.this, jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
