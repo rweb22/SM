@@ -129,13 +129,11 @@ public class wallet extends AppCompatActivity {
         addFund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String upiGateway = getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("UPI_GATEWAY", "0");
-                if (Objects.equals(upiGateway, "0")) {
-                    Log.d("Starting UPI G payment", "yes");
-                    getUpiGatewayPayUrl();
-                } else {
-                    methods.setVisibility(View.VISIBLE);
-                }
+                // Launch new UPI Intent deposit flow
+                Log.d("wallet", "Launching UPI Intent deposit flow");
+                Intent intent = new Intent(wallet.this, deposit_money.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
@@ -258,9 +256,9 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("wallet", "Razorpay button clicked - Launching native SDK");
-                // Use native Razorpay SDK instead of WebView
-                startActivity(new Intent(wallet.this, RazorpayPaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
+                Log.d("wallet", "Cashfree button clicked - Launching native SDK");
+                // Use native Cashfree SDK instead of WebView
+                startActivity(new Intent(wallet.this, CashfreePaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
             }
         });
 
@@ -652,17 +650,15 @@ public class wallet extends AppCompatActivity {
                             // Use native Razorpay SDK instead of WebView
                             // The backend already created the order, so we need to extract the details
                             String orderId = res.getString("order_id");
-                            String keyId = res.getString("key_id");
-                            int amountPaise = res.getInt("amount");
-                            String currency = res.getString("currency");
+                            String paymentSessionId = res.getString("payment_session_id");
+                            String transactionId = res.getString("transaction_id");
 
                             // Launch native SDK directly with order details
-                            Intent intent = new Intent(wallet.this, RazorpayPaymentActivity.class);
+                            Intent intent = new Intent(wallet.this, CashfreePaymentActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("order_id", orderId);
-                            intent.putExtra("key_id", keyId);
-                            intent.putExtra("amount_paise", amountPaise);
-                            intent.putExtra("currency", currency);
+                            intent.putExtra("payment_session_id", paymentSessionId);
+                            intent.putExtra("transaction_id", transactionId);
                             intent.putExtra("skip_backend_call", true);  // Skip backend call since we already have order
                             startActivity(intent);
                         } else {
