@@ -129,10 +129,20 @@ public class wallet extends AppCompatActivity {
         addFund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launch new UPI Intent deposit flow
-                Log.d("wallet", "Launching UPI Intent deposit flow");
+                // Validate amount before launching deposit flow
+                if (amount.getText().toString().isEmpty() || amount.getText().toString().equals("0")) {
+                    amount.setError("Enter amount");
+                    return;
+                } else if (Integer.parseInt(amount.getText().toString()) < Integer.parseInt(getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"))) {
+                    amount.setError("Enter amount above " + getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"));
+                    return;
+                }
+
+                // Launch new UPI Intent deposit flow with pre-filled amount
+                Log.d("wallet", "Launching UPI Intent deposit flow with amount: " + amount.getText().toString());
                 Intent intent = new Intent(wallet.this, deposit_money.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("amount", amount.getText().toString());
                 startActivity(intent);
             }
         });
@@ -256,9 +266,12 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("wallet", "Launching UPI Intent deposit flow");
-                // Launch new UPI Intent deposit flow
-                startActivity(new Intent(wallet.this, deposit_money.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                Log.d("wallet", "Launching UPI Intent deposit flow with amount: " + amount.getText().toString());
+                // Launch new UPI Intent deposit flow with pre-filled amount
+                Intent intent = new Intent(wallet.this, deposit_money.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("amount", amount.getText().toString());
+                startActivity(intent);
             }
         });
 

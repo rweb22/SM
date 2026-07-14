@@ -47,6 +47,13 @@ public class deposit_money extends AppCompatActivity {
 
         amount = findViewById(R.id.amount2);
 
+        // Check if amount was passed from wallet activity
+        if (getIntent().hasExtra("amount")) {
+            String prefilledAmount = getIntent().getStringExtra("amount");
+            amount.setText(prefilledAmount);
+            Log.d("deposit_money", "Pre-filled amount: " + prefilledAmount);
+        }
+
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
