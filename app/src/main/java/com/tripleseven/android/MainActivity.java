@@ -493,6 +493,8 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("code", jsonObject1.getString("code")).apply();
                             editor.putString("is_gateway", jsonObject1.getString("gateway")).apply();
                             editor.putString("whatsapp", jsonObject1.getString("whatsapp")).apply();
+                            editor.putString("min_deposit", jsonObject1.getString("min_deposit")).apply();
+                            editor.putString("min_withdraw", jsonObject1.getString("min_withdraw")).apply();
                             is_gateway = jsonObject1.getString("gateway");
 
                             if (swiperefresh.isRefreshing()) {

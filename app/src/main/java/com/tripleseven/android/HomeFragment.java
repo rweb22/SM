@@ -299,6 +299,8 @@ public class HomeFragment extends Fragment {
                             editor.putString("bank_details", jsonObject1.getString("bank_details")).apply();
                             editor.putString("upi", jsonObject1.getString("upi")).apply();
                             editor.putString("merchant", jsonObject1.getString("merchant")).apply();
+                            editor.putString("min_deposit", jsonObject1.getString("min_deposit")).apply();
+                            editor.putString("min_withdraw", jsonObject1.getString("min_withdraw")).apply();
                             is_gateway = jsonObject1.getString("gateway");
 
                           //  balance_home.setText(preferences.getString("wallet","0"));
