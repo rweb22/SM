@@ -256,9 +256,9 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("wallet", "Cashfree button clicked - Launching native SDK");
-                // Use native Cashfree SDK instead of WebView
-                startActivity(new Intent(wallet.this, CashfreePaymentActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()));
+                Log.d("wallet", "Launching UPI Intent deposit flow");
+                // Launch new UPI Intent deposit flow
+                startActivity(new Intent(wallet.this, deposit_money.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
@@ -627,72 +627,7 @@ public class wallet extends AppCompatActivity {
         requestQueue.add(postRequest);
     }
 
-    private JSONObject getUpiGatewayPayUrl() {
-        progressDialog = new ViewDialog(wallet.this);
-        progressDialog.showDialog();
 
-        hashKey = randomString(10);
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        final JSONObject[] response = {null};
-
-        final StringRequest postRequest = new MyStringRequest(getSharedPreferences(constant.prefs, MODE_PRIVATE), Request.Method.POST, gw_url,
-                response1 -> {
-                    progressDialog.hideDialog();
-                    try {
-                        JSONObject jsonObject1 = new JSONObject(response1);
-                        Log.d("response initiate pay", jsonObject1.toString());
-
-                        if (jsonObject1.getString("success").equals("1")) {
-                            JSONObject res = jsonObject1.getJSONObject("data");
-                            Log.d("wallet", "UPI Gateway payment - Using native Razorpay SDK");
-
-                            // Use native Razorpay SDK instead of WebView
-                            // The backend already created the order, so we need to extract the details
-                            String orderId = res.getString("order_id");
-                            String paymentSessionId = res.getString("payment_session_id");
-                            String transactionId = res.getString("transaction_id");
-
-                            // Launch native SDK directly with order details
-                            Intent intent = new Intent(wallet.this, CashfreePaymentActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("order_id", orderId);
-                            intent.putExtra("payment_session_id", paymentSessionId);
-                            intent.putExtra("transaction_id", transactionId);
-                            intent.putExtra("skip_backend_call", true);  // Skip backend call since we already have order
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(wallet.this, jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        progressDialog.hideDialog();
-                        Toast.makeText(wallet.this, "Not able to get the payment link", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
-                    progressDialog.hideDialog();
-                    Toast.makeText(wallet.this, "Not able to get the payment link", Toast.LENGTH_SHORT).show();
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("mobile", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("mobile", null));
-                params.put("session", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null));
-                params.put("amount", amount.getText().toString());
-                params.put("hash_key", hashKey);
-
-                return params;
-            }
-        };
-        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(postRequest);
-
-        Log.d("restuened res:", Arrays.toString(response));
-        return response[0];
-    }
 
     private void apicall3(String upiApp, String type) {
 
