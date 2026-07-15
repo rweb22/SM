@@ -23,48 +23,8 @@
         </intent>
     </queries>
 
-    <!-- UPI Payment Apps - Specific packages for Android 11+ visibility -->
+    <!-- UPI Intent Query - Matches Deepak's working implementation -->
     <queries>
-        <!-- Google Pay -->
-        <package android:name="com.google.android.apps.nbu.paisa.user" />
-
-        <!-- PhonePe -->
-        <package android:name="com.phonepe.app" />
-
-        <!-- Paytm -->
-        <package android:name="net.one97.paytm" />
-
-        <!-- Amazon Pay -->
-        <package android:name="in.amazon.mShop.android.shopping" />
-
-        <!-- BHIM UPI -->
-        <package android:name="in.org.npci.upiapp" />
-
-        <!-- WhatsApp Pay -->
-        <package android:name="com.whatsapp" />
-
-        <!-- Cred -->
-        <package android:name="com.dreamplug.androidapp" />
-
-        <!-- MobiKwik -->
-        <package android:name="com.mobikwik_new" />
-
-        <!-- Freecharge -->
-        <package android:name="com.freecharge.android" />
-
-        <!-- ICICI Bank iMobile -->
-        <package android:name="com.csam.icici.bank.imobile" />
-
-        <!-- SBI YONO -->
-        <package android:name="com.sbi.lotusintouch" />
-
-        <!-- HDFC Bank MobileBanking -->
-        <package android:name="com.snapwork.hdfc" />
-
-        <!-- Axis Mobile -->
-        <package android:name="com.axis.mobile" />
-
-        <!-- Generic UPI intent as fallback -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="upi" />
@@ -83,7 +43,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".RazorpayPaymentActivity"
+            android:name=".CashfreePaymentActivity"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
