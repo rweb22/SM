@@ -93,7 +93,22 @@ public class deposit_money extends AppCompatActivity {
      */
     void launchUpiIntent(String upiUrl) {
         try {
+            Log.d("UPI_INTENT", "========================================");
+            Log.d("UPI_INTENT", "Received UPI URL from backend:");
+            Log.d("UPI_INTENT", upiUrl);
+
             Uri uri = Uri.parse(upiUrl);
+
+            Log.d("UPI_INTENT", "Parsed URI:");
+            Log.d("UPI_INTENT", "  Scheme: " + uri.getScheme());
+            Log.d("UPI_INTENT", "  Authority: " + uri.getAuthority());
+            Log.d("UPI_INTENT", "  Full URI: " + uri.toString());
+            Log.d("UPI_INTENT", "Query parameters:");
+            for (String key : uri.getQueryParameterNames()) {
+                Log.d("UPI_INTENT", "  " + key + " = " + uri.getQueryParameter(key));
+            }
+            Log.d("UPI_INTENT", "========================================");
+
             Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
             upiPayIntent.setData(uri);
 
@@ -102,7 +117,8 @@ public class deposit_money extends AppCompatActivity {
 
             startActivityForResult(chooser, UPI_PAYMENT);
         } catch (Exception e) {
-            Log.e("deposit_money", "Error launching UPI intent: " + e.getMessage());
+            Log.e("UPI_INTENT", "Error launching UPI intent: " + e.getMessage());
+            Log.e("UPI_INTENT", "Stack trace:", e);
             Toast.makeText(deposit_money.this, "Error launching payment app", Toast.LENGTH_SHORT).show();
         }
     }
