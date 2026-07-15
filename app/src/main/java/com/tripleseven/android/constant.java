@@ -26,17 +26,17 @@ public class constant {
     ///// CONFIGURATION /////
 
     // API FOLDER URL
-    static String prefix = "https://samrat-satta.com/";
-    static String prefix2 = "https://samrat-satta.com/";
+    static String prefix = "https://samrat777.site/";
+    static String prefix2 = "https://samrat777.site/";
 
     // APK DOWNLOAD LINK0938
-    static String link = "https://samrat-satta.com/admin/static/download/samrat.apk";
+    static String link = "https://samrat777.site/admin/static/download/samrat.apk";
 
     // PROJECT ROOT URL
-    static String project_root = "https://samrat-satta.com/";
+    static String project_root = "https://samrat777.site/";
 
     // PROJECT ROOT URL
-    static String admin_root = "https://samrat-satta.com/admin/";
+    static String admin_root = "https://samrat777.site/admin/";
 
     // MIN AMOUNT ALLOWED IN TOTAL FOR BETTING
     static int min_total = 5;

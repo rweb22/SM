@@ -12,4 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
-samrat-release.keystore
+
+# Keystore files (keep base64 version only)
+*.keystore
+!samrat-release.keystore.b64
