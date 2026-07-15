@@ -84,4 +84,7 @@ dependencies {
 
     // Cashfree Android SDK
     implementation 'com.cashfree.pg:api:2.4.0'
+
+    // Force older webkit version compatible with AGP 7.4.2
+    implementation 'androidx.webkit:webkit:1.4.0'
 }
