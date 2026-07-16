@@ -251,7 +251,8 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                startActivity(new Intent(wallet.this, webview.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("amount", amount.getText().toString()).putExtra("gateway", "paytm"));
+                // EKQR Gateway - initiate payment via backend
+                getUpiGatewayPayUrl();
             }
         });
 
@@ -845,6 +846,66 @@ public class wallet extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+
+
+    private void getUpiGatewayPayUrl() {
+        progressDialog = new ViewDialog(wallet.this);
+        progressDialog.showDialog();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        final StringRequest postRequest = new MyStringRequest(
+                getSharedPreferences(constant.prefs, MODE_PRIVATE),
+                Request.Method.POST,
+                gw_url,  // Already defined as: constant.prefix2 + "initiate_gw_payment"
+                response1 -> {
+                    progressDialog.hideDialog();
+                    try {
+                        JSONObject jsonObject1 = new JSONObject(response1);
+                        Log.d("EKQR_PAYMENT", "Response: " + jsonObject1.toString());
+
+                        if (jsonObject1.getString("success").equals("1")) {
+                            JSONObject res = jsonObject1.getJSONObject("data");
+                            String payUrl = res.getString("payment_url");
+
+                            Log.d("EKQR_PAYMENT", "Opening payment URL: " + payUrl);
+                            startActivity(
+                                    new Intent(wallet.this, webview.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            .putExtra("url", payUrl)
+                            );
+                        } else {
+                            Toast.makeText(wallet.this, jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(wallet.this, "Unable to get payment link. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    progressDialog.hideDialog();
+                    Toast.makeText(wallet.this, "Network error. Please check your connection.", Toast.LENGTH_SHORT).show();
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("mobile", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("mobile", ""));
+                params.put("session", getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", ""));
+                params.put("amount", amount.getText().toString());
+                return params;
+            }
+        };
+
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(
+                30000,  // 30 seconds timeout
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        requestQueue.add(postRequest);
     }
 
 
