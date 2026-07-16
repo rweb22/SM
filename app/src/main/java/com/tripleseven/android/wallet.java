@@ -138,12 +138,9 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                // Launch new UPI Intent deposit flow with pre-filled amount
-                Log.d("wallet", "Launching UPI Intent deposit flow with amount: " + amount.getText().toString());
-                Intent intent = new Intent(wallet.this, deposit_money.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("amount", amount.getText().toString());
-                startActivity(intent);
+                // EKQR Gateway - initiate payment via backend
+                Log.d("wallet", "Launching EKQR payment gateway with amount: " + amount.getText().toString());
+                getUpiGatewayPayUrl();
             }
         });
 
@@ -267,12 +264,9 @@ public class wallet extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("wallet", "Launching UPI Intent deposit flow with amount: " + amount.getText().toString());
-                // Launch new UPI Intent deposit flow with pre-filled amount
-                Intent intent = new Intent(wallet.this, deposit_money.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("amount", amount.getText().toString());
-                startActivity(intent);
+                // EKQR Gateway - initiate payment via backend
+                Log.d("wallet", "Launching EKQR payment gateway with amount: " + amount.getText().toString());
+                getUpiGatewayPayUrl();
             }
         });
 
