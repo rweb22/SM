@@ -495,6 +495,9 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("whatsapp", jsonObject1.getString("whatsapp")).apply();
                             editor.putString("min_deposit", jsonObject1.getString("min_deposit")).apply();
                             editor.putString("min_withdraw", jsonObject1.getString("min_withdraw")).apply();
+                            // Persist payment_mode so wallet.java can route to either upi_gateway or upi_intent flow.
+                            // optString is used so older backends (without this field) default to "upi_gateway".
+                            editor.putString("payment_mode", jsonObject1.optString("payment_mode", "upi_gateway")).apply();
                             is_gateway = jsonObject1.getString("gateway");
 
                             if (swiperefresh.isRefreshing()) {

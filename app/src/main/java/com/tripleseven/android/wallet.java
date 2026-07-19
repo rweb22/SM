@@ -129,18 +129,7 @@ public class wallet extends AppCompatActivity {
         addFund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Validate amount before launching deposit flow
-                if (amount.getText().toString().isEmpty() || amount.getText().toString().equals("0")) {
-                    amount.setError("Enter amount");
-                    return;
-                } else if (Integer.parseInt(amount.getText().toString()) < Integer.parseInt(getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"))) {
-                    amount.setError("Enter amount above " + getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"));
-                    return;
-                }
-
-                // EKQR Gateway - initiate payment via backend
-                Log.d("wallet", "Launching EKQR payment gateway with amount: " + amount.getText().toString());
-                getUpiGatewayPayUrl();
+                routePayment();
             }
         });
 
@@ -240,33 +229,14 @@ public class wallet extends AppCompatActivity {
         paytm_gateway.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (amount.getText().toString().isEmpty() || amount.getText().toString().equals("0")) {
-                    amount.setError("Enter points");
-                    return;
-                } else if (Integer.parseInt(amount.getText().toString()) < Integer.parseInt(getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"))) {
-                    amount.setError("Enter points above " + getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"));
-                    return;
-                }
-
-                // EKQR Gateway - initiate payment via backend
-                getUpiGatewayPayUrl();
+                routePayment();
             }
         });
 
         razorpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (amount.getText().toString().isEmpty() || amount.getText().toString().equals("0")) {
-                    amount.setError("Enter points");
-                    return;
-                } else if (Integer.parseInt(amount.getText().toString()) < Integer.parseInt(getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"))) {
-                    amount.setError("Enter points above " + getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("min_deposit", "10"));
-                    return;
-                }
-
-                // EKQR Gateway - initiate payment via backend
-                Log.d("wallet", "Launching EKQR payment gateway with amount: " + amount.getText().toString());
-                getUpiGatewayPayUrl();
+                routePayment();
             }
         });
 
@@ -842,6 +812,50 @@ public class wallet extends AppCompatActivity {
         }
     }
 
+
+
+    /**
+     * Read the current payment mode from SharedPreferences.
+     * Populated by /dashboard (see MainActivity.apicall). Default is "upi_gateway"
+     * which preserves the previous behavior if the backend hasn't been
+     * updated yet or the PAYMENT_MODE setting row is missing.
+     */
+    private String getPaymentMode() {
+        return getSharedPreferences(constant.prefs, MODE_PRIVATE)
+                .getString("payment_mode", "upi_gateway");
+    }
+
+    /**
+     * Unified payment router used by all "Add Fund" / "paytm_gateway" /
+     * "razorpay" buttons. Validates the amount once, then dispatches to
+     * either the UPI Gateway flow (getUpiGatewayPayUrl) or the Direct UPI
+     * Intent flow (deposit_money.class) based on the current payment_mode.
+     */
+    private void routePayment() {
+        String amountStr = amount.getText().toString();
+        if (amountStr.isEmpty() || amountStr.equals("0")) {
+            amount.setError("Enter amount");
+            return;
+        }
+        String minDep = getSharedPreferences(constant.prefs, MODE_PRIVATE)
+                .getString("min_deposit", "10");
+        if (Integer.parseInt(amountStr) < Integer.parseInt(minDep)) {
+            amount.setError("Enter amount above " + minDep);
+            return;
+        }
+
+        String mode = getPaymentMode();
+        Log.d("wallet", "Payment mode: " + mode + ", amount: " + amountStr);
+        if ("upi_intent".equals(mode)) {
+            Intent intent = new Intent(wallet.this, deposit_money.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra("amount", amountStr);
+            startActivity(intent);
+        } else {
+            // Default: upi_gateway (EKQR/UPIGateway payment URL in WebView)
+            getUpiGatewayPayUrl();
+        }
+    }
 
 
     private void getUpiGatewayPayUrl() {
