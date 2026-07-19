@@ -431,6 +431,24 @@ public class MainActivity extends AppCompatActivity {
 
                             balance.setText(jsonObject1.getString("wallet"));
 
+                            // Persist key settings to SharedPreferences EARLY, before any
+                            // market/image parsing that could throw a JSONException and
+                            // skip the persist block below. This ensures payment_mode and
+                            // other critical values are always saved even if the rest of
+                            // the response parsing fails.
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("wallet", jsonObject1.getString("wallet")).apply();
+                            editor.putString("homeline", jsonObject1.optString("homeline", "")).apply();
+                            editor.putString("code", jsonObject1.optString("code", "NA")).apply();
+                            editor.putString("is_gateway", jsonObject1.optString("gateway", "1")).apply();
+                            editor.putString("whatsapp", jsonObject1.optString("whatsapp", "")).apply();
+                            editor.putString("min_deposit", jsonObject1.optString("min_deposit", "10")).apply();
+                            editor.putString("min_withdraw", jsonObject1.optString("min_withdraw", "500")).apply();
+                            // Persist payment_mode so wallet.java can route to either upi_gateway or upi_intent flow.
+                            // optString is used so older backends (without this field) default to "upi_gateway".
+                            editor.putString("payment_mode", jsonObject1.optString("payment_mode", "upi_gateway")).apply();
+                            is_gateway = jsonObject1.optString("gateway", "1");
+
                             if (jsonObject1.getString("homeline").equals("")) {
                                 hometext.setVisibility(View.GONE);
                             } else {
@@ -486,19 +504,6 @@ public class MainActivity extends AppCompatActivity {
                             sliderView.setSliderAdapter(adapter);
 
 
-
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("wallet", jsonObject1.getString("wallet")).apply();
-                            editor.putString("homeline", jsonObject1.getString("homeline")).apply();
-                            editor.putString("code", jsonObject1.getString("code")).apply();
-                            editor.putString("is_gateway", jsonObject1.getString("gateway")).apply();
-                            editor.putString("whatsapp", jsonObject1.getString("whatsapp")).apply();
-                            editor.putString("min_deposit", jsonObject1.getString("min_deposit")).apply();
-                            editor.putString("min_withdraw", jsonObject1.getString("min_withdraw")).apply();
-                            // Persist payment_mode so wallet.java can route to either upi_gateway or upi_intent flow.
-                            // optString is used so older backends (without this field) default to "upi_gateway".
-                            editor.putString("payment_mode", jsonObject1.optString("payment_mode", "upi_gateway")).apply();
-                            is_gateway = jsonObject1.getString("gateway");
 
                             if (swiperefresh.isRefreshing()) {
                                 swiperefresh.setRefreshing(false);
