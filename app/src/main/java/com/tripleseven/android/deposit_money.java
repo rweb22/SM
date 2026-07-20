@@ -45,13 +45,15 @@ public class deposit_money extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_money);
 
+        Log.d("PAYMENT_DEBUG", "deposit_money.onCreate() started — UPI Intent flow activated");
+
         amount = findViewById(R.id.amount2);
 
         // Check if amount was passed from wallet activity
         if (getIntent().hasExtra("amount")) {
             String prefilledAmount = getIntent().getStringExtra("amount");
             amount.setText(prefilledAmount);
-            Log.d("deposit_money", "Pre-filled amount: " + prefilledAmount);
+            Log.d("PAYMENT_DEBUG", "deposit_money: Pre-filled amount: " + prefilledAmount);
         }
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {

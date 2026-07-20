@@ -403,11 +403,39 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("response", response);
+                        Log.d("PAYMENT_DEBUG", "MainActivity.apicall() got /dashboard response");
                         try {
 
                             JSONObject jsonObject1 = new JSONObject(response);
 
-                            if (jsonObject1.getString("active").equals("0")) {
+                            // ============================================================
+                            // CRITICAL: Persist key settings to SharedPreferences IMMEDIATELY
+                            // after parsing the JSON, BEFORE any getString() calls that
+                            // could throw a JSONException (e.g. "active", "session") and
+                            // skip the persist block. This ensures payment_mode is always
+                            // saved even if the rest of the response parsing fails.
+                            // ============================================================
+                            Log.d("PAYMENT_DEBUG", "Dashboard response keys: " + jsonObject1.keys());
+                            String paymentModeFromServer = jsonObject1.optString("payment_mode", "upi_gateway");
+                            Log.d("PAYMENT_DEBUG", "payment_mode from server: " + paymentModeFromServer);
+
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("wallet", jsonObject1.optString("wallet", "0")).apply();
+                            editor.putString("homeline", jsonObject1.optString("homeline", "")).apply();
+                            editor.putString("code", jsonObject1.optString("code", "NA")).apply();
+                            editor.putString("is_gateway", jsonObject1.optString("gateway", "1")).apply();
+                            editor.putString("whatsapp", jsonObject1.optString("whatsapp", "")).apply();
+                            editor.putString("min_deposit", jsonObject1.optString("min_deposit", "10")).apply();
+                            editor.putString("min_withdraw", jsonObject1.optString("min_withdraw", "500")).apply();
+                            editor.putString("payment_mode", paymentModeFromServer).apply();
+                            is_gateway = jsonObject1.optString("gateway", "1");
+
+                            // Verify it was actually persisted
+                            String savedMode = getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("payment_mode", "NOT_SET");
+                            Log.d("PAYMENT_DEBUG", "payment_mode saved to SharedPreferences: " + savedMode);
+
+                            // Now handle the active/session checks (use optString to avoid JSONException)
+                            if (jsonObject1.optString("active", "1").equals("0")) {
                                 Toast.makeText(MainActivity.this, "Your account temporarily disabled by admin", Toast.LENGTH_SHORT).show();
 
                                 preferences.edit().clear().apply();
@@ -418,7 +446,12 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
 
-                            if (!jsonObject1.getString("session").equals(getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", null))) {
+                            // Use optString for "session" since the dashboard response may not
+                            // include this key. Previously getString("session") threw a
+                            // JSONException that skipped the persist block above.
+                            String serverSession = jsonObject1.optString("session", "");
+                            String localSession = getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("session", "");
+                            if (!serverSession.isEmpty() && !serverSession.equals(localSession)) {
                                 Toast.makeText(MainActivity.this, "Session expired ! Please login again", Toast.LENGTH_SHORT).show();
 
                                 preferences.edit().clear().apply();
@@ -429,27 +462,9 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
 
-                            balance.setText(jsonObject1.getString("wallet"));
+                            balance.setText(jsonObject1.optString("wallet", "0"));
 
-                            // Persist key settings to SharedPreferences EARLY, before any
-                            // market/image parsing that could throw a JSONException and
-                            // skip the persist block below. This ensures payment_mode and
-                            // other critical values are always saved even if the rest of
-                            // the response parsing fails.
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("wallet", jsonObject1.getString("wallet")).apply();
-                            editor.putString("homeline", jsonObject1.optString("homeline", "")).apply();
-                            editor.putString("code", jsonObject1.optString("code", "NA")).apply();
-                            editor.putString("is_gateway", jsonObject1.optString("gateway", "1")).apply();
-                            editor.putString("whatsapp", jsonObject1.optString("whatsapp", "")).apply();
-                            editor.putString("min_deposit", jsonObject1.optString("min_deposit", "10")).apply();
-                            editor.putString("min_withdraw", jsonObject1.optString("min_withdraw", "500")).apply();
-                            // Persist payment_mode so wallet.java can route to either upi_gateway or upi_intent flow.
-                            // optString is used so older backends (without this field) default to "upi_gateway".
-                            editor.putString("payment_mode", jsonObject1.optString("payment_mode", "upi_gateway")).apply();
-                            is_gateway = jsonObject1.optString("gateway", "1");
-
-                            if (jsonObject1.getString("homeline").equals("")) {
+                            if (jsonObject1.optString("homeline", "").equals("")) {
                                 hometext.setVisibility(View.GONE);
                             } else {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -517,6 +532,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
+                            Log.e("PAYMENT_DEBUG", "JSONException in apicall response handler: " + e.getMessage());
                             e.printStackTrace();
                             Toast.makeText(MainActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
                         }

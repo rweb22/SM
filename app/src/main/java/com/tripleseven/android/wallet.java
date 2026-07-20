@@ -116,6 +116,9 @@ public class wallet extends AppCompatActivity {
         setContentView(R.layout.activity_wallet);
         initViews();
 
+        Log.d("PAYMENT_DEBUG", "wallet.onCreate() started. payment_mode in SharedPreferences: "
+                + getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("payment_mode", "NOT_SET"));
+
         withdrawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -821,8 +824,10 @@ public class wallet extends AppCompatActivity {
      * updated yet or the PAYMENT_MODE setting row is missing.
      */
     private String getPaymentMode() {
-        return getSharedPreferences(constant.prefs, MODE_PRIVATE)
+        String mode = getSharedPreferences(constant.prefs, MODE_PRIVATE)
                 .getString("payment_mode", "upi_gateway");
+        Log.d("PAYMENT_DEBUG", "getPaymentMode() returned: " + mode);
+        return mode;
     }
 
     /**
@@ -832,26 +837,32 @@ public class wallet extends AppCompatActivity {
      * Intent flow (deposit_money.class) based on the current payment_mode.
      */
     private void routePayment() {
+        Log.d("PAYMENT_DEBUG", "routePayment() called");
         String amountStr = amount.getText().toString();
         if (amountStr.isEmpty() || amountStr.equals("0")) {
+            Log.d("PAYMENT_DEBUG", "routePayment: amount is empty or 0");
             amount.setError("Enter amount");
             return;
         }
         String minDep = getSharedPreferences(constant.prefs, MODE_PRIVATE)
                 .getString("min_deposit", "10");
+        Log.d("PAYMENT_DEBUG", "routePayment: amount=" + amountStr + ", min_deposit=" + minDep);
         if (Integer.parseInt(amountStr) < Integer.parseInt(minDep)) {
+            Log.d("PAYMENT_DEBUG", "routePayment: amount below minimum");
             amount.setError("Enter amount above " + minDep);
             return;
         }
 
         String mode = getPaymentMode();
-        Log.d("wallet", "Payment mode: " + mode + ", amount: " + amountStr);
+        Log.d("PAYMENT_DEBUG", "routePayment: mode=" + mode + ", amount=" + amountStr);
         if ("upi_intent".equals(mode)) {
+            Log.d("PAYMENT_DEBUG", "routePayment: launching deposit_money.class (UPI Intent flow)");
             Intent intent = new Intent(wallet.this, deposit_money.class)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     .putExtra("amount", amountStr);
             startActivity(intent);
         } else {
+            Log.d("PAYMENT_DEBUG", "routePayment: calling getUpiGatewayPayUrl() (Gateway flow)");
             // Default: upi_gateway (EKQR/UPIGateway payment URL in WebView)
             getUpiGatewayPayUrl();
         }
