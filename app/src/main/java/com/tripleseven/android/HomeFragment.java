@@ -301,6 +301,12 @@ public class HomeFragment extends Fragment {
                             editor.putString("merchant", jsonObject1.getString("merchant")).apply();
                             editor.putString("min_deposit", jsonObject1.getString("min_deposit")).apply();
                             editor.putString("min_withdraw", jsonObject1.getString("min_withdraw")).apply();
+                            // Persist payment_mode so wallet.java can route to either upi_gateway or upi_intent flow.
+                            // optString is used so older backends (without this field) default to "upi_gateway".
+                            String paymentModeFromServer = jsonObject1.optString("payment_mode", "upi_gateway");
+                            editor.putString("payment_mode", paymentModeFromServer).apply();
+                            Log.d("PAYMENT_DEBUG", "HomeFragment: payment_mode from server: " + paymentModeFromServer
+                                    + ", saved to SharedPreferences: " + preferences.getString("payment_mode", "NOT_SET"));
                             is_gateway = jsonObject1.getString("gateway");
 
                           //  balance_home.setText(preferences.getString("wallet","0"));
