@@ -255,6 +255,7 @@ public class deposit_money extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("PAYMENT_DEBUG", "initiateUpiPayment VolleyError: " + error.getMessage());
                         error.printStackTrace();
                         progressDialog.hideDialog();
                         Toast.makeText(deposit_money.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
@@ -270,7 +271,7 @@ public class deposit_money extends AppCompatActivity {
                 return params;
             }
         };
-        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(postRequest);
     }
 
@@ -336,7 +337,7 @@ public class deposit_money extends AppCompatActivity {
                 return params;
             }
         };
-        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(postRequest);
     }
 }
