@@ -38,6 +38,14 @@ public class constant {
     // PROJECT ROOT URL
     static String admin_root = "https://samrat777.site/admin/";
 
+    // UPI Intent endpoints
+    static String urlInitiateUpiIntent = "initiate_upi_intent";
+    static String urlSubmitUpiReference = "submit_upi_reference";
+
+    // GPay Share endpoints
+    static String urlInitiateGpayShare = "initiate_gpay_share";
+    static String urlVerifyGpayShare = "verify_gpay_share";
+
     // MIN AMOUNT ALLOWED IN TOTAL FOR BETTING
     static int min_total = 5;
 

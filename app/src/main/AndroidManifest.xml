@@ -194,6 +194,7 @@
         <activity android:name=".single_bet" />
         <activity android:name=".games" />
         <activity android:name=".deposit_money" />
+        <activity android:name=".GpayShareActivity" />
         <activity android:name=".webview" />
         <activity android:name=".chart_menu" />
         <activity android:name=".charts" />

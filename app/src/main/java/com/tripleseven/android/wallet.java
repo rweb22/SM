@@ -861,6 +861,12 @@ public class wallet extends AppCompatActivity {
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     .putExtra("amount", amountStr);
             startActivity(intent);
+        } else if ("gpay_share".equals(mode)) {
+            Log.d("PAYMENT_DEBUG", "routePayment: launching GpayShareActivity (GPay Share flow)");
+            Intent intent = new Intent(wallet.this, GpayShareActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra("amount", amountStr);
+            startActivity(intent);
         } else {
             Log.d("PAYMENT_DEBUG", "routePayment: calling getUpiGatewayPayUrl() (Gateway flow)");
             // Default: upi_gateway (EKQR/UPIGateway payment URL in WebView)
