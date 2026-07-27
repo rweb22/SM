@@ -136,6 +136,11 @@ public class GpayShareActivity extends AppCompatActivity {
             Log.d(TAG, "GPay not installed, falling back to UPI Intent");
             Toast.makeText(this, "GPay not installed. Opening UPI apps...", Toast.LENGTH_LONG).show();
             fallbackToUpiIntent();
+        } catch (Exception e) {
+            // Catch other exceptions like ActivityNotFoundException to prevent app crash
+            Log.e(TAG, "Error launching GPay intent, falling back to UPI", e);
+            Toast.makeText(this, "Failed to launch GPay directly. Opening UPI chooser...", Toast.LENGTH_SHORT).show();
+            fallbackToUpiIntent();
         }
     }
 
