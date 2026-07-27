@@ -123,9 +123,11 @@ public class GpayShareActivity extends AppCompatActivity {
             // Check if GPay is installed
             pm.getPackageInfo(GPAY_PACKAGE, 0);
 
-            Log.d(TAG, "Launching GPay with URL: " + gpayUrl);
+            Log.d(TAG, "Launching GPay Share with text/URL: " + gpayUrl);
 
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(gpayUrl));
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, gpayUrl);
             intent.setPackage(GPAY_PACKAGE);
 
             // Start for result to get payment response
