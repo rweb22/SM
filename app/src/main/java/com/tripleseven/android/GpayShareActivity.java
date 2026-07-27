@@ -288,9 +288,34 @@ public class GpayShareActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = new JSONObject(response1);
                         Toast.makeText(this, jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
                         if (jsonObject1.getString("success").equals("1")) {
-                            startActivity(new Intent(getApplicationContext(), HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            new androidx.appcompat.app.AlertDialog.Builder(this)
+                                    .setTitle("Payment Verified")
+                                    .setMessage(jsonObject1.getString("msg"))
+                                    .setPositiveButton("OK", (dialog, which) -> {
+                                        startActivity(new Intent(getApplicationContext(), HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                                        finish();
+                                    })
+                                    .setCancelable(false)
+                                    .show();
+                        } else {
+                            // Check if the message indicates pending approval
+                            String msg = jsonObject1.getString("msg");
+                            if (msg.contains("admin approval") || msg.contains("submitted for verification")) {
+                                new androidx.appcompat.app.AlertDialog.Builder(this)
+                                        .setTitle("Payment Submitted")
+                                        .setMessage("Your payment has been submitted for verification. Balance will be updated after admin approval.")
+                                        .setPositiveButton("OK", (dialog, which) -> {
+                                            startActivity(new Intent(getApplicationContext(), HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                                            finish();
+                                        })
+                                        .setCancelable(false)
+                                        .show();
+                            } else {
+                                // Actual error message
+                                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
                         }
-                        finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
                         finish();

@@ -31,6 +31,11 @@
         </intent>
     </queries>
 
+    <!-- Google Pay package query for Android 11+ -->
+    <queries>
+        <package android:name="com.google.android.apps.nbu.paisa.user" />
+    </queries>
+
     <application
 
         android:name=".Betplay"
