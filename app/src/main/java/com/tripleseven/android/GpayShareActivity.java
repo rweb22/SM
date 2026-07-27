@@ -127,7 +127,6 @@ public class GpayShareActivity extends AppCompatActivity {
 
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(gpayUrl));
             intent.setPackage(GPAY_PACKAGE);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             // Start for result to get payment response
             startActivityForResult(intent, GPAY_REQUEST_CODE);
