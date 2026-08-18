@@ -895,19 +895,12 @@ public class wallet extends AppCompatActivity {
                             JSONObject res = jsonObject1.getJSONObject("data");
                             String payUrl = res.getString("payment_url");
 
-                            // Check for UPI deep links (upigateway.com / UPIGateway enterprise plan)
-                            if (res.has("upi_intent")) {
-                                JSONObject upiIntent = res.getJSONObject("upi_intent");
-                                showUpiAppChooser(upiIntent, payUrl);
-                            } else {
-                                // Basic plan: open the QR code payment page in WebView
-                                Log.d("EKQR_PAYMENT", "Opening payment URL (QR code): " + payUrl);
-                                startActivity(
-                                        new Intent(wallet.this, webview.class)
-                                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                .putExtra("url", payUrl)
-                                );
-                            }
+                            Log.d("EKQR_PAYMENT", "Opening payment URL: " + payUrl);
+                            startActivity(
+                                    new Intent(wallet.this, webview.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            .putExtra("url", payUrl)
+                            );
                         } else {
                             Toast.makeText(wallet.this, jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -938,77 +931,6 @@ public class wallet extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
         requestQueue.add(postRequest);
-    }
-
-    /**
-     * Show a chooser dialog with available UPI app deep links from the
-     * upigateway.com / UPIGateway API response (upi_intent object).
-     * Falls back to WebView (QR code page) if no valid deep links are found.
-     */
-    private void showUpiAppChooser(JSONObject upiIntent, String webViewUrl) {
-        final java.util.ArrayList<String> deepLinks = new java.util.ArrayList<>();
-        final java.util.ArrayList<String> appLabels = new java.util.ArrayList<>();
-
-        // Known UPI app deep-link keys from upigateway.com response
-        String[] linkKeys = {"gpay_link", "phonepe_link", "paytm_link", "bhim_link"};
-        String[] appNames = {"Google Pay", "PhonePe", "Paytm", "BHIM"};
-
-        for (int i = 0; i < linkKeys.length; i++) {
-            if (upiIntent.has(linkKeys[i])) {
-                String link;
-                try {
-                    link = upiIntent.getString(linkKeys[i]);
-                } catch (JSONException e) {
-                    continue;
-                }
-                if (link != null && !link.isEmpty()
-                        && (link.startsWith("upi://")
-                            || link.startsWith("gpay://")
-                            || link.startsWith("phonepe://")
-                            || link.startsWith("paytmmp://")
-                            || link.startsWith("tez://"))) {
-                    deepLinks.add(link);
-                    appLabels.add(appNames[i]);
-                }
-            }
-        }
-
-        if (deepLinks.isEmpty()) {
-            Log.d("UPI_GATEWAY", "No deep links available, opening WebView");
-            startActivity(
-                    new Intent(wallet.this, webview.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("url", webViewUrl)
-            );
-            return;
-        }
-
-        String[] labels = appLabels.toArray(new String[0]);
-
-        new AlertDialog.Builder(this)
-                .setTitle("Choose UPI App")
-                .setItems(labels, (dialog, which) -> {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(deepLinks.get(which)));
-                        startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(wallet.this, "UPI app not found. Opening payment page.", Toast.LENGTH_SHORT).show();
-                        startActivity(
-                                new Intent(wallet.this, webview.class)
-                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                        .putExtra("url", webViewUrl)
-                        );
-                    }
-                })
-                .setNegativeButton("QR Code", (dialog, which) -> {
-                    startActivity(
-                            new Intent(wallet.this, webview.class)
-                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    .putExtra("url", webViewUrl)
-                    );
-                })
-                .show();
     }
 
 
