@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ class adapterbetting extends RecyclerView.Adapter<adapterbetting.ViewHolder> {
                 BroadcastReceiver mReceiver = new BroadcastReceiver() { @Override public void onReceive(Context context, Intent intent) { }};
 
                 IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-                context.registerReceiver(mReceiver, intentFilter);
+                ContextCompat.registerReceiver(context, mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
                 Intent i = new Intent("android.intent.action.MAIN");
                 context.sendBroadcast(i);

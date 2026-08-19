@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -246,7 +247,7 @@ public class MobileVerification extends AppCompatActivity {
         };
 
         IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        registerReceiver(smsBroadcastReciever,intentFilter);
+        ContextCompat.registerReceiver(this, smsBroadcastReciever, intentFilter, ContextCompat.RECEIVER_EXPORTED);
     }
 
     @Override

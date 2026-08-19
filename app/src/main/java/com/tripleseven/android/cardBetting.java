@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,7 +94,7 @@ public class cardBetting extends AppCompatActivity {
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        registerReceiver(mReceiver, intentFilter);
+        ContextCompat.registerReceiver(this, mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         recyclerview.setLayoutManager(new GridLayoutManager(cardBetting.this, 2));
         recyclerview.setAdapter(adapterbetting);

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -152,7 +153,7 @@ public class SpecialMode extends Fragment {
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        getActivity().registerReceiver(mReceiver, intentFilter);
+        ContextCompat.registerReceiver(getActivity(), mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

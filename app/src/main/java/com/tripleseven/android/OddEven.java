@@ -2,6 +2,7 @@ package com.tripleseven.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -202,7 +203,7 @@ public class OddEven extends AppCompatActivity {
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        registerReceiver(mReceiver, intentFilter);
+        ContextCompat.registerReceiver(this, mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
 
         submit.setOnClickListener(new View.OnClickListener() {

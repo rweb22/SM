@@ -2,6 +2,7 @@ package com.tripleseven.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -412,7 +413,7 @@ public class SpDpTp extends AppCompatActivity {
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        registerReceiver(mReceiver, intentFilter);
+        ContextCompat.registerReceiver(this, mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

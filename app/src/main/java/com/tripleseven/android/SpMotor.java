@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -311,7 +312,7 @@ public class SpMotor extends AppCompatActivity {
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        registerReceiver(mReceiver, intentFilter);
+        ContextCompat.registerReceiver(this, mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         if (!game.equals("spdptp")){
             add.setOnClickListener(v -> {

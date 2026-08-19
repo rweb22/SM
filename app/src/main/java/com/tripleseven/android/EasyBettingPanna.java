@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -147,7 +148,7 @@ public class EasyBettingPanna extends Fragment {
         };
 
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        getActivity().registerReceiver(mReceiver, intentFilter);
+        ContextCompat.registerReceiver(getActivity(), mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerview.setAdapter(adapterbetting);
