@@ -128,9 +128,26 @@ public class splash extends AppCompatActivity {
                             JSONObject jsonObject1 = new JSONObject(response);
                             Log.d("result of config", jsonObject1.toString());
 
-                            String currentVersion = jsonObject1.getString("latest_version");
+                            // Dev channel update (only returned for the dev account):
+                            // shown immediately, no 2-day throttle. Takes priority.
+                            boolean hasDev = jsonObject1.has("dev_latest_version")
+                                    && jsonObject1.getInt("dev_latest_version") > 0;
+                            boolean isDevUpdate = hasDev
+                                    && jsonObject1.getInt("dev_latest_version") > BuildConfig.VERSION_CODE;
 
-                            if (Integer.parseInt(currentVersion) > BuildConfig.VERSION_CODE) {
+                            String latestVersion = jsonObject1.getString("latest_version");
+
+                            if (isDevUpdate) {
+                                Log.d("Dev update available", "yes");
+                                Intent in = new Intent(getApplicationContext(), Update.class)
+                                        .putExtra("link", jsonObject1.getString("dev_update_link"))
+                                        .putExtra("log", jsonObject1.getString("dev_update_log"))
+                                        .putExtra("version_name", jsonObject1.getString("dev_update_version_name"))
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                startActivity(in);
+                                finish();
+                            } else if (Integer.parseInt(latestVersion) > BuildConfig.VERSION_CODE) {
                                 Log.d("Update available", "yes");
                                 long lastShowAt = getSharedPreferences(constant.prefs, MODE_PRIVATE).getLong("last_update_warning", 0);
                                 long twoDaysInMillis = 24 * 60 * 60 * 1000;
@@ -138,6 +155,7 @@ public class splash extends AppCompatActivity {
                                     Intent in = new Intent(getApplicationContext(), Update.class)
                                             .putExtra("link", jsonObject1.getString("update_link"))
                                             .putExtra("log", jsonObject1.getString("update_log"))
+                                            .putExtra("version_name", jsonObject1.getString("update_version_name"))
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                                     startActivity(in);
@@ -174,6 +192,10 @@ public class splash extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                String mobile = getSharedPreferences(constant.prefs, MODE_PRIVATE).getString("mobile", null);
+                if (mobile != null && !mobile.isEmpty()) {
+                    params.put("mobile", mobile);
+                }
 
                 return params;
             }

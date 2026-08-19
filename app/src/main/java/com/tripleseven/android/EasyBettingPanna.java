@@ -124,26 +124,7 @@ public class EasyBettingPanna extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
 
-                list = adapterbetting.getNumber();
-
-                for (int a = 0; a < list.size(); a++) {
-                    if (!list.get(a).equals("0")){
-                        if (fillnumber.contains(numbers.get(a))){
-                            fillamount.set(fillnumber.indexOf(numbers.get(a)),list.get(a));
-                            fillnumber.set(fillnumber.indexOf(numbers.get(a)),numbers.get(a));
-                        } else {
-                            fillamount.add(list.get(a));
-                            fillnumber.add(numbers.get(a));
-                        }
-                    }
-                    total = total + Integer.parseInt(list.get(a));
-                }
-
-                total = 0;
-                for (int a = 0; a < fillamount.size(); a++) {
-                    total = total + Integer.parseInt(fillamount.get(a));
-                }
-                totalamount.setText(total + "");
+                recomputeTotal();
             }
         };
 
@@ -158,6 +139,7 @@ public class EasyBettingPanna extends Fragment {
             @Override
             public void onClick(View v) {
 
+                recomputeTotal();
                 Log.e("list", list.toString());
 
                 Log.e("wallet", prefs.getString("wallet", "0"));
@@ -486,6 +468,31 @@ public class EasyBettingPanna extends Fragment {
         Uri uri = Uri.parse(url);
         Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(sendIntent);
+    }
+
+    private void recomputeTotal() {
+        if (adapterbetting == null) {
+            return;
+        }
+        list = adapterbetting.getNumber();
+
+        for (int a = 0; a < list.size(); a++) {
+            if (!list.get(a).equals("0")){
+                if (fillnumber.contains(numbers.get(a))){
+                    fillamount.set(fillnumber.indexOf(numbers.get(a)),list.get(a));
+                    fillnumber.set(fillnumber.indexOf(numbers.get(a)),numbers.get(a));
+                } else {
+                    fillamount.add(list.get(a));
+                    fillnumber.add(numbers.get(a));
+                }
+            }
+        }
+
+        total = 0;
+        for (int a = 0; a < fillamount.size(); a++) {
+            total = total + Integer.parseInt(fillamount.get(a));
+        }
+        totalamount.setText(total + "");
     }
 
     private void initViews(View view) {

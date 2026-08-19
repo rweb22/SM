@@ -34,7 +34,7 @@ public class Update extends AppCompatActivity {
     protected latobold updateLog;
     ProgressDialog pd;
 
-    String link,log;
+    String link,log,version_name;
     String nameOfFile;
 
     public ProgressDialog waitingDialog;
@@ -49,6 +49,10 @@ public class Update extends AppCompatActivity {
 
         link = getIntent().getStringExtra("link");
         log = getIntent().getStringExtra("log");
+        version_name = getIntent().getStringExtra("version_name");
+        if (version_name != null && !version_name.isEmpty()) {
+            log = "<b>Version " + version_name + "</b><br><br>" + (log == null ? "" : log);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             updateLog.setText(Html.fromHtml(log, Html.FROM_HTML_MODE_COMPACT));
         } else {
