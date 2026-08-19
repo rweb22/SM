@@ -76,7 +76,6 @@ public class betting extends AppCompatActivity {
         number = getIntent().getStringArrayListExtra("list");
 
         adapterbetting = new adapterbetting(betting.this, number);
-        list = adapterbetting.getNumber();
 
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override

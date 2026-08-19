@@ -79,7 +79,6 @@ public class cardBetting extends AppCompatActivity {
         img = getIntent().getIntegerArrayListExtra("list");
 
         adapterbetting = new adapterCardBetting(cardBetting.this, number, img);
-        list = adapterbetting.getNumber();
 
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override

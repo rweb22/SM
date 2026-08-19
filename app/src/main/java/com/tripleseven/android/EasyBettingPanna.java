@@ -56,7 +56,7 @@ public class EasyBettingPanna extends Fragment {
     ArrayList<String> AllNumbers = new ArrayList<>();
 
     SharedPreferences prefs;
-    ArrayList<String> list = new ArrayList<>();
+    ArrayList<String> list;
     ArrayList<String> number = new ArrayList<>();
     adapterbetting2 adapterbetting;
     String market, game, timing = "";
