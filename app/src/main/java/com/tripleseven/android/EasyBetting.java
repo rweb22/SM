@@ -84,6 +84,7 @@ public class EasyBetting extends Fragment {
         number = getActivity().getIntent().getStringArrayListExtra("list");
 
         adapterbetting = new adapterbetting(getActivity(), number);
+        list = adapterbetting.getNumber();
 
         BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
